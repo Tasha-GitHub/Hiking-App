@@ -27,7 +27,7 @@ var location_typeTag = "&location_type";
 
 var placesURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
 
-// locationTag is required required
+// locationTag is required for placesURL search
 var locationTag = "&location=";
 // one or the other
 var radiusTag = "&radius=";
@@ -56,13 +56,16 @@ var submitButton = $("#submitButton");
 submitButton.on("click", function(e) {
     e.preventDefault();
 
-    getLocation();
+    // run request to Google Nearby places api on button click
+    nearbyPlaces();
+
+    // run map with user's coordinates
     initMap();
 })
 
 // ---------- FUNCTIONS ----------
 
-// function to use HTML5's navigator.geolocation interface
+// function to use HTML5's navigator.geolocation interface to find current coordinates and create map
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -70,17 +73,44 @@ function getLocation() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
+
+            // save the user's location in a global variable
             userLocation = pos;
             console.log(pos);
         });
     }
 }
 
+function nearbyPlaces() {
+
+    $.ajax({
+        url: placesURL + keyTag + locationTag + userLocation.lat + "," + userLocation.lng,
+        type: 'GET',
+        dataType: 'json'
+        headers: {
+                    'Access-Control-Allow-Origin': '*'
+                },
+    })
+    .done(function(placesObject) {
+        console.log(placesObject);
+    });
+    
+}
+
 // this function is supposed to create a map
 function initMap() {
     map = new google.maps.Map(document.getElementById('mapGoesHere'), {
+        // center the map on the user's coordinates
         center: userLocation,
-        zoom: 8
+        // the level of zoom for the map. lower is further away. higher is closer to street level
+        zoom: 12
+    });
+
+    // marker puts an icon on the map
+    var marker = new google.maps.Marker({
+        // position places the marker at the designated place
+        position: userLocation,
+        map: map
     });
 }
 
