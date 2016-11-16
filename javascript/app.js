@@ -125,35 +125,3 @@ startUp();
 
 
 
-// ================================================ Begin openWeather code
-var APIKey = "166a433c57516f51dfab1f7edaed8413";
-
-$('#submitButton').on('click', function() {
-    var zip = $("#zipCode").val();
-    var queryURLBase = "http://api.openweathermap.org/data/2.5/weather?zip=" + zip + "&units=imperial&appid=" + APIKey;
-    console.log(queryURLBase);
-
-    $.ajax({
-        url: queryURLBase,
-        method: 'GET'
-    })
-
-    .done(function(response) {
-
-        console.log(queryURLBase);
-
-        console.log(response);
-
-        // Transfer content to HTML
-        $('.city').html("<h1>" + response.name + " Weather</h1>");
-        $(".wind").html("Wind Speed: " + response.wind.speed);
-        $(".humidity").html("Humidity: " + response.main.humidity);
-        $(".temp").html("Temperature (F) " + response.main.temp);
-
-        // Log the data in the console as well
-        console.log("Wind Speed: " + response.wind.speed);
-        console.log("Humidity: " + response.main.humidity);
-        console.log("Temperature (F): " + response.main.temp);
-    });
-});
-// =========================================================
