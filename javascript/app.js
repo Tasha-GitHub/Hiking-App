@@ -87,15 +87,16 @@ function nearbyPlaces() {
         url: placesURL + keyTag + locationTag + userLocation.lat + "," + userLocation.lng,
         type: 'GET',
         dataType: 'json'
-        headers: {
-                    'Access-Control-Allow-Origin': '*'
-                },
+
     })
     .done(function(placesObject) {
         console.log(placesObject);
     });
     
 }
+
+// attempt at making a CORS request
+
 
 // this function is supposed to create a map
 function initMap() {
