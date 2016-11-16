@@ -1,47 +1,71 @@
-// ---------- GLOBAL VARIABLES ----------
+// ========== Begin google maps code ==========
 
+// ---------- GLOBAL VARIABLES ----------
 // variable to hold the navigator.geolocation coordinates
 var userLocation;
 
-// object containing google api 
-var googleAPI = {
-    urls: {
-        search: "https://maps.googleapis.com/maps/api/js?"
-    },
-    apiKey: "&key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8",
-    callback: "&callback=", // initMap
-}
+// ========== URLS and QUERY TERMS ==========
+// not sure what this one is used for yet. I think to create a map
+var searchURL = "https://maps.googleapis.com/maps/api/js?";
+
+// this invokes the distance-matrix Google API
+var distanceURL = "https://maps.googleapis.com/maps/api/distancematrix/json?";
+
+// this url invokes the geocoding Google API
+var geocodingURL = "https://maps.googleapis.com/maps/api/geocode/json?";
+
+// address is required
+var addressTag = "&address=";
+var componentsTag = "&components=";
+var boundsTag = "&bounds=";
+var languageTag = "&language=";
+var regionTag = "&region=";
+var latlngTag = "&latlng";
+var place_idTag = "&place_id";
+var result_typeTag = "&result_type";
+var location_typeTag = "&location_type";
+
+var placesURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
+
+// locationTag is required for placesURL search
+var locationTag = "&location=";
+// one or the other
+var radiusTag = "&radius=";
+var rankbyDistanceTag = "&rankby=distance";
+//optional
+var keywordTag = "&keyword=";
+// &language=
+var minpriceTag = "&minprice=";
+var maxpriceTag = "&maxprice=";
+var nameTag = "&name=";
+var opennowTag = "&opennow=";
+var rankbyTag = "&rankby=";
+var typeTag = "&type=";
+var pagetokenTag = "&pagetoken=";
+
+// commmon tags to each google api
+var keyTag = "&key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8";
+var callbackTag = "&callback="; // initMap
 
 // ---------- LOCATORS ----------
 //the submit button
 var submitButton = $("#submitButton");
 
 // ---------- CLICKLISTENERS ----------
-//https://maps.googleapis.com/maps/api/js?key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8&callback=initMap"
 
 submitButton.on("click", function(e) {
-	e.preventDefault();
+    e.preventDefault();
 
-	getLocation();
-	initMap();
+    // run request to Google Nearby places api on button click
+    nearbyPlaces();
 
-	
-
+    // run map with user's coordinates
+    initMap();
 })
-
-
-/*$.ajax({
-        url: googleAPI.urls.search + googleAPI.apiKey + googleAPI.callback + "initMap",
-        type: "GET",
-        dataType: "json",
-    })
-    .done(function(object) {
-        console.log(object);
-    });*/
 
 // ---------- FUNCTIONS ----------
 
-// function to use HTML5's navigator.geolocation interface
+// function to use HTML5's navigator.geolocation interface to find current coordinates and create map
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -49,17 +73,45 @@ function getLocation() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
+
+            // save the user's location in a global variable
             userLocation = pos;
             console.log(pos);
         });
     }
 }
 
+function nearbyPlaces() {
+
+    $.ajax({
+        url: placesURL + keyTag + locationTag + userLocation.lat + "," + userLocation.lng,
+        type: 'GET',
+        dataType: 'json'
+
+    })
+    .done(function(placesObject) {
+        console.log(placesObject);
+    });
+    
+}
+
+// attempt at making a CORS request
+
+
 // this function is supposed to create a map
 function initMap() {
     map = new google.maps.Map(document.getElementById('mapGoesHere'), {
+        // center the map on the user's coordinates
         center: userLocation,
-        zoom: 8
+        // the level of zoom for the map. lower is further away. higher is closer to street level
+        zoom: 12
+    });
+
+    // marker puts an icon on the map
+    var marker = new google.maps.Marker({
+        // position places the marker at the designated place
+        position: userLocation,
+        map: map
     });
 }
 
@@ -71,11 +123,9 @@ function startUp() {
 // ---------- STARTUP CODE ----------
 startUp();
 
-/*
-<!-- this script runs a function whenever it is loaded -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8&callback=initMap"
-    async defer></script>*/
-// ================================================
+
+
+// ================================================ Begin openWeather code
 var APIKey = "166a433c57516f51dfab1f7edaed8413";
 
 $('#submitButton').on('click', function() {
