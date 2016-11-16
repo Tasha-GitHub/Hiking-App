@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>Hiking App</title>
-	<link rel="stylesheet" type="text/css" href="css/reset.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
-     <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+<head>
+    <meta charset="utf-8">
+    <title>Hiking App</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
+
 <body>
+<!-- <<<<<<< HEAD -->
 	<div class="container">
 		<header class="row">
 			<nav>
@@ -32,31 +34,62 @@
   		</header>
   		<main>
 			<section class="forcast section row">
-				<h2>Five Day Forcast</h2>
+				<h2>Today's Forecast</h2>
+                <div class="weatherForm">
+                    <form>
+                        <input type="text" name="zipCode" id ="weatherZipCode">
+                        <input type="submit" name="submitButton" id="weatherSubmitButton">
+                    </form>
+                </div>
 				<div class="weatherIcon col s6 m6 l6">
 					<img src="assets/images/weather-icon.png">
 					<p> weather stats</p>
 					<p> weather information</p>
 				</div>
 				<div class="todaysWeather col s6 m6 l6">
-					<p> 95-F</p>
+					<div class="city"></div>
+                    <div class="wind"></div>
+                    <div class="humidity"></div>
+                    <div class="temp_max"></div>
+                    <div class="temp_min"></div>
+                    <div class="visibility"></div>
+                    <div class="area"></div>
 				</div>
 				<div class="quote col s12 m12 l12">
 					<p>insert inspirational quote right here lorinm ipsom lorim ipsom</p>
 				</div>
 			</section>
-			<section class="map section s12 m12 l12 row">
+			<section class="map section s12 m12 l12">
 				<h2>Map Section</h2>
 				<div class="formSubmit">
 					<form>
-						<input type="text" name="zipCode">
+						<input type="text" name="zipCode" id ="mapZipCode">
 						<input type="submit" name="submitButton" id="submitButton">
 					</form>
-					<div id ="mapGoesHere">
+                </div>
+                <div class="row">
+                    <div class= "availableTrails col s6 m6 l6">
+                        <div data-trail = "0">
+                            
+                        </div>
+                        <div data-trail = "1">
+                            
+                        </div>
+                        <div data-trail = "2">
+                            
+                        </div>
+                        <div data-trail = "3">
+                            
+                        </div>
+                        <div data-trail = "4">
+                            
+                        </div>
+                        
+                    </div>
+					<div id ="mapGoesHere" class ="col s6 m6 l6">
 						
 					</div>
-				</div>
-				<div id="mapGoesHere"></div>
+                </div>      
 			</section>
 		</main>		
 		<footer class="page-footer">
@@ -75,25 +108,16 @@
                   <li><a class="grey-text text-lighten-3" href="#!">GitHub</a></li>
                 </ul>
               </div>
-            </div>
-          </div>
-          <div class="footer-copyright">
-            <div class="container">
-            © 2016 Copyright 
-            </div>
-          </div>
         </footer>
-	</div>
-	   <!--Import jQuery before materialize.js-->
+    </div>
+    <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Compiled and minified JavaScript -->
- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-	<script type="text/javascript" src = "javascript/app.js"></script>
-
-	<!-- this script runs a function whenever it is loaded -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8&callback=initMap"
-    async defer></script>
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script type="text/javascript" src="javascript/app.js"></script>
+    <script type="text/javascript" src="weatherApp.js"></script>
+    <!-- this script runs a function whenever it is loaded -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8&callback=initMap" async defer></script>
 </body>
+
 </html>

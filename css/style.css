@@ -64,7 +64,17 @@ footer{
 }
 
 
+
 #mapGoesHere{
-	width: 50%;
-	height: 200px;
+	position: absolute;
+	height: 100px;
+	background-color: orange;
 }
+
+.availableTrails{
+	background-color: blue;
+	height: 100px;
+
+}
+
+
