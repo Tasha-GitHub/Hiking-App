@@ -78,7 +78,7 @@ startUp();
 // ================================================
 var APIKey = "166a433c57516f51dfab1f7edaed8413";
 
-$('#submit').on('click', function() {
+$('#submitButton').on('click', function() {
     var zip = $("#zipCode").val();
     var queryURLBase = "http://api.openweathermap.org/data/2.5/weather?zip=" + zip + "&units=imperial&appid=" + APIKey;
     console.log(queryURLBase);
