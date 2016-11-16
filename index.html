@@ -41,9 +41,10 @@
 				<div class="formSubmit">
 					<form>
 						<input type="text" name="zipCode">
-						<input type="submit" name="submitButton">
+						<input type="submit" name="submitButton" id="submitButton">
 					</form>
 				</div>
+				<div id="mapGoesHere"></div>
 			</section>
 		</div>
 		<div class="row">		
@@ -57,5 +58,11 @@
     <!-- Compiled and minified JavaScript -->
  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 	<script type="text/javascript" src = "javascript/app.js"></script>
+
+	<!-- this script runs a function whenever it is loaded -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8&callback=initMap"
+    async defer></script>
+
+
 </body>
 </html>
