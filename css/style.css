@@ -1,8 +1,64 @@
+
+/*--------Materialize Overides-------*/
+
+.container{
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+}
+
+.section{
+	margin: 0px;
+	padding: 0px;
+}
+
+.row{
+	margin: 0px !important;
+	padding: 0px;
+}
+
+/*--------------stickey footer--------------------*/
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+      
+/*----------------------------------------------*/
+
 img{
 	width: 100px;
 }
 
+<<<<<<< HEAD
 #mapGoesHere {
+=======
+.map{
+	background-color: blue;
+}
+
+nav{
+	background-color: red;
+}
+
+.forcast{
+	background-color: green;
+}
+
+footer{
+	background-color: orange;
+	width: 100%
+	margin: 0px !important;
+}
+
+
+#mapGoesHere{
+>>>>>>> 56d06d556fb7ebbc2c25091c8d96acffc452dabd
 	width: 100%;
 	height: 200px;
 }
