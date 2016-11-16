@@ -1,80 +1,61 @@
 
-/*--------Materialize Overides-------*/
-
-.container{
-	margin: 0px;
-	padding: 0px;
-	width: 100%;
-}
-
-.section{
-	margin: 0px;
-	padding: 0px;
-}
-
-.row{
-	margin: 0px !important;
-	padding: 0px;
-}
-
-/*--------------stickey footer--------------------*/
-  body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    text-align: center;
-  }
-
-  main {
-    flex: 1 0 auto;
-  }
-      
-/*----------------------------------------------*/
+/*----------------nav styling --------------*/
 
 .banner{
 	background-image: url("../assets/images/background.jpg");
-	height: 500px;
+	height: 590px;
 	text-align: left;
 }
 
-p{
-	font-size: 10px;
-}
 
-img{
-	width: 100px;
-}
-
-.map{
-	background-color: #F9F9F9;
-}
-	
-nav{
-	background-color: #30353B;
+/*--------------forcast div styling --------*/
+.city, .wind, .humidity, .temp_max, .temp_min, .visibility{
+	padding: 5px;
 }
 
 .forcast{
 	background-color: #FFFFFF;
 }
 
-footer{
-	background-color: #30353B !important;
-	width: 100%
-	margin: 0px !important;
+.quote{
+	padding-top: 50px !important;
+
 }
 
+/*--------------map div styling-------------------------*/	
 
+
+.map{
+	background-color: #F9F9F9;
+}
 
 #mapGoesHere{
-	position: absolute;
-	height: 100px;
+	height: 500px;
 	background-color: orange;
 }
 
 .availableTrails{
-	background-color: blue;
-	height: 100px;
+	background-color: #30353B;
+	height: 500px;
 
 }
 
 
+/*----------------------------------------------*/
+
+
+body{
+	background-color: #96B566;
+}
+
+p{
+	font-size: 16px;
+}
+
+img{
+	width: 100px;
+}
+
+h2{
+	padding-top: 20px;
+}
