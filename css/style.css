@@ -31,30 +31,40 @@
       
 /*----------------------------------------------*/
 
+.banner{
+	background-image: url("../assets/images/background.jpg");
+	height: 500px;
+	text-align: left;
+}
+
+p{
+	font-size: 10px;
+}
+
 img{
 	width: 100px;
 }
 
 .map{
-	background-color: blue;
+	background-color: #F9F9F9;
 }
 	
 nav{
-	background-color: red;
+	background-color: #30353B;
 }
 
 .forcast{
-	background-color: green;
+	background-color: #FFFFFF;
 }
 
 footer{
-	background-color: orange;
+	background-color: #30353B !important;
 	width: 100%
 	margin: 0px !important;
 }
 
 
 #mapGoesHere{
-	width: 100%;
+	width: 50%;
 	height: 200px;
 }
