@@ -1,0 +1,7 @@
+This is just a text file. Too many comments can make code actually harder to read so I've put some of my comment notes in here.
+
+Regarding the Google API
+
+Placing this script after our normal javascript tag in the HTML will run the callback function (initMap) and draw a google map. it has async and defer so will not interrupt the flow of the rest of the HTML.
+    <script src="https://maps.googleapis.com/maps/api/ss?key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8&callback=initMap"
+    async defer></script>
