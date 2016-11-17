@@ -83,15 +83,7 @@ function getLocation() {
 
 function nearbyPlaces() {
 
-    $.ajax({
-        url: placesURL + keyTag + locationTag + userLocation.lat + "," + userLocation.lng,
-        type: 'GET',
-        dataType: 'json'
 
-    })
-    .done(function(placesObject) {
-        console.log(placesObject);
-    });
     
 }
 
