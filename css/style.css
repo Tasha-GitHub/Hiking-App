@@ -5,6 +5,12 @@
 	background-image: url("../assets/images/background.jpg");
 	height: 590px;
 	text-align: left;
+
+}
+
+.banner p, h1 {
+	padding-left: 10px;
+
 }
 
 
@@ -15,18 +21,38 @@
 
 .forcast{
 	background-color: #FFFFFF;
+	height: 80vh;
 }
 
 .quote{
 	padding-top: 50px !important;
+	padding-bottom: 20px !important;
 
 }
+
+.todaysWeather {
+	text-align: left !important;
+}
+
+.todaysWeather h1{
+	padding-top: 0px;
+
+}
+
+.weatherIcon{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
 
 /*--------------map div styling-------------------------*/	
 
 
 .map{
-	background-color: #F9F9F9;
+	background-color: #FFFFFF;
+	height: 100vh;
 }
 
 #mapGoesHere{
@@ -41,21 +67,46 @@
 }
 
 
-/*----------------------------------------------*/
+/*---------------other divs styling --------------------*/
 
 
 body{
-	background-color: #96B566;
+	background-color: #2B4B26;
 }
 
-p{
-	font-size: 16px;
-}
+
 
 img{
 	width: 100px;
 }
 
-h2{
-	padding-top: 20px;
+/*----------input form and button styling ------------------*/
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #2B4B26;
 }
+::-moz-placeholder { /* Firefox 19+ */
+  color: #2B4B26;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #2B4B26;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #2B4B26;
+}
+
+
+input{
+	font-family: 'Open Sans', sans-serif;
+}
+
+
+#weatherZipCode, #mapZipCode {
+	width: 200px;
+}
+
+#weatherSubmitButton, #submitButton{
+	background-color: #2B4B26;
+
+}
+/*-------------------------------------------------*/
+

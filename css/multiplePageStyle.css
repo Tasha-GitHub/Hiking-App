@@ -22,6 +22,7 @@
     min-height: 100vh;
     flex-direction: column;
     text-align: center;
+
   }
 
   main {
@@ -34,8 +35,35 @@ footer{
   background-color: #30353B !important;
   width: 100%
   margin: 0px !important;
+  font-family: 'Open Sans', sans-serif;
 }
 /*----------------Navbar Styling ------------------------------*/
 nav{
   background-color: #30353B !important;
+
 }
+
+
+nav a {
+  padding-left: 10px !important;
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+
+/*------------------Text Styling ---------------------------*/
+h1{
+  padding-top: 20px;
+  font-family: 'Lobster', cursive;
+}
+
+h2{
+  padding-top: 20px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+p{
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+}
+

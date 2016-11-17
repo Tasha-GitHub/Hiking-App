@@ -10,19 +10,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/multiplePageStyle.css">
+    <link href="https://fonts.googleapis.com/css?family=Anton|Jura|Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 </head>
 
 <body>
-<!-- <<<<<<< HEAD -->
 	<div class="container">
 		<header class="row">
 			<nav>
 				<div class="nav-wrapper">
 					<a href="index.html" class="left">Hike Finder</a>
-					<ul id="nav-mobile" class="right hide-on-med-and-down">
-				  	<li><a href="contact.html">Meet the Team</a></li>
-				  	<li><a href="badges.html">Map</a></li>
-				  	<li><a href="collapsible.html"> Forcast</a></li>
+					<ul class="right">
+    				  	<li><a href="contact.html">Meet the Team</a></li>
+    				  	<li><a href="badges.html">Map</a></li>
+    				  	<li><a href="collapsible.html"> Forcast</a></li>
 					</ul>   
 				</div>
 	  		</nav>
@@ -38,9 +39,15 @@
 				<h2>Today's Forecast</h2>
                 <div class="weatherForm">
                     <form>
-                        <input type="text" name="zipCode" id ="weatherZipCode">
-                        <input type="submit" name="submitButton" id="weatherSubmitButton">
+                        <input type="text" name="zipCode" id ="weatherZipCode" placeholder= "zipcode search">
+                        <button class="btn waves-effect waves-light" type="submit" name="submitButton" id="weatherSubmitButton">Submit
+                        </button>
                     </form>
+
+
+    
+
+
                 </div>
 				<div class="weatherIcon col s3 m3 l3">
 					<img src="assets/images/weather-icon.png">
@@ -55,15 +62,16 @@
                     <div class="area"></div>
 				</div>
 				<div class="quote col s12 m12 l12">
-					<p>insert inspirational quote right here lorinm ipsom lorim ipsom</p>
+					<p>Try not to become a man of success but a man of value. - Albert Einstein</p>
 				</div>
 			</section>
 			<section class="map section col s12 m12 l12">
 				<h2>Map Section</h2>
 				<div class="formSubmit">
 					<form>
-						<input type="text" name="zipCode" id ="mapZipCode">
-						<input type="submit" name="submitButton" id="submitButton">
+						<input type="text" name="zipCode" id ="mapZipCode" placeholder= "zipcode search">
+                        <button class="btn waves-effect waves-light" type="submit" name="submitButton" id="submitButton">Submit
+                        </button>
 					</form>
                 </div>
                 <div class="row">
@@ -85,33 +93,22 @@
 			</section>
 		</main>		
 		<footer class="page-footer">
+          <div class="footer-copyright">
             <div class="container">
-                <div class="row">
-                  <div class="col l6 s12">
-                    <h5 class="white-text">Footer Content</h5>
-                    <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
-                  </div>
-                  <div class="col l4 offset-l2 s12">
-                        <h5 class="white-text">Social Media</h5>
-                        <ul>
-                          <li><a class="grey-text text-lighten-3" href="#!">Twitter</a></li>
-                          <li><a class="grey-text text-lighten-3" href="#!">LinkedIn</a></li>
-                          <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
-                          <li><a class="grey-text text-lighten-3" href="#!">GitHub</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>  
+            © 2016 Copyright 
+            </div>
+          </div>
         </footer>
     </div>
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8&libraries=places,geometry,drawing, visualization&callback=initMap" async defer></script>
     <script type="text/javascript" src="javascript/app.js"></script>
     <script type="text/javascript" src="javascript/weatherApp.js"></script>
     <!-- this script runs a function whenever it is loaded -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8&callback=initMap" async defer></script>
+    
 </body>
 
 </html>
