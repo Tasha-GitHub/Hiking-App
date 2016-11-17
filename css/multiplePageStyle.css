@@ -33,9 +33,10 @@
 
 footer{
   background-color: #30353B !important;
-  width: 100%
+  width: 100%;
   margin: 0px !important;
   font-family: 'Open Sans', sans-serif;
+  clear: both;
 }
 /*----------------Navbar Styling ------------------------------*/
 nav{

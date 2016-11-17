@@ -51,27 +51,42 @@
 
 
 .map{
-	background-color: #FFFFFF;
-	height: 100vh;
+	background-color: #F2F2F2;
+	height: 800px;
 }
 
 #mapGoesHere{
-	height: 500px;
+	height: 600px;
 	background-color: orange;
 }
 
 .availableTrails{
 	background-color: #30353B;
-	height: 500px;
+	height: 600px;
 
 }
 
+.trail{
+	border-style: none none solid none;
+	border-width: 2px;
+	border-color: #FFFFFF;
+	height: 19%;
+	color: #FFFFFF;
+	display: flex;
+  	align-items: center;
+  	justify-content: center;
+  	flex-direction: column;
+}
+
+.trail p {
+	padding-top: 10px;
+}
 
 /*---------------other divs styling --------------------*/
 
 
 body{
-	background-color: #2B4B26;
+	background-color: #254A2A;
 }
 
 
