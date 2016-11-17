@@ -76,10 +76,15 @@
   	align-items: center;
   	justify-content: center;
   	flex-direction: column;
+  	margin-top: 5px;
 }
 
 .trail p {
 	padding-top: 10px;
+}
+
+#item-5{
+	border-style: none;
 }
 
 /*---------------other divs styling --------------------*/
@@ -159,7 +164,10 @@ input{
 	padding-top: 30px !important;
 	padding-bottom: 20px !important;
 
-}
+	}
+	.dailyForcast{
+		display: hidden;
+	}
 }
 
 @media only screen and (max-width : 375px) {
@@ -186,6 +194,8 @@ input{
 	.quote{
 	padding-top: 30px !important;
 	padding-bottom: 20px !important;
-
-}
+	}
+	.dailyForcast{
+		display: hidden;
+	}
 }

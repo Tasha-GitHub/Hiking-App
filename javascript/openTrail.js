@@ -1,8 +1,8 @@
-var city = "austin";
-var queryURL = 'https://trailapi-trailapi.p.mashape.com/?q[city_cont]='+city;
+var city = googleMapsCity;
+var queryURL = 'https://trailapi-trailapi.p.mashape.com/?q[city_cont]='+ city;
 var park;
 var url;
-
+//need to add click event to trigger api call
 $.ajax({
     url: queryURL, // The URL to the API. You can get this in the API page of the API you intend to consume
     type: 'GET', // The HTTP Method, can be GET POST PUT DELETE etc
@@ -17,7 +17,7 @@ $.ajax({
     	console.log(response.places[2].activities);
     	for(var i = 1; i<=5; i++){
     	park = response.places[i].name;
-    	$(".availableTrails").append("<div class=\"trail\" data-name=\""+park+"\">"+"<p>"+park+"</p></div>");
+    	$(".availableTrails").append("<div class=\"trail\" data-name=\""+park+"\" id=\""+"item-"+i+"\">"+"<p>"+park+"</p></div>");
     	}
     });
 
