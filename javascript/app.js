@@ -3,6 +3,9 @@
 // ---------- GLOBAL VARIABLES ----------
 // variable to hold the navigator.geolocation coordinates
 var userLocation;
+var geoCoder;
+var map;
+var marker;
 
 // ========== URLS and QUERY TERMS ==========
 // not sure what this one is used for yet. I think to create a map
@@ -50,17 +53,23 @@ var callbackTag = "&callback="; // initMap
 // ---------- LOCATORS ----------
 //the submit button
 var submitButton = $("#submitButton");
+var availableTrails = $(".availableTrails");
 
 // ---------- CLICKLISTENERS ----------
 
 submitButton.on("click", function(e) {
     e.preventDefault();
 
-    // run request to Google Nearby places api on button click
-    nearbyPlaces();
+    searchAddress();
 
-    // run map with user's coordinates
-    initMap();
+
+});
+
+$(".locationInput").on("submit", function(e) {
+    e.preventDefault();
+    console.log(".locationInput");
+
+    return false;
 })
 
 // ---------- FUNCTIONS ----------
@@ -81,12 +90,46 @@ function getLocation() {
     }
 }
 
-function nearbyPlaces() {
+function searchAddress() {
 
+    var mapZipCode = $("#mapZipCode").val().trim();
+    var streetBox = $("#inputstreet").val().trim();
+    var cityBox = $("#inputcity").val().trim();
+    var stateBox = $("#inputstate").val().trim();
+    var zipBox = $("#inputzipcode").val().trim();
 
-    
+    addressInput = mapZipCode + streetBox + cityBox + stateBox + zipBox;
+
+    var geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode({address: addressInput}, function(results, status) {
+
+        if (status == google.maps.GeocoderStatus.OK) {
+
+      var myResult = results[0].geometry.location;
+
+      createMarker(myResult);
+
+      map.setCenter(myResult);
+
+      map.setZoom(17);
+        }
+    });
+
 }
 
+function createMarker(latlng) {
+
+  if(marker != undefined && marker != ''){
+    marker.setMap(null);
+    marker = '';
+  }
+
+  marker = new google.maps.Marker({
+    map: map,
+    position: latlng
+  });
+}
 // attempt at making a CORS request
 
 
@@ -112,8 +155,42 @@ function startUp() {
     getLocation();
 }
 
+
+var createArray = ["street", "city", "state", "zipcode"];
+
+function createSideBar() {
+    
+    for (var i = 0; i < createArray.length; i++) {
+        var form = $("<form>");
+        availableTrails.append(form);
+
+        var div = $("<div>");
+        div.addClass('input-field');
+        form.append(div);
+
+        //var iClass = $("<i class='material-icons prefix'>search</i>");
+        //div.append(iClass);
+
+        var inputText = $("<input>");
+        inputText.attr('type', 'text');
+        inputText.attr('id', 'input' + createArray[i]);
+        inputText.attr('placeholder', createArray[i]);
+        inputText.addClass('validate locationInput');
+        inputText.css('color', 'white');
+        div.append(inputText);
+
+        var label = $("<label>");
+        label.attr("for", "input" + createArray[i]);
+        div.append(label);
+
+        div.append("<br>");
+    }
+
+}
+
 // ---------- STARTUP CODE ----------
 startUp();
+createSideBar();
 
 
 
