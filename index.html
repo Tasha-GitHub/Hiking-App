@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hiking App</title>
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
@@ -29,7 +30,6 @@
 	  		</nav>
 	  		<div class="banner">
 	  			<h1>Hike Finder</h1>
-				<!--<img src="assets/images/background.jpg">-->
 				<p>This is an interactive hiking app that will help you find the perfect place to hike </p>
 	  				
 	  		</div>
@@ -44,10 +44,7 @@
                         </button>
                     </form>
                 </div>
-				<div class="weatherIcon col s3 m3 l3">
-					<img src="assets/images/weather-icon.png">
-				</div>
-				<div class="todaysWeather col s9 m9 l9">
+				<div class="todaysWeather col l3">
 					<div class="city"></div>
                     <div class="wind"></div>
                     <div class="humidity"></div>
@@ -56,6 +53,8 @@
                     <div class="visibility"></div>
                     <div class="area"></div>
 				</div>
+                <div class="dailyForcast col s12 m12 l9">
+                </div>
 				<div class="quote col s12 m12 l12">
 					<p>Try not to become a man of success but a man of value. - Albert Einstein</p>
 				</div>
@@ -70,8 +69,8 @@
 					</form>
                 </div>
                 <div class="row">
-                    <div class= "availableTrails col s2 m2 l2">
-                        <div class ="trail" data-trail = "0">
+                    <div class= "availableTrails col s12 m12 l4">
+                        <!-- <div class ="trail" data-trail = "0">
                             <p>template trail name</p>
                             <p>template trail location </p>
                             <p>template trail hours </p>
@@ -95,9 +94,9 @@
                             <p>template trail name</p>
                             <p>template trail location </p>
                             <p>template trail hours </p>
-                        </div>
+                        </div> -->
                     </div>
-					<div id ="mapGoesHere" class= "col s10 m10 l10">
+					<div id ="mapGoesHere" class= "col s12 m12 l8">
 					</div>
                 </div>      
 			</section>
@@ -117,7 +116,9 @@
     <!-- this script runs a function whenever it is loaded -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8&libraries=places,geometry,drawing,visualization&callback=initMap" async defer></script>
     <script type="text/javascript" src="javascript/app.js"></script>
+    <script type="text/javascript" src="javascript/openTrail.js"></script>
     <script type="text/javascript" src="javascript/weatherApp.js"></script>
+    
 </body>
 
 </html>

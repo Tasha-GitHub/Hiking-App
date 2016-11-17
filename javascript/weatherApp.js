@@ -27,7 +27,7 @@ else{
         console.log(response);
 
         // Transfer content to HTML
-        $(".city").html("<h1>" + response.name + " Weather</h1>");
+        $(".city").html("<h3>" + response.name + " Weather</h3>");
         $(".wind").html("Wind Speed: " + response.wind.speed);
         $(".humidity").html("Humidity: " + response.main.humidity);
         $(".temp_max").html("Maximum Temperature: " + response.main.temp_max);

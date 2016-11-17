@@ -31,7 +31,7 @@
 }
 
 .todaysWeather {
-	text-align: left !important;
+	text-align: center !important;
 }
 
 .todaysWeather h1{
@@ -123,5 +123,69 @@ input{
 	background-color: #2B4B26;
 
 }
-/*-------------------------------------------------*/
 
+
+/*=====================================================
+=          Media Queries            =
+=====================================================*/
+
+@media only screen and (max-width : 767px) {
+	h1{
+    	font-size: 40px;
+  	}
+
+@media only screen and (max-width : 480px) {
+	h1{
+    	font-size: 60px;
+  	}
+	h2{
+ 		font-size: 40px;
+ 		padding: 10px;
+ 		margin-top: 40px;
+ 	}
+	h3{
+ 		font-size: 20px;
+ 		padding: 10px;
+ 		margin-top: 40px;
+ 	}
+ 	.banner p{
+	padding: 10px;
+	}
+	.todaysWeather {
+	text-align: center !important;
+	padding: 0px;
+	}
+	.quote{
+	padding-top: 30px !important;
+	padding-bottom: 20px !important;
+
+}
+}
+
+@media only screen and (max-width : 375px) {
+	h1{
+    	font-size: 60px;
+  	}
+	h3{
+    	font-size: 40px;
+    	padding: 10px;
+    	margin-top: 40px;
+  	}
+
+  	.city{
+  		padding: 0px;
+  	}
+	
+	.banner p {
+	padding: 5px;
+	}
+	.todaysWeather {
+	text-align: center !important;
+	padding: 0px;
+	}
+	.quote{
+	padding-top: 30px !important;
+	padding-bottom: 20px !important;
+
+}
+}
