@@ -127,50 +127,79 @@ function nearbyParksSearch() {
     var request = {
         location: userLocation,
         // defines the distance in meters
-        radius: "5000",
-        type: mapZipCode
+        radius: "1000",
+        types: [mapZipCode]
     };
 
     service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, callback);
-    //console.log(request);
 
 }
 
 function callback(results, status) {
-    //console.log(results);
+    console.log(results);
+    var locations = [];
+
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
-            //var place = {lat: results[i].geometry.location.lat(), lng: results[i].geometry.location.lng()}
+            var location = [results[i].name, results[i].geometry.location.lat(), results[i].geometry.location.lng()];
+            locations.push(location);
             //console.log(place);
-            createMarker(results[i]);
         }
+
+        createMarker(locations);
     }
 }
 
 function createMarker(results) {
-
-    if (marker != undefined && marker != '') {
-        marker.setMap(null);
-        marker = '';
-    }
-    
-    var latlng = {lat: results.geometry.location.lat(), lng: results.geometry.location.lng()};
-    console.log(latlng);
-    name = results.name;
+    //console.log(results);
 
     map = new google.maps.Map(document.getElementById("mapGoesHere"), {
         center: userLocation,
         zoom: 15
     });
 
+    for (var i = 0; i < results.length; i++) {
 
+        var pos = {lat: results[i][1], lng: results[i][2] };
+        console.log(pos);
+        var name = results[i][0];
+        console.log(name);
 
-    marker = new google.maps.Marker({
-        map: map,
-        position: latlng,
-        title: name
-    });
+        var contentString = '<div id="content">' +
+            '<div id="siteNotice">' +
+            '</div>' +
+            '<h1 id="firstHeading" class="firstHeading">' + name + '</h1>' +
+            '<div id="bodyContent">' +
+            '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+            'sandstone rock formation in the southern part of the ' +
+            'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) ' +
+            'south west of the nearest large town, Alice Springs; 450&#160;km ' +
+            '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major ' +
+            'features of the Uluru - Kata Tjuta National Park. Uluru is ' +
+            'sacred to the Pitjantjatjara and Yankunytjatjara, the ' +
+            'Aboriginal people of the area. It has many springs, waterholes, ' +
+            'rock caves and ancient paintings. Uluru is listed as a World ' +
+            'Heritage Site.</p>' +
+            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
+            'https://en.wikipedia.org/w/index.php?title=Uluru</a> ' +
+            '(last visited June 22, 2009).</p>' +
+            '</div>' +
+            '</div>';
+
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
+        marker = new google.maps.Marker({
+            position: pos,
+            map: map
+        });
+
+        marker.addListener('click', function() {
+            infowindow.open(map, marker);
+        });
+    }
 }
 
 // this function is supposed to create a map
@@ -179,10 +208,10 @@ function initMap() {
         // center the map on the user's coordinates
         center: userLocation,
         // the level of zoom for the map. lower is further away. higher is closer to street level
-        zoom: 12
+        zoom: 10
     });
 
-    //createMarker(userLocation);
+    createMarker(userLocation);
 }
 
 function createSideBar() {
