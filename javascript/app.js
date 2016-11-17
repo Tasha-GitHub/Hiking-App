@@ -8,6 +8,7 @@ var map;
 var marker;
 var service;
 var infoWindow;
+var mapZipCode;
 
 // ========== URLS and QUERY TERMS ==========
 // not sure what this one is used for yet. I think to create a map
@@ -77,6 +78,7 @@ $(".locationInput").on("submit", function(e) {
 // ---------- FUNCTIONS ----------
 
 // function to use HTML5's navigator.geolocation interface to find current coordinates and create map
+
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -94,7 +96,7 @@ function getLocation() {
 
 function searchAddress() {
 
-    var mapZipCode = $("#mapZipCode").val().trim();
+    mapZipCode = $("#mapZipCode").val().trim();
     var streetBox = $("#inputstreet").val().trim();
     var cityBox = $("#inputcity").val().trim();
     var stateBox = $("#inputstate").val().trim();
@@ -122,15 +124,11 @@ function searchAddress() {
 
 function nearbyParksSearch() {
 
-    map = new google.maps.Map(document.getElementById("mapGoesHere"), {
-        center: userLocation,
-        zoom: 15
-    });
-
     var request = {
         location: userLocation,
+        // defines the distance in meters
         radius: "5000",
-        types: ["school"]
+        type: mapZipCode
     };
 
     service = new google.maps.places.PlacesService(map);
@@ -143,23 +141,35 @@ function callback(results, status) {
     //console.log(results);
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
-            var place = results[i].place_id;
+            //var place = {lat: results[i].geometry.location.lat(), lng: results[i].geometry.location.lng()}
+            //console.log(place);
             createMarker(results[i]);
         }
     }
 }
 
-function createMarker(latlng) {
-    console.log(latlng);
+function createMarker(results) {
 
     if (marker != undefined && marker != '') {
         marker.setMap(null);
         marker = '';
     }
+    
+    var latlng = {lat: results.geometry.location.lat(), lng: results.geometry.location.lng()};
+    console.log(latlng);
+    name = results.name;
+
+    map = new google.maps.Map(document.getElementById("mapGoesHere"), {
+        center: userLocation,
+        zoom: 15
+    });
+
+
 
     marker = new google.maps.Marker({
         map: map,
-        position: latlng
+        position: latlng,
+        title: name
     });
 }
 
@@ -172,7 +182,7 @@ function initMap() {
         zoom: 12
     });
 
-    createMarker(userLocation);
+    //createMarker(userLocation);
 }
 
 function createSideBar() {
