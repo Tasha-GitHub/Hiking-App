@@ -10,6 +10,9 @@ var service;
 var infoWindow;
 var mapZipCode;
 
+// variable for the city based on the zipcode
+var googleMapsCity;
+
 // ========== URLS and QUERY TERMS ==========
 // not sure what this one is used for yet. I think to create a map
 var searchURL = "https://maps.googleapis.com/maps/api/js?";
@@ -19,6 +22,9 @@ var distanceURL = "https://maps.googleapis.com/maps/api/distancematrix/json?";
 
 // this url invokes the geocoding Google API
 var geocodingURL = "https://maps.googleapis.com/maps/api/geocode/json?";
+
+//this url is for google text searches
+var textURL = "https://maps.googleapis.com/maps/api/place/textsearch/json?";
 
 // address is required
 var addressTag = "&address=";
@@ -63,7 +69,7 @@ var availableTrails = $(".availableTrails");
 submitButton.on("click", function(e) {
     e.preventDefault();
 
-    nearbyParksSearch();
+    searchAddress();
 
 
 });
@@ -97,26 +103,23 @@ function getLocation() {
 function searchAddress() {
 
     mapZipCode = $("#mapZipCode").val().trim();
-    var streetBox = $("#inputstreet").val().trim();
-    var cityBox = $("#inputcity").val().trim();
-    var stateBox = $("#inputstate").val().trim();
-    var zipBox = $("#inputzipcode").val().trim();
+    //var streetBox = $("#inputstreet").val().trim();
+    //var cityBox = $("#inputcity").val().trim();
+    //var stateBox = $("#inputstate").val().trim();
+    //var zipBox = $("#inputzipcode").val().trim();
 
-    addressInput = mapZipCode + streetBox + cityBox + stateBox + zipBox;
+    addressInput = mapZipCode;
 
     var geocoder = new google.maps.Geocoder();
 
     geocoder.geocode({ address: addressInput }, function(results, status) {
+        console.log(results);
 
         if (status == google.maps.GeocoderStatus.OK) {
 
-            var myResult = results[0].geometry.location;
-
-            createMarker(myResult);
-
-            map.setCenter(myResult);
-
-            map.setZoom(17);
+            var myResult = results[0].formatted_address;
+            var pos = myResult.indexOf(",");
+            googleMapsCity = myResult.substr(0, pos).toLowerCase();
         }
     });
 
@@ -243,6 +246,12 @@ function createSideBar() {
 
         div.append("<br>");
     }
+
+}
+
+function googleMapsTextSearch() {
+    var query = $("#mapZipCode").val().trim();
+
 
 }
 
