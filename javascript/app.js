@@ -6,6 +6,8 @@ var userLocation;
 var geoCoder;
 var map;
 var marker;
+var service;
+var infoWindow;
 
 // ========== URLS and QUERY TERMS ==========
 // not sure what this one is used for yet. I think to create a map
@@ -60,7 +62,7 @@ var availableTrails = $(".availableTrails");
 submitButton.on("click", function(e) {
     e.preventDefault();
 
-    searchAddress();
+    nearbyParksSearch();
 
 
 });
@@ -102,36 +104,64 @@ function searchAddress() {
 
     var geocoder = new google.maps.Geocoder();
 
-    geocoder.geocode({address: addressInput}, function(results, status) {
+    geocoder.geocode({ address: addressInput }, function(results, status) {
 
         if (status == google.maps.GeocoderStatus.OK) {
 
-      var myResult = results[0].geometry.location;
+            var myResult = results[0].geometry.location;
 
-      createMarker(myResult);
+            createMarker(myResult);
 
-      map.setCenter(myResult);
+            map.setCenter(myResult);
 
-      map.setZoom(17);
+            map.setZoom(17);
         }
     });
 
 }
 
-function createMarker(latlng) {
+function nearbyParksSearch() {
 
-  if(marker != undefined && marker != ''){
-    marker.setMap(null);
-    marker = '';
-  }
+    map = new google.maps.Map(document.getElementById("mapGoesHere"), {
+        center: userLocation,
+        zoom: 15
+    });
 
-  marker = new google.maps.Marker({
-    map: map,
-    position: latlng
-  });
+    var request = {
+        location: userLocation,
+        radius: "5000",
+        types: ["school"]
+    };
+
+    service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(request, callback);
+    //console.log(request);
+
 }
-// attempt at making a CORS request
 
+function callback(results, status) {
+    //console.log(results);
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+            var place = results[i].place_id;
+            createMarker(results[i]);
+        }
+    }
+}
+
+function createMarker(latlng) {
+    console.log(latlng);
+
+    if (marker != undefined && marker != '') {
+        marker.setMap(null);
+        marker = '';
+    }
+
+    marker = new google.maps.Marker({
+        map: map,
+        position: latlng
+    });
+}
 
 // this function is supposed to create a map
 function initMap() {
@@ -142,24 +172,13 @@ function initMap() {
         zoom: 12
     });
 
-    // marker puts an icon on the map
-    var marker = new google.maps.Marker({
-        // position places the marker at the designated place
-        position: userLocation,
-        map: map
-    });
+    createMarker(userLocation);
 }
-
-// function to use on page start
-function startUp() {
-    getLocation();
-}
-
-
-var createArray = ["street", "city", "state", "zipcode"];
 
 function createSideBar() {
-    
+
+    var createArray = ["street", "city", "state", "zipcode"];
+
     for (var i = 0; i < createArray.length; i++) {
         var form = $("<form>");
         availableTrails.append(form);
@@ -188,9 +207,11 @@ function createSideBar() {
 
 }
 
+// function to use on page start
+function startUp() {
+    getLocation();
+    //createSideBar();
+}
+
 // ---------- STARTUP CODE ----------
 startUp();
-createSideBar();
-
-
-
