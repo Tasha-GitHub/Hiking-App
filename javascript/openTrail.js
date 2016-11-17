@@ -1,4 +1,5 @@
-var city = googleMapsCity;
+//var city = googleMapsCity;
+var city = "austin";
 var queryURL = 'https://trailapi-trailapi.p.mashape.com/?q[city_cont]='+ city;
 var park;
 var url;
