@@ -37,7 +37,7 @@ var place_idTag = "&place_id";
 var result_typeTag = "&result_type";
 var location_typeTag = "&location_type";
 
-var placesURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
+var placesURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?&place_id=ChIJBeV_R9xMW4YRq9GzR-xx_q8&key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8";
 
 // locationTag is required for placesURL search
 var locationTag = "&location=";
@@ -79,11 +79,22 @@ $(".locationInput").on("submit", function(e) {
     console.log(".locationInput");
 
     return false;
-})
+});
+
+
+// clicklistener for the trail names
+$(document).on("click", ".trail", getTrail);
 
 // ---------- FUNCTIONS ----------
 
 // function to use HTML5's navigator.geolocation interface to find current coordinates and create map
+
+// this function gets the name of the trail clicked on
+function getTrail() {
+    var trailName = $(this).data("name");
+    console.log(trailName);
+    googleMapsTextSearch(trailName);
+}
 
 function getLocation() {
     if (navigator.geolocation) {
@@ -157,8 +168,10 @@ function callback(results, status) {
 function createMarker(results) {
     //console.log(results);
 
+var pos = {lat: results[0][1], lng: results[0][2] };
+
     map = new google.maps.Map(document.getElementById("mapGoesHere"), {
-        center: userLocation,
+        center: pos,
         zoom: 15
     });
 
@@ -172,9 +185,9 @@ function createMarker(results) {
         var contentString = '<div id="content">' +
             '<div id="siteNotice">' +
             '</div>' +
-            '<h1 id="firstHeading" class="firstHeading">' + name + '</h1>' +
+            '<h4 id="firstHeading" class="firstHeading">' + name + '</h4' +
             '<div id="bodyContent">' +
-            '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+            '<p><b>' + name + '</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
             'sandstone rock formation in the southern part of the ' +
             'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) ' +
             'south west of the nearest large town, Alice Springs; 450&#160;km ' +
@@ -249,8 +262,14 @@ function createSideBar() {
 
 }
 
-function googleMapsTextSearch() {
-    var query = $("#mapZipCode").val().trim();
+function googleMapsTextSearch(searchTerm) {
+
+    var request = {
+        query: searchTerm
+    }
+
+    service = new google.maps.places.PlacesService(map);
+    service.textSearch(request, callback);
 
 
 }
