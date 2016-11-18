@@ -21,11 +21,11 @@ $("#weatherSubmitButton").on("click", function(event) {
         console.log(response);
         // Transfer content to HTML
         $(".city").html("<h3>" + response.name + " Weather</h3>");
-        $(".wind").html("Wind Speed: " + response.wind.speed);
-        $(".humidity").html("Humidity: " + response.main.humidity);
-        $(".temp_max").html("Maximum Temperature: " + response.main.temp_max);
-        $(".temp_min").html("Minimum Temperature: " + response.main.temp_min);
-        $(".visibility").html("Visibility: " + response.visibility);
+        $(".wind").html("<p>Wind Speed: " + response.wind.speed + " MPH</p>");
+        $(".humidity").html("<p>Humidity: " + response.main.humidity + " %</p>");
+        $(".temp_max").html("<p>Max Temp: " + response.main.temp_max + " F</p>");
+        $(".temp_min").html("<p>Min Temp: " + response.main.temp_min + " F</p>");
+        $(".visibility").html("<p>Visibility: " + response.visibility + " mi</p>");
         // Log the data in the console as well
         console.log("Wind Speed: " + response.wind.speed);
         console.log("Humidity: " + response.main.humidity);
@@ -66,11 +66,11 @@ $("#weatherForecastButton").on("click", function(event) {
             var convertedDate = moment(new Date(date));
             var day = moment(convertedDate).format("dddd");
 
-            var forecast = $(".dailyForecast").append("<div class=\"dayForecast\" ><h3>" + day + "</h3><p>Wind Speed: " + results[i].wind.speed +
-                "</p><p>Humidity: " + results[i].main.humidity +
-                "</p><p>Pressure: " + results[i].main.pressure +
-                "</p><p>Max Temperature: " + results[i].main.temp_max +
-                "</p><p>Min Temperature: " + results[i].main.temp_min + "</p></div>");
+            var forecast = $(".dailyForecast").append("<div class=\"dayForecast\" ><h3>" + day + "</h3><p>Wind: " + results[i].wind.speed +
+                " MPH</p><p>Humidity: " + results[i].main.humidity +
+                " %</p><p>Pressure: " + results[i].main.pressure +
+                " PSI</p><p>Max Temp: " + results[i].main.temp_max +
+                " F</p><p>Min Temp: " + results[i].main.temp_min + " F</p></div>");
             var p = $(".dailyForecast").append(forecast);
             i = i + 7;
 
