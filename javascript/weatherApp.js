@@ -58,9 +58,9 @@ $("#weatherForecastButton").on("click", function(event) {
     .done(function(response) {
 
         // console.log(queryURL);
-        console.log("response");
+        // console.log("response");
         console.log(response.city.name);
-        $(".city").html("<h3>" + response.city.name + " Weather</h3>");
+        // $(".city").html("<h3>" + response.city.name + " Weather</h3>");
 
         var results = response.list;
         $(".dailyForecast").empty();
@@ -72,8 +72,6 @@ $("#weatherForecastButton").on("click", function(event) {
                 "</p><p>Max Temperature: " + results[i].main.temp_max +
                 "</p><p>Min Temperature: " + results[i].main.temp_min + "</p></div>");
             var p = $(".dailyForecast").append(forecast);
-
-
             i = i + 7;
 
         }
