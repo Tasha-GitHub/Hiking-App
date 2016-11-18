@@ -256,6 +256,7 @@ function startUp() {
 
 // ---------- STARTUP CODE ----------
 startUp();
+console.log("userLocation", userlocation);
 
 
 // DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE
