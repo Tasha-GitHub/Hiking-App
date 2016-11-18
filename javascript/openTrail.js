@@ -31,7 +31,7 @@ function openTrailsAPI(city){
             $(".availableTrails").empty();
         	for(var i = 1; i<=5; i++){
         	park = response.places[i].name;
-        	$(".availableTrails").append("<div class=\"trail hvr-grow\" data-name=\""+park+"\" id=\""+"item-"+i+"\">"+"<p>"+park+"</p></div>");
+        	$(".availableTrails").append("<div class=\"trail\" data-name=\""+park+"\" id=\""+"item-"+i+"\">"+"<p class=\"hvr-grow\">"+park+"</p></div>");
         	}
         });
 
