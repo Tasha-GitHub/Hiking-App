@@ -29,7 +29,7 @@ INDEX.HTML
 
 - map needs to autoload.
 
-- weather needs to autoload.
+- weather needs to autoload. --- Done 
 
 - set up multiple pictures for main image?
 
@@ -41,6 +41,8 @@ INDEX.HTML
 
 - today's weather and submit button do not have a wave effect similar to other buttons. intentional?
 - add popup hints or otherwise direct users how to use our site.
+
+- only show just todays forcast if today is clicked and only show 5 day forcast when that button is clicked
 
 CONTACT.HTML
 

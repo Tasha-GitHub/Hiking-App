@@ -10,9 +10,9 @@ var park;
 var url;
 
 
-function openTrailsAPI(){
+function openTrailsAPI(city){
     console.log("the city is"+ city)
-    city = googleMapsCity;
+    //city = googleMapsCity;
     queryURL = 'https://trailapi-trailapi.p.mashape.com/?q[city_cont]='+ city;
 
     //need to add click event to trigger api call
@@ -24,13 +24,14 @@ function openTrailsAPI(){
         success: function(data) {},
         error: function(err) { alert(err); },
         beforeSend: function(xhr) {
-        xhr.setRequestHeader("X-Mashape-Authorization", "xLa3MQj6eHmshOkWRkpAEiiNTzl0p1n6HbpjsnOvwImXNqnMfQ"); // Enter here your Mashape key
+        xhr.setRequestHeader("X-Mashape-Authorization", "xLa3MQj6eHmshOkWRkpAEiiNTzl0p1n6HbpjsnOvwImXNqnMfQ"); // Mashape key
         }
     }).done(function(response){
         	//console.log(response.places[2].activities);
+            $(".availableTrails").empty();
         	for(var i = 1; i<=5; i++){
         	park = response.places[i].name;
-        	$(".availableTrails").append("<div class=\"trail\" data-name=\""+park+"\" id=\""+"item-"+i+"\">"+"<p>"+park+"</p></div>");
+        	$(".availableTrails").append("<div class=\"trail hvr-grow\" data-name=\""+park+"\" id=\""+"item-"+i+"\">"+"<p>"+park+"</p></div>");
         	}
         });
 
