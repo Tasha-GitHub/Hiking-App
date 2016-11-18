@@ -1,0 +1,64 @@
+Group Ideas:
+	1. group name (basically by copyright) ... team hike
+	2. website name: Hike Go, Go Hike, Happy Trails (pun intended) ...
+	3. additional ideas:
+		a. plan a hike?
+			1. pick a trail.
+				a. provide contact information for park
+				b. directions, etc.
+			2. pick a date.
+			3. create a checklist:
+				a. water, food, overnight?, etc.
+
+
+INDEX.HTML
+
+- Put green separator bar underneath map for symmetry with other sections
+
+- use moment.js to put today's date on the site. probably next to the weather
+
+- maybe add background graphic to Map Section Header
+
+- fix zipcode search to repopulate map
+
+- make text search for parks possible
+
+- today's weather and 3-day forecast should populate current location if no number is given in Today's forecast
+
+- inspirational quote not randomized
+
+- map needs to autoload.
+
+- weather needs to autoload.
+
+- set up multiple pictures for main image?
+
+- populate weather overscan for main image?
+
+- put local weather in navbar?
+
+- make map an image still as opposed to a zoomable map? or simply disable map interactivity?
+
+- today's weather and submit button do not have a wave effect similar to other buttons. intentional?
+- add popup hints or otherwise direct users how to use our site.
+
+CONTACT.HTML
+
+- navbar fix links
+- navbar make navbar styling match index.html
+- make buttons pop up details on hover as opposed to button press?
+- footer absolute position bottom: 0;
+
+APP.JS
+- change infowindow information to be specific to pointer
+- clean up app.js. the code is a mess.
+- use firebase for ratings? firebase for user settings. Imperial vs. Metric C vs F.
+- actually map out trails on google map
+	- create button to do this
+
+openTrail.js
+1. set up animated scroll (fast smooth scroll) as opposed to instant link
+2. does openTrail provide a summary to the park? some kind of synopsis about the park and the facilities it provides.
+3. dog friendly?
+4. difficulty?
+
