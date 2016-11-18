@@ -1,5 +1,6 @@
 .name {
 	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
 }
@@ -22,3 +23,11 @@ img {
 	height: 200px;
 	width: 200px;
 }
+.background {
+	background-image: url("../assets/images/forestbackground.jpg");
+
+}
+
+
+
+
