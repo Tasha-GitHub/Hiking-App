@@ -30,6 +30,7 @@ var keyTag = "&key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8";
 //the submit button
 var submitButton = $("#submitButton");
 var availableTrails = $(".availableTrails");
+var mapZipCodeInput = $("#mapZipCode");
 
 // ---------- CLICKLISTENERS ----------
 
@@ -37,7 +38,15 @@ var availableTrails = $(".availableTrails");
 submitButton.on("click", function(e) {
     e.preventDefault();
 
-    searchAddress();
+    if (mapZipCodeInput.val().length == 0) {
+        console.log("works");
+        initMap();
+    }
+    else {
+        // on button click run google geocode search
+        searchAddress();
+        mapZipCodeInput.val("");
+    }
 
 });
 
@@ -70,6 +79,7 @@ function getLocation() {
 }
 
 // performs search through Google API
+// TODO: make map generate after search is run
 function searchAddress() {
 
     // get the value from the map section text input field
@@ -82,18 +92,29 @@ function searchAddress() {
     var geocoder = new google.maps.Geocoder();
 
     geocoder.geocode({ address: addressInput }, function(results, status) {
-        //console.log(results);
+        console.log(results);
 
         // if geocode was successful
         if (status == google.maps.GeocoderStatus.OK) {
 
-            // get 
+            // local variables
+            var position = {
+                lat: results[0].geometry.location.lat(), 
+                lng: results[0].geometry.location.lng()
+            };
+
+            // get local address
             var myResult = results[0].formatted_address;
-            var pos = myResult.indexOf(",");
-            googleMapsCity = myResult.substr(0, pos).toLowerCase();
+
+            // get city name by splicing the string myResult
+             var indexSpot = myResult.indexOf(",");
+            googleMapsCity = myResult.substr(0, indexSpot).toLowerCase();
 
             // run openTrailsAPI()
-            openTrailsAPI();
+            openTrailsAPI(googleMapsCity);
+
+            // createMap showing zipcode searched
+            createMap(position, 10)
         }
         // if geocode was not successful, console log error and attempt
         else console.log("geocode was not successful.", status);
@@ -101,20 +122,7 @@ function searchAddress() {
 
 }
 
-function nearbyParksSearch() {
-
-    var request = {
-        location: userLocation,
-        // defines the distance in meters
-        radius: "1000",
-        types: [mapZipCode]
-    };
-
-    service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(request, callback);
-
-}
-
+// nearbyParksSearch and textSearch utilize this callback once they receive their results
 function callback(results, status) {
     console.log(results);
     var locations = [];
@@ -138,6 +146,19 @@ function callback(results, status) {
 
         createMarker(locations);
     }
+}
+
+function createSoloMarker(pos, map, infoWindow) {
+
+    marker = new google.maps.Marker({
+        position: pos,
+        map: map
+    });
+
+    marker.addListener('click', function() {
+        infoWindow.open(map, marker);
+    });
+
 }
 
 function createMarker(results) {
@@ -181,18 +202,70 @@ function createMarker(results) {
     }
 }
 
-// this function is supposed to create a map
+// this function creates a google map
+function createMap(pos, zoom) {
+
+    map = new google.maps.Map(document.getElementById("mapGoesHere"), {
+
+        center: pos,
+        zoom: zoom
+
+    });
+}
+
+// this function is supposed to create a map on page load
 function initMap() {
     map = new google.maps.Map(document.getElementById('mapGoesHere'), {
         // center the map on the user's coordinates
         center: userLocation,
         // the level of zoom for the map. lower is further away. higher is closer to street level
-        zoom: 10
+        zoom: 15
     });
 
-    createMarker(userLocation);
+    var contentString = 
+            '<div id="content">' +
+            '<div id="siteNotice">' +
+            '</div>' +
+            '<h5 id="firstHeading" class="firstHeading"><em>' + "You are here!" + '</em></h5>' +
+            '<div id="bodyContent">' +
+            '</div>' +
+            '</div>';;
+
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
+    createSoloMarker(userLocation, map, infowindow);
 }
 
+// pass searchTerm to google's text search service
+function googleMapsTextSearch(searchTerm) {
+
+    var request = {
+        query: searchTerm
+    }
+
+    service = new google.maps.places.PlacesService(map);
+    service.textSearch(request, callback);
+
+}
+
+// function to use on page start
+function startUp() {
+    getLocation();
+
+    // create map on startup
+    initMap();
+}
+
+// ---------- STARTUP CODE ----------
+startUp();
+
+
+// DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE
+
+// !!!!!!!!!! CURRENTLY NOT BEING USED !!!!!!!!!!
+// creates a side bar of text input fields
 function createSideBar() {
 
     var createArray = ["street", "city", "state", "zipcode"];
@@ -225,23 +298,18 @@ function createSideBar() {
 
 }
 
-function googleMapsTextSearch(searchTerm) {
+// !!!!!!!!!! Currently not being used !!!!!!!!!!
+// this function is supposed to perform a search for nearby parks around the user
+function nearbyParksSearch() {
 
     var request = {
-        query: searchTerm
-    }
+        location: userLocation,
+        // defines the distance in meters
+        radius: "1000",
+        types: [mapZipCode]
+    };
 
     service = new google.maps.places.PlacesService(map);
-    service.textSearch(request, callback);
-
+    service.nearbySearch(request, callback);
 
 }
-
-// function to use on page start
-function startUp() {
-    getLocation();
-    //createSideBar();
-}
-
-// ---------- STARTUP CODE ----------
-startUp();
