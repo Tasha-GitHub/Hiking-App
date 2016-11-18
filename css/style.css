@@ -54,9 +54,6 @@
 
 
 .locationWeather{
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	padding-top: 10px !important;
 	text-align: left;
 

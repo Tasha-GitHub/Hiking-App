@@ -28,6 +28,13 @@ img {
 
 }
 
+header{
+	border-width: 25px;
+	border-style: none none solid none;
+}
 
+main {
+	height: 100vh;
+}
 
 
