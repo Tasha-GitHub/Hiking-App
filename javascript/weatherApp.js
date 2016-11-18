@@ -20,7 +20,7 @@ $("#weatherSubmitButton").on("click", function(event) {
         console.log(queryURL);
         console.log(response);
         // Transfer content to HTML
-        $(".city").html("<h3>" + response.name + " Weather</h3>");
+        $(".city").html("<h3>" + response.name + " </h3>");
         $(".wind").html("<p>Wind Speed: " + response.wind.speed + " MPH</p>");
         $(".humidity").html("<p>Humidity: " + response.main.humidity + " %</p>");
         $(".temp_max").html("<p>Max Temp: " + response.main.temp_max + " F</p>");
@@ -66,7 +66,7 @@ $("#weatherForecastButton").on("click", function(event) {
             var convertedDate = moment(new Date(date));
             var day = moment(convertedDate).format("dddd");
 
-            var forecast = $(".dailyForecast").append("<div class=\"dayForecast\" ><h3>" + day + "</h3><p>Wind: " + results[i].wind.speed +
+            var forecast = $(".dailyForecast").append("<div class=\"dayForecast\" ><h4>" + day + "</h4><p>Wind: " + results[i].wind.speed +
                 " MPH</p><p>Humidity: " + results[i].main.humidity +
                 " %</p><p>Pressure: " + results[i].main.pressure +
                 " PSI</p><p>Max Temp: " + results[i].main.temp_max +
