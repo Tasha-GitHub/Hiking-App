@@ -1,63 +1,30 @@
-// ========== Begin google maps code ==========
-
 // ---------- GLOBAL VARIABLES ----------
 // variable to hold the navigator.geolocation coordinates
 var userLocation;
+
+// variable for google api geocoding
 var geoCoder;
+
+// variable for google api map
 var map;
+
+// variable for google api marker
 var marker;
+
+// variable for google service api
 var service;
+
+// variable for google infowindow
 var infoWindow;
+
+// variable to hold the value of #mapZipCode text input field
 var mapZipCode;
 
-// variable for the city based on the zipcode
+// variable to hold the city based on the zipcode inputted by the user in #mapZipCode text input field
 var googleMapsCity;
 
-// ========== URLS and QUERY TERMS ==========
-// not sure what this one is used for yet. I think to create a map
-var searchURL = "https://maps.googleapis.com/maps/api/js?";
-
-// this invokes the distance-matrix Google API
-var distanceURL = "https://maps.googleapis.com/maps/api/distancematrix/json?";
-
-// this url invokes the geocoding Google API
-var geocodingURL = "https://maps.googleapis.com/maps/api/geocode/json?";
-
-//this url is for google text searches
-var textURL = "https://maps.googleapis.com/maps/api/place/textsearch/json?";
-
-// address is required
-var addressTag = "&address=";
-var componentsTag = "&components=";
-var boundsTag = "&bounds=";
-var languageTag = "&language=";
-var regionTag = "&region=";
-var latlngTag = "&latlng";
-var place_idTag = "&place_id";
-var result_typeTag = "&result_type";
-var location_typeTag = "&location_type";
-
-var placesURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?&place_id=ChIJBeV_R9xMW4YRq9GzR-xx_q8&key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8";
-
-// locationTag is required for placesURL search
-var locationTag = "&location=";
-// one or the other
-var radiusTag = "&radius=";
-var rankbyDistanceTag = "&rankby=distance";
-//optional
-var keywordTag = "&keyword=";
-// &language=
-var minpriceTag = "&minprice=";
-var maxpriceTag = "&maxprice=";
-var nameTag = "&name=";
-var opennowTag = "&opennow=";
-var rankbyTag = "&rankby=";
-var typeTag = "&type=";
-var pagetokenTag = "&pagetoken=";
-
-// commmon tags to each google api
+// API key
 var keyTag = "&key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8";
-var callbackTag = "&callback="; // initMap
 
 // ---------- LOCATORS ----------
 //the submit button
@@ -66,36 +33,27 @@ var availableTrails = $(".availableTrails");
 
 // ---------- CLICKLISTENERS ----------
 
+// clicklistener for the main submit button in the map section
 submitButton.on("click", function(e) {
     e.preventDefault();
 
     searchAddress();
 
-
 });
 
-$(".locationInput").on("submit", function(e) {
-    e.preventDefault();
-    console.log(".locationInput");
-
-    return false;
-});
-
-
-// clicklistener for the trail names
+// clicklistener for the trail names populated by openTrailsAPI
 $(document).on("click", ".trail", getTrail);
 
-// ---------- FUNCTIONS ----------
+// ========== FUNCTIONS ==========
 
-// function to use HTML5's navigator.geolocation interface to find current coordinates and create map
-
-// this function gets the name of the trail clicked on
+// this function gets the name of the openAPI generated trail and passes it to a googleMapsTextSearch
 function getTrail() {
     var trailName = $(this).data("name");
     console.log(trailName);
     googleMapsTextSearch(trailName);
 }
 
+// this function uses HTML5 navigator.geolocation to generate a latlng
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -106,33 +64,39 @@ function getLocation() {
 
             // save the user's location in a global variable
             userLocation = pos;
-            console.log(pos);
+            //console.log(pos);
         });
     }
 }
 
+// performs search through Google API
 function searchAddress() {
 
+    // get the value from the map section text input field
     mapZipCode = $("#mapZipCode").val().trim();
-    //var streetBox = $("#inputstreet").val().trim();
-    //var cityBox = $("#inputcity").val().trim();
-    //var stateBox = $("#inputstate").val().trim();
-    //var zipBox = $("#inputzipcode").val().trim();
 
+    // pass user's input to addressInput. May add more terms to this through concatenation.
     addressInput = mapZipCode;
 
+    // user Google geocode to find more complete address information from user's input
     var geocoder = new google.maps.Geocoder();
 
     geocoder.geocode({ address: addressInput }, function(results, status) {
-        console.log(results);
+        //console.log(results);
 
+        // if geocode was successful
         if (status == google.maps.GeocoderStatus.OK) {
 
+            // get 
             var myResult = results[0].formatted_address;
             var pos = myResult.indexOf(",");
             googleMapsCity = myResult.substr(0, pos).toLowerCase();
+
+            // run openTrailsAPI()
             openTrailsAPI();
         }
+        // if geocode was not successful, console log error and attempt
+        else console.log("geocode was not successful.", status);
     });
 
 }
@@ -164,7 +128,7 @@ function callback(results, status) {
                 icon: results[i].icon,
                 rating: results[i].rating,
                 //photos: results[i].photos[0].getUrl(),
-                lat: results[i].geometry.location.lat(), 
+                lat: results[i].geometry.location.lat(),
                 lng: results[i].geometry.location.lng()
             };
 
@@ -179,7 +143,7 @@ function callback(results, status) {
 function createMarker(results) {
     //console.log(results);
 
-var pos = {lat: results[0][1], lng: results[0][2] };
+    var pos = { lat: results[0][1], lng: results[0][2] };
 
     map = new google.maps.Map(document.getElementById("mapGoesHere"), {
         center: pos,
@@ -188,7 +152,7 @@ var pos = {lat: results[0][1], lng: results[0][2] };
 
     for (var i = 0; i < results.length; i++) {
 
-        var pos = {lat: results[i][1], lng: results[i][2] };
+        var pos = { lat: results[i][1], lng: results[i][2] };
         console.log(pos);
         var name = results[i][0];
         console.log(name);
