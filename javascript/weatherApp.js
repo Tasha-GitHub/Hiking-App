@@ -73,7 +73,7 @@ $("#weatherForecastButton").on("click", function(event) {
             console.log("Min Temperature: " + results[i].main.temp_min);
             console.log("================================================");
 
-            var forecast = $('<div class="item">').append("<div=\"dayForecast\"><h4>Date: " + results[i].dt_txt + "</h4><p>Wind Speed: " + results[i].wind.speed +
+            var forecast = $('<div class="item">').append("<div=\"dayForecast\"><h6>Date: " + results[i].dt_txt + "</h6><p>Wind Speed: " + results[i].wind.speed +
                 "</p><p>Humidity: " + results[i].main.humidity +
                 "</p><p>Pressure: " + results[i].main.pressure +
                 "</p><p>Max Temperature: " + results[i].main.temp_max +
