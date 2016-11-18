@@ -45,6 +45,11 @@
 	align-items: center;
 }
 
+.dailyForecast{
+	display: flex;
+
+}
+
 
 
 /*--------------map div styling-------------------------*/	
