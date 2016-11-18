@@ -1,9 +1,7 @@
 
 var APIKey = "166a433c57516f51dfab1f7edaed8413";
 
-// http://api.openweathermap.org/data/2.5/weather?q=austin&units=imperial&appid=166a433c57516f51dfab1f7edaed8413
-
-$("#weatherSubmitButton").on('click', function(event) {
+$("#weatherSubmitButton").on("click", function(event) {
     event.preventDefault();
     var zip = $("#weatherZipCode").val();
 
@@ -21,11 +19,8 @@ else{
     })
 
     .done(function(response) {
-
         console.log(queryURL);
-
         console.log(response);
-
         // Transfer content to HTML
         $(".city").html("<h3>" + response.name + " Weather</h3>");
         $(".wind").html("Wind Speed: " + response.wind.speed);
@@ -40,5 +35,53 @@ else{
         console.log("Temperature (F): " + response.main.temp_min);
         
 
+    });
+});
+
+$("#weatherForecastButton").on("click", function(event) {
+    event.preventDefault();
+    var zip = $("#zipCode").val();
+    if (zip == $.isNumeric()) {
+
+        var queryURL = "http://api.openweathermap.org/data/2.5/forecast?zip=" + zip + "&units=imperial&appid=" + APIKey;
+        console.log(queryURL);
+    } else {
+
+        var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + zip + "&units=imperial&appid=" + APIKey;
+        console.log(queryURL);
+    }
+    $.ajax({
+        url: queryURL,
+        method: 'GET'
+    })
+
+    .done(function(response) {
+
+        // console.log(queryURL);
+        console.log("response");
+        console.log(response.city.name);
+        $(".city").html("<h3>" + response.city.name + " Weather</h3>");
+
+        var results = response.list;
+        for (var i = 2; i < 40; i++) {
+            var date = results[i].dt_txt;
+            console.log("Date: " + results[i].dt_txt);
+            console.log("Wind Speed: " + results[i].wind.speed);
+            console.log("Humidity: " + results[i].main.humidity);
+            console.log("Pressure: " + results[i].main.pressure);
+            console.log("Maximum Temperature: " + results[i].main.temp_max);
+            console.log("Min Temperature: " + results[i].main.temp_min);
+            console.log("================================================");
+
+            var forecast = $('<div class="item">').append("<div=\"dayForecast\"><h4>Date: " + results[i].dt_txt + "</h4><p>Wind Speed: " + results[i].wind.speed +
+                "</p><p>Humidity: " + results[i].main.humidity +
+                "</p><p>Pressure: " + results[i].main.pressure +
+                "</p><p>Max Temperature: " + results[i].main.temp_max +
+                "</p><p>Min Temperature: " + results[i].main.temp_min + "</p></div>");
+            var p = $(".dailyForecast").append(forecast);
+
+            i = i + 7;
+
+        }
     });
 });
