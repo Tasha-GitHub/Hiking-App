@@ -31,18 +31,12 @@
 }
 
 .todaysWeather {
-	text-align: center !important;
+	text-align: left !important;
 }
 
 .todaysWeather h1{
 	padding-top: 0px;
 
-}
-
-.weatherIcon{
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 .dailyForecast{
@@ -59,7 +53,27 @@
 }
 
 
+.locationWeather{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 10px !important;
+	text-align: left;
 
+}
+
+.locationForecast p {
+	padding-top: 5px;
+}
+
+.locationForecast{
+	display: flex;
+	justify-content: center;
+	justify-content: space-around;
+	align-items: center;
+	padding-top: 10px !important;
+
+}
 /*--------------map div styling-------------------------*/	
 
 
@@ -144,7 +158,7 @@ input{
 
 
 /*=====================================================
-=          Media Queries            =
+                    Media Queries            
 =====================================================*/
 
 @media only screen and (max-width : 767px) {

@@ -30,6 +30,21 @@
             <div class="banner">
                 <h1>Hike Finder</h1>
                 <p>This is an interactive hiking app that will help you find the perfect place to hike </p>
+                <div>
+                    <div class= "locationWeather col s5 pull-s7 m5 pull-m7 l5 pull-l7"> 
+                    </div>
+                    <div class="todaysWeather  col s5 pull-s7 m5 pull-m7 l5 pull-l7">
+                        <p id="demo"></p>
+                        <div class="city"></div>
+                        <div class="wind"></div>
+                        <div class="humidity"></div>
+                        <div class="temp_max"></div>
+                        <div class="temp_min"></div>
+                        <div class="visibility"></div>
+                        <div class="area"></div>
+                    </div>
+                    
+                </div>
             </div>
         </header>
         <main>
@@ -38,31 +53,38 @@
                 <div class="weatherForm">
                     <form>
                         <input type="text" name="zipCode" id="weatherZipCode" placeholder="zipcode or city name">
-                        <button class="btn waves-effect waves-light" type="submit" name="submitButton" id="weatherSubmitButton">Todays Weather
+                        <button class="btn waves-effect waves-light" type="submit" name="submitButton" id="weatherSubmitButton"> Update
                         </button>
                         <button class="btn waves-effect waves-light" type="submit" name="submitButton" id="weatherForecastButton">3 Day Forecast
                         </button>
                     </form>
                 </div>
-                <div class= "locationWeather col s12 m12 l12"> </div>
-                <div class="todaysWeather  col s12 m12 l12">
-                    <p id="demo"></p>
-                    <div class="city"></div>
-                    <div class="wind"></div>
-                    <div class="humidity"></div>
-                    <div class="temp_max"></div>
-                    <div class="temp_min"></div>
-                    <div class="visibility"></div>
-                    <div class="area"></div>
-                </div>
-                <div class="locationForecast col s12 m12 l12"></div>
-                <div class="dailyForecast  col s12 m12 l12">
-                    <div class="row">
+                <div class="row">
+                    <!-- <div class= "locationWeather col s12 m12 l3"> 
+                    </div> -->
+                    <div class="locationForecast col s12 m12 l9">
                     </div>
                 </div>
-                <div class="quote col s12 m12 l12">
-                    <p>Try not to become a man of success but a man of value. - Albert Einstein</p>
+                <div class="row">
+                    <!-- <div class="todaysWeather  col s12 m12 l3">
+                        <p id="demo"></p>
+                        <div class="city"></div>
+                        <div class="wind"></div>
+                        <div class="humidity"></div>
+                        <div class="temp_max"></div>
+                        <div class="temp_min"></div>
+                        <div class="visibility"></div>
+                        <div class="area"></div>
+                    </div> -->
+                     <div class="dailyForecast  col s12 m12 l9">
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="quote col s12 m12 l12">
+                        <p>Try not to become a man of success but a man of value. - Albert Einstein</p>
+                    </div>
+                </div>
+                
             </section>
             <section class="map section col s12 m12 l12">
                 <h2>Map Section</h2>

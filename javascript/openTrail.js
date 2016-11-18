@@ -37,27 +37,6 @@ function openTrailsAPI(city){
 
 
 };
+//note to self, city must be stingified before it is fed into the open trials function
+//openTrailsAPI("austin");
 
-//----------------------------------------------------------//
-//           index.html scroll controls                     //
-//----------------------------------------------------------//
-
-
-$("#map").on("click", scrollMapWin);
-
-function scrollMapWin(event) {
-    event.preventDefault();
-
-    window.scrollTo(0, 1300);
-    
-}
-
-
-$("#forecast").on("click", scrollForecastWin);
-
-function scrollForecastWin(event) {
-    event.preventDefault();
-
-    window.scrollTo(0, 650);
-    
-}

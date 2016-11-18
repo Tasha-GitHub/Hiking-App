@@ -13,7 +13,7 @@ Group Ideas:
 
 INDEX.HTML
 
-- Put green separator bar underneath map for symmetry with other sections
+DONE - Put green separator bar underneath map for symmetry with other sections
 
 - use moment.js to put today's date on the site. probably next to the weather
 
@@ -23,13 +23,13 @@ INDEX.HTML
 
 - make text search for parks possible
 
-- today's weather and 3-day forecast should populate current location if no number is given in Today's forecast
+DONE -> will need to be checked again with new API - today's weather and 3-day forecast should populate current location if no number is given in Today's forecast
 
 - inspirational quote not randomized
 
 - map needs to autoload.
 
-- weather needs to autoload. --- Done 
+DONE -> will need to be checked again with new API - weather needs to autoload.
 
 - set up multiple pictures for main image?
 
@@ -43,6 +43,8 @@ INDEX.HTML
 - add popup hints or otherwise direct users how to use our site.
 
 - only show just todays forcast if today is clicked and only show 5 day forcast when that button is clicked
+
+-zoom out and large screens tend to show the body and not function well
 
 CONTACT.HTML
 
@@ -63,4 +65,7 @@ openTrail.js
 2. does openTrail provide a summary to the park? some kind of synopsis about the park and the facilities it provides.
 3. dog friendly?
 4. difficulty?
+
+weatherAPI
+1. redo with new https API
 
