@@ -22,3 +22,8 @@ $.ajax({
     	}
     });
 
+// controls for main navbar clicks
+
+function scrollWin() {
+    window.scrollTo(500, 0);
+}
