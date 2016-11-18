@@ -215,12 +215,8 @@ function createMap(pos, zoom) {
 
 // this function is supposed to create a map on page load
 function initMap() {
-    map = new google.maps.Map(document.getElementById('mapGoesHere'), {
-        // center the map on the user's coordinates
-        center: userLocation,
-        // the level of zoom for the map. lower is further away. higher is closer to street level
-        zoom: 15
-    });
+
+    createMap(userLocation, 10);
 
     var contentString = 
             '<div id="content">' +
@@ -229,7 +225,7 @@ function initMap() {
             '<h5 id="firstHeading" class="firstHeading"><em>' + "You are here!" + '</em></h5>' +
             '<div id="bodyContent">' +
             '</div>' +
-            '</div>';;
+            '</div>';
 
         var infowindow = new google.maps.InfoWindow({
             content: contentString
