@@ -58,3 +58,7 @@ APP.JS
 
 openTrail.js
 1. set up animated scroll (fast smooth scroll) as opposed to instant link
+2. does openTrail provide a summary to the park? some kind of synopsis about the park and the facilities it provides.
+3. dog friendly?
+4. difficulty?
+
