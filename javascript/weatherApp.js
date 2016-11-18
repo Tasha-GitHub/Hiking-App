@@ -1,4 +1,7 @@
 var APIKey = "166a433c57516f51dfab1f7edaed8413";
+console.log("test: "+ window.userLocation);
+
+// var queryURLBase = "http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139
 
 $("#weatherSubmitButton").on("click", function(event) {
     event.preventDefault();
@@ -38,7 +41,8 @@ $("#weatherSubmitButton").on("click", function(event) {
 
 $("#weatherForecastButton").on("click", function(event) {
     event.preventDefault();
-    var zipOrCity = $("#zipCode").val();
+    var zipOrCity = $("#weatherZipCode").val();
+
     if (zipOrCity == $.isNumeric()) {
         var queryURL = "http://api.openweathermap.org/data/2.5/forecast?zip=" + zipOrCity + "&units=imperial&appid=" + APIKey;
         console.log(queryURL);
