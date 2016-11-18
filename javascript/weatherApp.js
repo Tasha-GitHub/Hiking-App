@@ -63,6 +63,7 @@ $("#weatherForecastButton").on("click", function(event) {
         $(".city").html("<h3>" + response.city.name + " Weather</h3>");
 
         var results = response.list;
+        $(".item").empty();
         for (var i = 2; i < 40; i++) {
             var date = results[i].dt_txt;
             console.log("Date: " + results[i].dt_txt);
@@ -79,6 +80,7 @@ $("#weatherForecastButton").on("click", function(event) {
                 "</p><p>Max Temperature: " + results[i].main.temp_max +
                 "</p><p>Min Temperature: " + results[i].main.temp_min + "</p></div>");
             var p = $(".dailyForecast").append(forecast);
+
 
             i = i + 7;
 
