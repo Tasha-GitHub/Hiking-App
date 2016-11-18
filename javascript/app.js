@@ -73,7 +73,11 @@ function getLocation() {
 
             // save the user's location in a global variable
             userLocation = pos;
-            //console.log(pos);
+
+            // create map on startup
+            initMap(pos);
+
+            nearbyParksSearch();
         });
     }
 }
@@ -119,6 +123,21 @@ function searchAddress() {
         // if geocode was not successful, console log error and attempt
         else console.log("geocode was not successful.", status);
     });
+
+}
+
+// this function is supposed to perform a search for nearby parks around the user
+function nearbyParksSearch() {
+
+    var request = {
+        location: userLocation,
+        // defines the distance in meters
+        radius: "1000",
+        types: [mapZipCode]
+    };
+
+    service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(request, callback);
 
 }
 
@@ -214,9 +233,9 @@ function createMap(pos, zoom) {
 }
 
 // this function is supposed to create a map on page load
-function initMap() {
+function initMap(position) {
 
-    createMap(userLocation, 10);
+    createMap(position, 10);
 
     var contentString = 
             '<div id="content">' +
@@ -250,13 +269,11 @@ function googleMapsTextSearch(searchTerm) {
 function startUp() {
     getLocation();
 
-    // create map on startup
-    initMap();
+
 }
 
 // ---------- STARTUP CODE ----------
 startUp();
-console.log("userLocation", userlocation);
 
 
 // DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE
@@ -292,21 +309,5 @@ function createSideBar() {
 
         div.append("<br>");
     }
-
-}
-
-// !!!!!!!!!! Currently not being used !!!!!!!!!!
-// this function is supposed to perform a search for nearby parks around the user
-function nearbyParksSearch() {
-
-    var request = {
-        location: userLocation,
-        // defines the distance in meters
-        radius: "1000",
-        types: [mapZipCode]
-    };
-
-    service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(request, callback);
 
 }
