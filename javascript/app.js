@@ -131,6 +131,7 @@ function searchAddress() {
             var myResult = results[0].formatted_address;
             var pos = myResult.indexOf(",");
             googleMapsCity = myResult.substr(0, pos).toLowerCase();
+            openTrailsAPI();
         }
     });
 
