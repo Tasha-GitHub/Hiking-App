@@ -45,6 +45,19 @@
 	align-items: center;
 }
 
+.dailyForecast{
+	display: flex;
+	justify-content: center;
+	justify-content: space-around;
+	align-items: center;
+	padding-top: 10px !important;
+
+}
+
+.dailyForecast p{
+	padding-top: 5px;
+}
+
 
 
 /*--------------map div styling-------------------------*/	
@@ -144,7 +157,7 @@ input{
     	font-size: 60px;
   	}
 	h2{
- 		font-size: 40px;
+ 		font-size: 30px;
  		padding: 10px;
  		margin-top: 40px;
  	}
@@ -165,9 +178,14 @@ input{
 		padding-bottom: 20px !important;
 
 	}
-	.dailyForcast{
-		display: hidden;
+	.dailyForecast{
+		display: none;
 	}
+
+	#weatherForecastButton{
+		display: none;
+	}
+}
 }
 
 @media only screen and (max-width : 375px) {
@@ -175,7 +193,7 @@ input{
     	font-size: 60px;
   	}
 	h3{
-    	font-size: 40px;
+    	font-size: 30px;
     	padding: 10px;
     	margin-top: 40px;
   	}
@@ -195,7 +213,11 @@ input{
 		padding-top: 30px !important;
 		padding-bottom: 20px !important;
 	}
-	.dailyForcast{
-		display: hidden;
+	.dailyForecast{
+		display: none;
+	}
+
+	#weatherForecastButton{
+		display: none;
 	}
 }
