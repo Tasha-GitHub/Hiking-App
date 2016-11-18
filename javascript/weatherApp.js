@@ -1,18 +1,16 @@
-
 var APIKey = "166a433c57516f51dfab1f7edaed8413";
 
 $("#weatherSubmitButton").on("click", function(event) {
     event.preventDefault();
-    var zipOrCity= $("#weatherZipCode").val();
+    var zipOrCity = $("#weatherZipCode").val();
 
-    if(zipOrCity == $.isNumeric()){
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipOrCity + "&units=imperial&appid=" + APIKey;
-    console.log(queryURL);
-}
-else{
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + zipOrCity + "&units=imperial&appid=" + APIKey;
-    console.log(queryURL);
-}
+    if (zipOrCity == $.isNumeric()) {
+        var queryURL = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipOrCity + "&units=imperial&appid=" + APIKey;
+        console.log(queryURL);
+    } else {
+        var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + zipOrCity + "&units=imperial&appid=" + APIKey;
+        console.log(queryURL);
+    }
     $.ajax({
         url: queryURL,
         method: 'GET'
@@ -33,7 +31,7 @@ else{
         console.log("Humidity: " + response.main.humidity);
         console.log("Temperature (F): " + response.main.temp_max);
         console.log("Temperature (F): " + response.main.temp_min);
-        
+
 
     });
 });
@@ -42,11 +40,9 @@ $("#weatherForecastButton").on("click", function(event) {
     event.preventDefault();
     var zipOrCity = $("#zipCode").val();
     if (zipOrCity == $.isNumeric()) {
-
         var queryURL = "http://api.openweathermap.org/data/2.5/forecast?zip=" + zipOrCity + "&units=imperial&appid=" + APIKey;
         console.log(queryURL);
     } else {
-
         var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + zipOrCity + "&units=imperial&appid=" + APIKey;
         console.log(queryURL);
     }
@@ -65,8 +61,12 @@ $("#weatherForecastButton").on("click", function(event) {
         var results = response.list;
         $(".dailyForecast").empty();
         for (var i = 2; i < 24; i++) {
+
             var date = results[i].dt_txt;
-            var forecast = $(".dailyForecast").append("<div class=\"dayForecast\" ><h6>Date: " + results[i].dt_txt + "</h6><p>Wind Speed: " + results[i].wind.speed +
+            var convertedDate = moment(new Date(date));
+            var day = moment(convertedDate).format("dddd");
+
+            var forecast = $(".dailyForecast").append("<div class=\"dayForecast\" ><h3>" + day + "</h3><p>Wind Speed: " + results[i].wind.speed +
                 "</p><p>Humidity: " + results[i].main.humidity +
                 "</p><p>Pressure: " + results[i].main.pressure +
                 "</p><p>Max Temperature: " + results[i].main.temp_max +
