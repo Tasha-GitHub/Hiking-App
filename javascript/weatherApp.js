@@ -63,18 +63,10 @@ $("#weatherForecastButton").on("click", function(event) {
         $(".city").html("<h3>" + response.city.name + " Weather</h3>");
 
         var results = response.list;
-        $(".item").empty();
+        $(".dailyForecast").empty();
         for (var i = 2; i < 40; i++) {
             var date = results[i].dt_txt;
-            console.log("Date: " + results[i].dt_txt);
-            console.log("Wind Speed: " + results[i].wind.speed);
-            console.log("Humidity: " + results[i].main.humidity);
-            console.log("Pressure: " + results[i].main.pressure);
-            console.log("Maximum Temperature: " + results[i].main.temp_max);
-            console.log("Min Temperature: " + results[i].main.temp_min);
-            console.log("================================================");
-
-            var forecast = $('<div class="item">').append("<div=\"dayForecast\"><h6>Date: " + results[i].dt_txt + "</h6><p>Wind Speed: " + results[i].wind.speed +
+            var forecast = $(".dailyForecast").append("<div class=\"dayForecast\" ><h6>Date: " + results[i].dt_txt + "</h6><p>Wind Speed: " + results[i].wind.speed +
                 "</p><p>Humidity: " + results[i].main.humidity +
                 "</p><p>Pressure: " + results[i].main.pressure +
                 "</p><p>Max Temperature: " + results[i].main.temp_max +
