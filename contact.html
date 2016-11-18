@@ -17,9 +17,9 @@
 </head>
 <body>
     <div class="container">
-       <!-- Page Content -->
-        <!-- row 1: NAV BAR -->
-      
+    <div class="background">
+    <!-- Page Content -->
+    <!-- row 1: NAV BAR -->      
       <header>  
         <nav class="row">
         <div class="nav-wrapper>
@@ -38,62 +38,71 @@
             
              <div class="col s3 m3 l3"">
            <!-- Content 1 goes here -->
-               <a class="name waves-effect waves-light btn-large">meet Tasha</a>
+               <a data-target="modal1" class="name waves-effect waves-light btn-large">meet Tasha</a>
              </div>
              
              <div class="col s3 m3 l3"">
            <!-- Content 2 goes here -->
-               <a class="name waves-effect waves-light btn-large">meet Shweta</a>
+               <a data-target="modal2" class="name waves-effect waves-light btn-large">meet Shweta</a>
              </div>
              
              <div class="col s3 m3 l3"">
            <!-- Content 3 goes here -->
-               <a class="name waves-effect waves-light btn-large">meet Jesse</a>
+               <a data-target="modal3" class="name waves-effect waves-light btn-large">meet Jesse</a>
              </div>
              
              <div class="col s3 m3 l3"">
            <!-- Content 3 goes here -->
-               <a class="name waves-effect waves-light btn-large">meet Jess</a>
+               <a data-target="modal4" class="name waves-effect waves-light btn-large">meet Jess</a>
              </div>
         </div> <!-- end row 2 -->
 
         <!-- row 3: space to hide/show contact info -->  
         <div class="row">
 
-              <div class="col s12 m12 l12">
-              <!-- contact info goes here -->
+              	<div class="col s12 m12 l12">
+              	<!-- contact info goes here -->
               		<!-- Tasha -->
               		<div class="col s12 m12 l12">
-              			<div class="contactme">
+              			<div id="modal1" class="modal">
               				<img src="assets/images/tasha.jpg" alt="Tasha">
               					<div class="info">
-              					<p>Tasha Casagni</p>
-              					<p>Email: email</p>
-              					<p>GitHub: </p>
+              					<p>Tasha Casagni </p>
+              					<p>Email: casagni708@hotmail.com</p>
+              					<a href="https://github.com/Tasha-GitHub">GitHub</a>
+              					<a href="https://www.linkedin.com/in/tasha-casagni-7125192a">LinkedIn</a>
               					<p>Favorite Hike: </p>
               					</div>
+              			<div class="modal-footer">
+      						<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    					</div> 
               			</div>
+              		
+  					</div>
+					</div> <!-- end Tasha -->
 
 
-
-              		</div> <!-- end Tasha -->
+              		
               		<!-- Shweta -->
               		<div class="col s12 m12 l12">
-              			<div class="contactme">
+              			<div id="modal2" class="modal">
               				<img src="assets/images/shweta.jpg" alt="Shweta">
               					<div class="info">
               					<p>Shweta Rane</p>
-              					<p>Email: </p>
+              					<p>Email: shvetacrane@gmail.com</p>
               					<p>GitHub: </p>
               					<p>Favorite Hike: </p>
               					</div>
+              			<div class="modal-footer">
+      						<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    					</div> 		
               			</div>
+					</div> <!-- end Shweta -->
 
-
-              		</div> <!-- end Shweta -->
+              		
               		<!-- Jesse -->
               		<div class="col s12 m12 l12">
-              			<div class="contactme">
+              			<div id="modal3" class="modal">
               				<img src="assets/images/jesse.jpg" alt="Jesse">
               					<div class="info">
               					<p>Jesse Matherne</p>
@@ -101,13 +110,16 @@
               					<p>GitHub: </p>
               					<p>Favorite Hike: </p>
               					</div>
+              			<div class="modal-footer">
+      						<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    					</div> 
               			</div>
 
 
               		</div> <!-- end Jesse -->
               		<!-- Jess -->
               		<div class="col s12 m12 l12">
-              			<div class="contactme">
+              			<div id="modal4" class="modal">
               				<img src="assets/images/jess.jpg" alt="Jess">
               					<div class="info">
               					<p>Jess</p>
@@ -115,20 +127,24 @@
               					<p>GitHub: </p>
               					<p>Favorite Hike: </p>
               					</div>
+              			<div class="modal-footer">
+      						<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    					</div> 
               			</div>
+						</div> 
+						<!-- end Jesse -->
 
-
-              		</div> <!-- end Jesse -->
+              		
                
-             </div>
+             	</div>
                
              </div>
 
 
         </div> <!-- end row 3 -->  
 
-       
-   </div> <!--close container-->
+   </div> <!-- close background image -->    
+   </div> <!-- close container-->
   
      
     
@@ -156,9 +172,10 @@
 
 
    <!--Import jQuery before materialize.js-->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/    jquery.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
    <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
     <script type="text/javascript" src = "javascript/app.js"></script>
    <!-- link to contact js -->
    <script type="text/javascript" src="javascript/frontendjavascript.js"></script> 
