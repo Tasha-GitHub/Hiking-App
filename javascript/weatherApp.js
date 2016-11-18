@@ -61,7 +61,7 @@ $("#weatherForecastButton").on("click", function(event) {
         console.log("response");
         console.log(response.city.name);
         $(".city").html("<h3>" + response.city.name + " Weather</h3>");
-        $(".item").empty();
+
         var results = response.list;
         $(".item").empty();
         for (var i = 2; i < 40; i++) {
