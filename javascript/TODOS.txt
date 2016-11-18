@@ -1,17 +1,28 @@
-This is just a text file. Too many comments can make code actually harder to read so I've put some of my comment notes in here.
+INDEX.HTML
 
-Regarding the Google API
+- Put green separator bar underneath map for symmetry with other sections
 
-Placing this script after our normal javascript tag in the HTML will run the callback function (initMap) and draw a google map. it has async and defer so will not interrupt the flow of the rest of the HTML.
-    <script src="https://maps.googleapis.com/maps/api/ss?key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8&callback=initMap"
-    async defer></script>
+- change infowindow information to be specific to pointer
 
-This script is necessary for the autocomplete library provided by google:
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8&libraries=places"></script>
+- clean up app.js. the code is a mess.
 
-Regarding the geocoding Google API
-	Geocoding is the process of converting addresses (like "1600 Amphitheatre Parkway, Mountain View, CA") into geographic coordinates (like latitude 37.423021 and longitude -122.083739), which you can use to place markers on a map, or position the map.
+- use moment.js to put today's date on the site. probably next to the weather
 
-	The process of doing the opposite, translating a location on the map into a human-readable address, is known as reverse geocoding.
+- use firebase for ratings?
 
-	The address tag is required. The street address that you want to geocode, in the format used by the national postal service of the country concerned. Additional address elements such as business names and unit, suite or floor numbers should be avoided.
+- maybe add background graphic to Map Section Header
+
+- fix zipcode search to repopulate map
+
+- make text search for parks possible
+
+- today's weather and 3-day forecast should populate current location if no number is given in Today's forecast
+
+- inspirational quote not randomized
+
+CONTACT.HTML
+
+- navbar fix links
+- navbar make navbar styling match index.html
+- make buttons pop up details on hover as opposed to button press?
+- sticky footer
