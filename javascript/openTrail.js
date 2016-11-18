@@ -8,6 +8,7 @@ var city;
 var queryURL;
 var park;
 var url;
+var //make response variable as globale 
 
 
 function openTrailsAPI(city){
@@ -27,9 +28,9 @@ function openTrailsAPI(city){
         xhr.setRequestHeader("X-Mashape-Authorization", "xLa3MQj6eHmshOkWRkpAEiiNTzl0p1n6HbpjsnOvwImXNqnMfQ"); // Mashape key
         }
     }).done(function(response){
-        	//console.log(response.places[2].activities);
+        	console.log(response);
             $(".availableTrails").empty();
-        	for(var i = 1; i<=5; i++){
+        	for(var i = 1; i<=10; i++){
         	park = response.places[i].name;
         	$(".availableTrails").append("<div class=\"trail\" data-name=\""+park+"\" id=\""+"item-"+i+"\">"+"<p class=\"hvr-grow\">"+park+"</p></div>");
         	}

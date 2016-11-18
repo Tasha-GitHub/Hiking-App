@@ -87,12 +87,16 @@
 .availableTrails{
 	background-color: #30353B;
 	height: 600px;
+	display: flex;
+  	align-items: center;
+  	justify-content: center;
+  	flex-direction: column;
 
 }
 
 .trail{
 	border-style: none none solid none;
-	border-width: 2px;
+	border-width: 1px;
 	border-color: #FFFFFF;
 	height: 19%;
 	color: #FFFFFF;
@@ -101,6 +105,7 @@
   	justify-content: center;
   	flex-direction: column;
   	margin-top: 5px;
+  	width: 100%;
 }
 
 .trail p {
