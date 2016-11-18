@@ -157,6 +157,16 @@ function callback(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
             var location = [results[i].name, results[i].geometry.location.lat(), results[i].geometry.location.lng()];
+            var locationObject = {
+                name: results[i].name,
+                address: results[i].formatted_address,
+                icon: results[i].icon,
+                rating: results[i].rating,
+                //photos: results[i].photos[0].getUrl(),
+                lat: results[i].geometry.location.lat(), 
+                lng: results[i].geometry.location.lng()
+            };
+
             locations.push(location);
             //console.log(place);
         }
@@ -185,21 +195,9 @@ var pos = {lat: results[0][1], lng: results[0][2] };
         var contentString = '<div id="content">' +
             '<div id="siteNotice">' +
             '</div>' +
-            '<h4 id="firstHeading" class="firstHeading">' + name + '</h4' +
+            '<h5 id="firstHeading" class="firstHeading"><em>' + name + '</em></h5>' +
             '<div id="bodyContent">' +
-            '<p><b>' + name + '</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-            'sandstone rock formation in the southern part of the ' +
-            'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) ' +
-            'south west of the nearest large town, Alice Springs; 450&#160;km ' +
-            '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major ' +
-            'features of the Uluru - Kata Tjuta National Park. Uluru is ' +
-            'sacred to the Pitjantjatjara and Yankunytjatjara, the ' +
-            'Aboriginal people of the area. It has many springs, waterholes, ' +
-            'rock caves and ancient paintings. Uluru is listed as a World ' +
-            'Heritage Site.</p>' +
-            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-            'https://en.wikipedia.org/w/index.php?title=Uluru</a> ' +
-            '(last visited June 22, 2009).</p>' +
+            '' +
             '</div>' +
             '</div>';
 
