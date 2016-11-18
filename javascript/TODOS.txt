@@ -9,6 +9,9 @@ Group Ideas:
 			2. pick a date.
 			3. create a checklist:
 				a. water, food, overnight?, etc.
+		b. add a hike (location, etc.)
+			1. use firebase
+				rating, dog friendly, location, sports, facilities, state operated, whatever.
 
 
 INDEX.HTML
@@ -18,8 +21,6 @@ DONE - Put green separator bar underneath map for symmetry with other sections
 - use moment.js to put today's date on the site. probably next to the weather
 
 - maybe add background graphic to Map Section Header
-
-- fix zipcode search to repopulate map
 
 - make text search for parks possible
 
@@ -68,4 +69,45 @@ openTrail.js
 
 weatherAPI
 1. redo with new https API
+
+
+Weekend Plans
+1. jess on contact page
+	centered pictures
+	styling
+	footer
+	width = 100%
+	buttons become images
+		change <button> to <img> add src
+2. shweta
+	change api for weather
+	going to weather weatherunderground
+3. tasha
+	handling index.html
+	overlay with weather
+	opentrails API be more robust
+	smooth scrolling
+	quote generator
+	add moment.js
+	shrink sidebar to map
+	make map touch bottom green bar
+	make a hikelikes(c)
+	firebase initialization
+	investigate zoom bug
+
+4. jesse
+	autopopulate map side bar
+	make markers infowindow correct
+		infowindows have pictures synopsis, name, address, rating, etc.
+	figure out Centennial thing check variables and ids
+	figuring out adaptive map zoom
+	make message if no results
+	click submit with nothing, autopopulate with current place
+	radio for searches? probably not
+	search for nonplaces radio button / nope
+	disable autorezoom
+		or make still image
+
+
+
 
