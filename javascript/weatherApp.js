@@ -3,14 +3,14 @@ var APIKey = "166a433c57516f51dfab1f7edaed8413";
 
 $("#weatherSubmitButton").on("click", function(event) {
     event.preventDefault();
-    var zip = $("#weatherZipCode").val();
+    var zipOrCity= $("#weatherZipCode").val();
 
-    if(zip == $.isNumeric()){
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?zip=" + zip + "&units=imperial&appid=" + APIKey;
+    if(zipOrCity == $.isNumeric()){
+    var queryURL = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipOrCity + "&units=imperial&appid=" + APIKey;
     console.log(queryURL);
 }
 else{
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + zip + "&units=imperial&appid=" + APIKey;
+    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + zipOrCity + "&units=imperial&appid=" + APIKey;
     console.log(queryURL);
 }
     $.ajax({
@@ -40,14 +40,14 @@ else{
 
 $("#weatherForecastButton").on("click", function(event) {
     event.preventDefault();
-    var zip = $("#zipCode").val();
-    if (zip == $.isNumeric()) {
+    var zipOrCity = $("#zipCode").val();
+    if (zipOrCity == $.isNumeric()) {
 
-        var queryURL = "http://api.openweathermap.org/data/2.5/forecast?zip=" + zip + "&units=imperial&appid=" + APIKey;
+        var queryURL = "http://api.openweathermap.org/data/2.5/forecast?zip=" + zipOrCity + "&units=imperial&appid=" + APIKey;
         console.log(queryURL);
     } else {
 
-        var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + zip + "&units=imperial&appid=" + APIKey;
+        var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + zipOrCity + "&units=imperial&appid=" + APIKey;
         console.log(queryURL);
     }
     $.ajax({
@@ -64,7 +64,7 @@ $("#weatherForecastButton").on("click", function(event) {
 
         var results = response.list;
         $(".dailyForecast").empty();
-        for (var i = 2; i < 40; i++) {
+        for (var i = 2; i < 24; i++) {
             var date = results[i].dt_txt;
             var forecast = $(".dailyForecast").append("<div class=\"dayForecast\" ><h6>Date: " + results[i].dt_txt + "</h6><p>Wind Speed: " + results[i].wind.speed +
                 "</p><p>Humidity: " + results[i].main.humidity +
