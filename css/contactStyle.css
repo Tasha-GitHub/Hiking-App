@@ -1,8 +1,11 @@
 .name {
 	margin-top: 50px;
 }
-.contactme {
+
+}
+.info p {
 	text-align: left;
+	font-size: 100px;
 	
 }
 .info {
@@ -13,4 +16,9 @@
 .contactme img {
 	float: left;
 	margin: 50px;
+}
+
+img {
+	height: 200px;
+	width: 200px;
 }
