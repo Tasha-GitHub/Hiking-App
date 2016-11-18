@@ -24,6 +24,21 @@ $.ajax({
 
 // controls for main navbar clicks
 
-function scrollWin() {
-    window.scrollTo(500, 0);
+$("#map").on("click", scrollMapWin);
+
+function scrollMapWin(event) {
+    event.preventDefault();
+
+    window.scrollTo(0, 1300);
+    console.log("hi")
+}
+
+
+$("#forecast").on("click", scrollForecastWin);
+
+function scrollForecastWin(event) {
+    event.preventDefault();
+
+    window.scrollTo(0, 600);
+    console.log("hi")
 }

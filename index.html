@@ -20,9 +20,9 @@
 				<div class="nav-wrapper">
 					<a href="index.html" class="left">Hike Finder</a>
 					<ul class="right">
-    				  	<li><a href="contact.html">Meet the Team</a></li>
-    				  	<li><a href="badges.html">Map</a></li>
-    				  	<li><a href="collapsible.html"> Forcast</a></li>
+    				  	<li><a href="contact.html" id="meet">Meet the Team</a></li>
+    				  	<li><a href="index.html" id="map">Map</a></li>
+    				  	<li><a href="index.html" id="forecast"> Forecast</a></li>
 					</ul>   
 				</div>
 	  		</nav>
@@ -37,14 +37,14 @@
 				<h2>Today's Forecast</h2>
                 <div class="weatherForm">
                     <form>
-                        <input type="text" name="zipCode" id ="weatherZipCode" placeholder= "zipcode">
+                        <input type="text" name="zipCode" id ="weatherZipCode" placeholder= "zipcode or city name">
                         <button class="btn waves-effect waves-light" type="submit" name="submitButton" id="weatherSubmitButton">Todays Weather
                         </button>
                         <button class="btn waves-effect waves-light" type="submit" name="submitButton" id="weatherForecastButton">3 Day Forecast
                         </button>
                     </form>
                 </div>
-				<div class="todaysWeather col l3">
+				<div class="todaysWeather col s12 m12 l3">
 					<div class="city"></div>
                     <div class="wind"></div>
                     <div class="humidity"></div>
@@ -93,8 +93,8 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <!-- this script runs a function whenever it is loaded -->
-   <!--  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8&libraries=places,geometry,drawing,visualization&callback=initMap" async defer></script>
-    <script type="text/javascript" src="javascript/app.js"></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8&libraries=places,geometry,drawing,visualization&callback=initMap" async defer></script>
+    <script type="text/javascript" src="javascript/app.js"></script>
     <script type="text/javascript" src="javascript/openTrail.js"></script>
     <script type="text/javascript" src="javascript/weatherApp.js"></script>
     
