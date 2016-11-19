@@ -67,20 +67,24 @@ function getTrail() {
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
+            userLocation = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
 
-            // save the user's location in a global variable
-            userLocation = pos;
+        });
+
+            var cityName = getCityName();
+            console.log("getLocation of getCityName", cityName);
+
+            openTrailsAPI(cityName);
 
             // create map on startup
-            initMap(pos);
+            initMap(userLocation);
 
-            nearbyParksSearch();
-        });
+            //nearbyParksSearch();
     }
+    else alertify.error("navigator.geolocation not available.");
 }
 
 // performs search through Google API
@@ -265,6 +269,29 @@ function googleMapsTextSearch(searchTerm) {
     service = new google.maps.places.PlacesService(map);
     service.textSearch(request, callback);
 
+}
+
+// get cityName from userLocation latlng from navigator
+function getCityName() {
+
+    // use google geocode api to REVERSE geocode
+    geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode({ location: userLocation }, function(results, status) {
+        //console.log(results);
+
+        // if geocode was successful
+        if (status == google.maps.GeocoderStatus.OK) {
+
+            // local variables
+            var cityName = results[0].address_components[2].long_name.toLowerCase();
+            console.log(cityName);
+
+            return cityName;
+        }
+        // if geocode was not successful, console log error and attempt
+        else console.log("geocode was not successful.", status);
+    });
 }
 
 // function to use on page start
