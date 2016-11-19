@@ -21,7 +21,7 @@ database.ref().orderByChild("dateAdded").limitToLast(20).on("child_added", funct
 
       photoURL = childsnapshot.val().url;
       trailName = childsnapshot.val().name;
-      $(".photoBlock").append("<div class= \"photo\">"+"<h3>"+trailName+"</h3>"+"<img src=\""+photoURL +"\"></div>");
+      $(".photoBlock").append("<div class= \"photo\">"+"<h3 class=\"capitalize\">"+trailName+"</h3>"+"<img src=\""+photoURL +"\"></div>");
  
     }, function(errorObject) {
 

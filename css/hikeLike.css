@@ -35,3 +35,9 @@ h1 {
 	widows: 200px;
 	margin: 10px;
 }
+
+h3.capitalize {
+
+    text-transform: capitalize;
+
+}
