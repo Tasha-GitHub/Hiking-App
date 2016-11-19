@@ -8,7 +8,7 @@ var city;
 var queryURL;
 var park;
 var url;
-var //make response variable as globale 
+//make response variable as globale 
 
 
 function openTrailsAPI(city){
