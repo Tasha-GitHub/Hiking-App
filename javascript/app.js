@@ -1,9 +1,12 @@
+// experiment with strict mode
+"use strict";
+
 // ---------- GLOBAL VARIABLES ----------
 // variable to hold the navigator.geolocation coordinates
 var userLocation;
 
 // variable for google api geocoding
-var geoCoder;
+var geocoder;
 
 // variable for google api map
 var map;
@@ -23,8 +26,7 @@ var mapZipCode;
 // variable to hold the city based on the zipcode inputted by the user in #mapZipCode text input field
 var googleMapsCity;
 
-// API key
-var keyTag = "&key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8";
+// API keyTag = "&key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8";
 
 // ---------- LOCATORS ----------
 //the submit button
@@ -38,11 +40,10 @@ var mapZipCodeInput = $("#mapZipCode");
 submitButton.on("click", function(e) {
     e.preventDefault();
 
-    if (mapZipCodeInput.val().length == 0) {
+    if (mapZipCodeInput.val().length === 0) {
         console.log("works");
         initMap();
-    }
-    else {
+    } else {
         // on button click run google geocode search
         searchAddress();
         mapZipCodeInput.val("");
@@ -90,10 +91,10 @@ function searchAddress() {
     mapZipCode = $("#mapZipCode").val().trim();
 
     // pass user's input to addressInput. May add more terms to this through concatenation.
-    addressInput = mapZipCode;
+    var addressInput = mapZipCode;
 
     // user Google geocode to find more complete address information from user's input
-    var geocoder = new google.maps.Geocoder();
+    geocoder = new google.maps.Geocoder();
 
     geocoder.geocode({ address: addressInput }, function(results, status) {
         console.log(results);
@@ -103,7 +104,7 @@ function searchAddress() {
 
             // local variables
             var position = {
-                lat: results[0].geometry.location.lat(), 
+                lat: results[0].geometry.location.lat(),
                 lng: results[0].geometry.location.lng()
             };
 
@@ -111,14 +112,15 @@ function searchAddress() {
             var myResult = results[0].formatted_address;
 
             // get city name by splicing the string myResult
-             var indexSpot = myResult.indexOf(",");
+            var indexSpot = myResult.indexOf(",");
             googleMapsCity = myResult.substr(0, indexSpot).toLowerCase();
+            console.log("googleMapsCity", googleMapsCity);
 
             // run openTrailsAPI()
             openTrailsAPI(googleMapsCity);
 
             // createMap showing zipcode searched
-            createMap(position, 10)
+            createMap(position, 10);
         }
         // if geocode was not successful, console log error and attempt
         else console.log("geocode was not successful.", status);
@@ -149,7 +151,7 @@ function callback(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
             var location = [results[i].name, results[i].geometry.location.lat(), results[i].geometry.location.lng()];
-            var locationObject = {
+/*            var locationObject = {
                 name: results[i].name,
                 address: results[i].formatted_address,
                 icon: results[i].icon,
@@ -157,7 +159,7 @@ function callback(results, status) {
                 //photos: results[i].photos[0].getUrl(),
                 lat: results[i].geometry.location.lat(),
                 lng: results[i].geometry.location.lng()
-            };
+            };*/
 
             locations.push(location);
             //console.log(place);
@@ -183,10 +185,10 @@ function createSoloMarker(pos, map, infoWindow) {
 function createMarker(results) {
     //console.log(results);
 
-    var pos = { lat: results[0][1], lng: results[0][2] };
+    var position = { lat: results[0][1], lng: results[0][2] };
 
     map = new google.maps.Map(document.getElementById("mapGoesHere"), {
-        center: pos,
+        center: position,
         zoom: 15
     });
 
@@ -206,7 +208,7 @@ function createMarker(results) {
             '</div>' +
             '</div>';
 
-        var infowindow = new google.maps.InfoWindow({
+        infoWindow = new google.maps.InfoWindow({
             content: contentString
         });
 
@@ -237,18 +239,18 @@ function initMap(position) {
 
     createMap(position, 10);
 
-    var contentString = 
-            '<div id="content">' +
-            '<div id="siteNotice">' +
-            '</div>' +
-            '<h5 id="firstHeading" class="firstHeading"><em>' + "You are here!" + '</em></h5>' +
-            '<div id="bodyContent">' +
-            '</div>' +
-            '</div>';
+    var contentString =
+        '<div id="content">' +
+        '<div id="siteNotice">' +
+        '</div>' +
+        '<h5 id="firstHeading" class="firstHeading"><em>' + "You are here!" + '</em></h5>' +
+        '<div id="bodyContent">' +
+        '</div>' +
+        '</div>';
 
-        var infowindow = new google.maps.InfoWindow({
-            content: contentString
-        });
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
 
     createSoloMarker(userLocation, map, infowindow);
 }
@@ -258,7 +260,7 @@ function googleMapsTextSearch(searchTerm) {
 
     var request = {
         query: searchTerm
-    }
+    };
 
     service = new google.maps.places.PlacesService(map);
     service.textSearch(request, callback);
@@ -274,6 +276,8 @@ function startUp() {
 
 // ---------- STARTUP CODE ----------
 startUp();
+
+
 
 
 // DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE
