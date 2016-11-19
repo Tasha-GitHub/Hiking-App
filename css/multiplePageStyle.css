@@ -17,33 +17,34 @@
 }
 
 /*------------------stickey footer------------------------------*/
-  body {
+  .container {
     display: flex;
     min-height: 100vh;
+    min-width: 100vw;
     flex-direction: column;
-    text-align: center;
-
   }
 
   main {
-    flex: 1 0 auto;
+    flex: 1 0 auto !important;
   }
       
 /*----------------footer Styling ------------------------------*/
 
 footer{
   background-color: #30353B !important;
-  width: 100%;
   margin: 0px !important;
   font-family: 'Open Sans', sans-serif;
   clear: both;
   border-width: 25px;
   border-color: #254A2A;
   border-style: solid none none none;
+  text-align: center;
 }
+
 /*----------------Navbar Styling ------------------------------*/
 nav{
   background-color: #30353B !important;
+  
 
 }
 
@@ -53,7 +54,13 @@ nav a {
   font-family: 'Open Sans', sans-serif;
 }
 
-
+header{
+  border-width: 25px;
+  border-color: #254A2A;
+  border-style: none none solid none;
+  text-align: center;
+  width: 100%;
+}
 
 /*------------------Text Styling ---------------------------*/
 h1{
@@ -63,6 +70,7 @@ h1{
 
 h2{
   padding-top: 20px;
+  text-align: center;
   font-family: 'Open Sans', sans-serif;
 }
 

@@ -19,9 +19,16 @@
 	padding: 5px;
 }
 
-.forcast{
+.forecast{
 	background-color: #FFFFFF;
 	height: 80vh;
+	display: flex;
+	justify-content: center;
+	justify-content: space-around;
+	align-items: center;
+	flex-direction: column;
+
+
 }
 
 .quote{
@@ -71,12 +78,23 @@
 	padding-top: 10px !important;
 
 }
+
+.weatherForm{
+	display: flex;
+  	align-items: center;
+  	justify-content: center;
+  	flex-direction: row;
+
+}
 /*--------------map div styling-------------------------*/	
 
 
 .map{
 	background-color: #F2F2F2;
 	height: 800px;
+	border-width: 25px;
+	border-style: solid none none none;
+	border-color: #254A2A;
 }
 
 #mapGoesHere{
@@ -114,6 +132,14 @@
 
 #item-5{
 	border-style: none;
+}
+
+.formSubmit{
+	display: flex;
+  	align-items: center;
+  	justify-content: center;
+  	flex-direction: row;
+
 }
 
 /*---------------other divs styling --------------------*/
