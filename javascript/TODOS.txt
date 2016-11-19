@@ -16,7 +16,6 @@ Group Ideas:
 
 INDEX.HTML
 
-DONE - Put green separator bar underneath map for symmetry with other sections
 
 - use moment.js to put today's date on the site. probably next to the weather
 
@@ -44,8 +43,6 @@ DONE -> will need to be checked again with new API - weather needs to autoload.
 - add popup hints or otherwise direct users how to use our site.
 
 - only show just todays forcast if today is clicked and only show 5 day forcast when that button is clicked
-
--zoom out and large screens tend to show the body and not function well
 
 CONTACT.HTML
 
@@ -83,17 +80,16 @@ Weekend Plans
 	change api for weather
 	going to weather weatherunderground
 3. tasha
-	handling index.html
 	overlay with weather
 	opentrails API be more robust
 	smooth scrolling
 	quote generator
 	add moment.js
 	shrink sidebar to map
-	make map touch bottom green bar
-	make a hikelikes(c)
+	DONE - make map touch bottom green bar
+	DONE - make a hikelikes(c)
 	firebase initialization
-	investigate zoom bug
+	Almost DONE - investigate zoom bug
 
 4. jesse
 	autopopulate map side bar

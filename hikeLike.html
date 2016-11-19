@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hiking App</title>
+    <title>Hike Likes</title>
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
@@ -30,6 +30,18 @@
             </nav>
         </header>
         <main>
+            <h1>Hike Like</h1>
+            <section class="photoForm">
+                    <form id="photoSubmitForm">
+                        <input type="text" name="text" id="photoInput" placeholder="photo URL">
+                        <input type="text" name="text" id="nameInput" placeholder="Trail Name">
+                        <button class="btn waves-effect waves-light" type="submit" name="photoSubmitButton" id="photoSubmit"> Add to collection
+                        </button>
+                    </form>
+            </section>
+            <section class="photoBlock">
+                
+            </section>
         </main>
         <footer class="page-footer">
             <div class="footer-copyright">
@@ -45,7 +57,8 @@
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-    <script type="text/javascript" src="javascript/frontendjavascript.js"></script> 
+    <script type="text/javascript" src="javascript/frontendjavascript.js"></script>
+    <script type="text/javascript" src="javascript/hikeLike.js"></script> 
 </body>
 
 </html>
