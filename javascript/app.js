@@ -23,6 +23,9 @@ var infoWindow;
 // variable to hold the value of #mapZipCode text input field
 var mapZipCode;
 
+// variable to hold the city name from the reverse google geocode
+var cityName;
+
 // variable to hold the city based on the zipcode inputted by the user in #mapZipCode text input field
 var googleMapsCity;
 
@@ -66,25 +69,8 @@ function getTrail() {
 // this function uses HTML5 navigator.geolocation to generate a latlng
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            userLocation = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-
-        });
-
-            var cityName = getCityName();
-            console.log("getLocation of getCityName", cityName);
-
-            openTrailsAPI(cityName);
-
-            // create map on startup
-            initMap(userLocation);
-
-            //nearbyParksSearch();
+        navigator.geolocation.getCurrentPosition(getPositionSuccess, getPositionError);
     }
-    else alertify.error("navigator.geolocation not available.");
 }
 
 // performs search through Google API
@@ -125,6 +111,7 @@ function searchAddress() {
 
             // createMap showing zipcode searched
             createMap(position, 10);
+
         }
         // if geocode was not successful, console log error and attempt
         else console.log("geocode was not successful.", status);
@@ -155,7 +142,7 @@ function callback(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
             var location = [results[i].name, results[i].geometry.location.lat(), results[i].geometry.location.lng()];
-/*            var locationObject = {
+            var locationObject = {
                 name: results[i].name,
                 address: results[i].formatted_address,
                 icon: results[i].icon,
@@ -163,7 +150,7 @@ function callback(results, status) {
                 //photos: results[i].photos[0].getUrl(),
                 lat: results[i].geometry.location.lat(),
                 lng: results[i].geometry.location.lng()
-            };*/
+            };
 
             locations.push(location);
             //console.log(place);
@@ -189,17 +176,17 @@ function createSoloMarker(pos, map, infoWindow) {
 function createMarker(results) {
     //console.log(results);
 
-    var position = { lat: results[0][1], lng: results[0][2] };
+    var pos = { lat: results[0][1], lng: results[0][2] };
 
     map = new google.maps.Map(document.getElementById("mapGoesHere"), {
-        center: position,
+        center: pos,
         zoom: 15
     });
 
     for (var i = 0; i < results.length; i++) {
 
-        var pos = { lat: results[i][1], lng: results[i][2] };
-        console.log(pos);
+        var position = { lat: results[i][1], lng: results[i][2] };
+        console.log(position);
         var name = results[i][0];
         console.log(name);
 
@@ -217,7 +204,7 @@ function createMarker(results) {
         });
 
         marker = new google.maps.Marker({
-            position: pos,
+            position: position,
             map: map
         });
 
@@ -271,27 +258,25 @@ function googleMapsTextSearch(searchTerm) {
 
 }
 
-// get cityName from userLocation latlng from navigator
-function getCityName() {
+// success function for navigator.geolocator
+function getPositionSuccess(success) {
+    userLocation = {
+        lat: success.coords.latitude,
+        lng: success.coords.longitude
+    };
 
-    // use google geocode api to REVERSE geocode
-    geocoder = new google.maps.Geocoder();
+    // create map on startup
+    initMap(userLocation);
 
-    geocoder.geocode({ location: userLocation }, function(results, status) {
-        //console.log(results);
+    //nearbyParksSearch();
 
-        // if geocode was successful
-        if (status == google.maps.GeocoderStatus.OK) {
+    alertify.success("Thank you for letting Hike Finder know your location.")
+}
 
-            // local variables
-            var cityName = results[0].address_components[2].long_name.toLowerCase();
-            console.log(cityName);
-
-            return cityName;
-        }
-        // if geocode was not successful, console log error and attempt
-        else console.log("geocode was not successful.", status);
-    });
+// error function for navigator.geolocator
+function getPositionError(error) {
+    alertify.error("Please allow Hike Finder to know your location.");
+    console.log(error);
 }
 
 // function to use on page start
