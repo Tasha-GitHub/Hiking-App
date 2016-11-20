@@ -18,7 +18,7 @@ var marker;
 var service;
 
 // variable for google infowindow
-var infoWindow;
+var infowindow;
 
 // variable to hold the value of #mapZipCode text input field
 var mapZipCode;
@@ -28,6 +28,9 @@ var cityName;
 
 // variable to hold the city based on the zipcode inputted by the user in #mapZipCode text input field
 var googleMapsCity;
+
+// variable to pass details from openTrailsAPI to google marker
+var clickedTrailDetails;
 
 // API keyTag = "&key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8";
 
@@ -70,6 +73,29 @@ function getTrail() {
     console.log(trailName);
     googleMapsTextSearch(trailName);
     console.log(trails);
+
+    for (var i = 0; i < trails.places.length; i++) {
+        if (trails.places[i].name.indexOf(trailName) >= 0) {
+            console.log(trails.places[i]);
+            var description; 
+            if (trails.places[i].description) description = trails.places[i].description;
+            else description = trails.places[i].activities[0].description;
+            clickedTrailDetails = {
+                name: trails.places[i].name,
+                url: trails.places[i].activities[0].url,
+                description: description,
+                rating: trails.places[i].activities[0].rating,
+                activity_type: trails.places[i].activities[0].activity_type_name,
+                directions: trails.places[i].directions,
+                picture: trails.places[i].activities[0].thumbnail,
+                lat: trails.places[i].lat,
+                lng: trails.places[i].lng
+            }
+        }
+
+    }
+
+    console.log(clickedTrailDetails);
 }
 
 // this function uses HTML5 navigator.geolocation to generate a latlng
@@ -162,7 +188,7 @@ function callback(results, status) {
     }
 }
 
-function createSoloMarker(pos, map, infoWindow) {
+function createSoloMarker(pos, map, infowindow) {
 
     marker = new google.maps.Marker({
         position: pos,
@@ -170,13 +196,24 @@ function createSoloMarker(pos, map, infoWindow) {
     });
 
     marker.addListener('click', function() {
-        infoWindow.open(map, marker);
+        infowindow.open(map, marker);
     });
 
 }
 
 function createMarker(results) {
     //console.log(results);
+
+    // variables for contentString
+    var name = clickedTrailDetails.name;
+    var url = clickedTrailDetails.url;
+    var description = clickedTrailDetails.description;
+    var rating = clickedTrailDetails.rating;
+    var activity_type = clickedTrailDetails.activity_type;
+    var directions = clickedTrailDetails.directions;
+    var picture = clickedTrailDetails.picture;
+    var lat = clickedTrailDetails.lat;
+    var lng = clickedTrailDetails.lng;
 
     var pos = { lat: results[0][1], lng: results[0][2] };
 
@@ -188,20 +225,23 @@ function createMarker(results) {
     for (var i = 0; i < results.length; i++) {
 
         var position = { lat: results[i][1], lng: results[i][2] };
-        console.log(position);
-        var name = results[i][0];
-        console.log(name);
 
         var contentString = '<div id="content">' +
             '<div id="siteNotice">' +
             '</div>' +
             '<h5 id="firstHeading" class="firstHeading"><em>' + name + '</em></h5>' +
             '<div id="bodyContent">' +
-            '' +
+            '<img src="' + picture + '">' + 
+            '<p>' + activity_type + '</p>' +
+            '<p>' + description + '</p>' +
+            '<p><a href="' + url + '">' + url + '</a></p>' +
+            '<p>' + rating + '</p>' +
+            '<p>' + directions + '</p>' +
+            '<p>' + url + '</p>' +
             '</div>' +
             '</div>';
 
-        infoWindow = new google.maps.InfoWindow({
+        infowindow = new google.maps.InfoWindow({
             content: contentString
         });
 
