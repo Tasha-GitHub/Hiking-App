@@ -10,9 +10,11 @@ var park;
 var url;
 //make response variable as globale 
 
+var trails;
+
 
 function openTrailsAPI(city){
-    console.log("the city is"+ city)
+    console.log("the city is "+ city)
     //city = googleMapsCity;
     queryURL = 'https://trailapi-trailapi.p.mashape.com/?q[city_cont]='+ city;
 
@@ -34,6 +36,9 @@ function openTrailsAPI(city){
         	park = response.places[i].name;
         	$(".availableTrails").append("<div class=\"trail\" data-name=\""+park+"\" id=\""+"item-"+i+"\">"+"<p class=\"hvr-grow\">"+park+"</p></div>");
         	}
+
+            trails = response;
+
         });
 
 

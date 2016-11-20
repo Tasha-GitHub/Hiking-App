@@ -35,7 +35,7 @@ var googleMapsCity;
 //the submit button
 var submitButton = $("#submitButton");
 var availableTrails = $(".availableTrails");
-var mapZipCodeInput = $("#mapZipCode");
+var mapSearch = $("#mapZipCode");
 
 // ---------- CLICKLISTENERS ----------
 
@@ -43,13 +43,18 @@ var mapZipCodeInput = $("#mapZipCode");
 submitButton.on("click", function(e) {
     e.preventDefault();
 
-    if (mapZipCodeInput.val().length === 0) {
-        console.log("works");
-        initMap();
+    var searchTerm = getMapSearchTerm();
+
+    // if there is no input in text field, load a map of the user's current location
+    if (searchTerm.length === 0) {
+        initMap(userLocation);
+
+        // if there is input in the text field, load a map showing the result of the user's text
+        // include multiple marker's on the map for each location in sidebar
+        // have the map center on the zipcode of the search, but have the map populated with markers    
     } else {
         // on button click run google geocode search
-        searchAddress();
-        mapZipCodeInput.val("");
+        searchAddress(searchTerm);
     }
 
 });
@@ -64,6 +69,7 @@ function getTrail() {
     var trailName = $(this).data("name");
     console.log(trailName);
     googleMapsTextSearch(trailName);
+    console.log(trails);
 }
 
 // this function uses HTML5 navigator.geolocation to generate a latlng
@@ -74,20 +80,16 @@ function getLocation() {
 }
 
 // performs search through Google API
-// TODO: make map generate after search is run
-function searchAddress() {
-
-    // get the value from the map section text input field
-    mapZipCode = $("#mapZipCode").val().trim();
+function searchAddress(searchTerm) {
 
     // pass user's input to addressInput. May add more terms to this through concatenation.
-    var addressInput = mapZipCode;
+    var addressInput = searchTerm;
 
     // user Google geocode to find more complete address information from user's input
     geocoder = new google.maps.Geocoder();
 
     geocoder.geocode({ address: addressInput }, function(results, status) {
-        console.log(results);
+        console.log("geocode results", results);
 
         // if geocode was successful
         if (status == google.maps.GeocoderStatus.OK) {
@@ -104,7 +106,7 @@ function searchAddress() {
             // get city name by splicing the string myResult
             var indexSpot = myResult.indexOf(",");
             googleMapsCity = myResult.substr(0, indexSpot).toLowerCase();
-            console.log("googleMapsCity", googleMapsCity);
+            //console.log("googleMapsCity", googleMapsCity);
 
             // run openTrailsAPI()
             openTrailsAPI(googleMapsCity);
@@ -270,13 +272,20 @@ function getPositionSuccess(success) {
 
     //nearbyParksSearch();
 
-    alertify.success("Thank you for letting Hike Finder know your location.")
+    alertify.success("Thank you for letting Hike Finder know your location.");
 }
 
 // error function for navigator.geolocator
 function getPositionError(error) {
     alertify.error("Please allow Hike Finder to know your location.");
     console.log(error);
+}
+
+// get the search term in the map text input field
+function getMapSearchTerm() {
+    var searchTerm = mapSearch.val();
+    mapSearch.val("");
+    return searchTerm;
 }
 
 // function to use on page start
