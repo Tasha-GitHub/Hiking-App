@@ -10,9 +10,11 @@ var park;
 var url;
 //make response variable as globale 
 
+var trails;
+
 
 function openTrailsAPI(city){
-    console.log("the city is"+ city)
+    console.log("the city is "+ city)
     //city = googleMapsCity;
     queryURL = 'https://trailapi-trailapi.p.mashape.com/?q[city_cont]='+ city;
 
@@ -28,12 +30,17 @@ function openTrailsAPI(city){
         xhr.setRequestHeader("X-Mashape-Authorization", "xLa3MQj6eHmshOkWRkpAEiiNTzl0p1n6HbpjsnOvwImXNqnMfQ"); // Mashape key
         }
     }).done(function(response){
-        	console.log(response);
+        	console.log("openTrailsAPI trails", response);
             $(".availableTrails").empty();
-        	for(var i = 1; i<=10; i++){
-        	park = response.places[i].name;
-        	$(".availableTrails").append("<div class=\"trail\" data-name=\""+park+"\" id=\""+"item-"+i+"\">"+"<p class=\"hvr-grow\">"+park+"</p></div>");
+        	for(var i = 0; i < 10; i++){
+        	   park = response.places[i].name;
+        	   $(".availableTrails").append("<div class=\"trail\" data-name=\""+park+"\" id=\""+"item-"+i+"\">"+"<p class=\"hvr-grow\">"+park+"</p></div>");
+               if (response.places[i+1] === undefined) break;
         	}
+
+            trails = response;
+
+
         });
 
 

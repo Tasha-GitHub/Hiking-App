@@ -18,7 +18,7 @@ var marker;
 var service;
 
 // variable for google infowindow
-var infoWindow;
+var infowindow;
 
 // variable to hold the value of #mapZipCode text input field
 var mapZipCode;
@@ -29,13 +29,16 @@ var cityName;
 // variable to hold the city based on the zipcode inputted by the user in #mapZipCode text input field
 var googleMapsCity;
 
+// variable to pass details from openTrailsAPI to google marker
+var clickedTrail;
+
 // API keyTag = "&key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8";
 
 // ---------- LOCATORS ----------
 //the submit button
 var submitButton = $("#submitButton");
 var availableTrails = $(".availableTrails");
-var mapZipCodeInput = $("#mapZipCode");
+var mapSearch = $("#mapZipCode");
 
 // ---------- CLICKLISTENERS ----------
 
@@ -43,13 +46,18 @@ var mapZipCodeInput = $("#mapZipCode");
 submitButton.on("click", function(e) {
     e.preventDefault();
 
-    if (mapZipCodeInput.val().length === 0) {
-        console.log("works");
-        initMap();
+    var searchTerm = getMapSearchTerm();
+
+    // if there is no input in text field, load a map of the user's current location
+    if (searchTerm.length === 0) {
+        initMap(userLocation);
+
+        // if there is input in the text field, load a map showing the result of the user's text
+        // include multiple marker's on the map for each location in sidebar
+        // have the map center on the zipcode of the search, but have the map populated with markers    
     } else {
         // on button click run google geocode search
-        searchAddress();
-        mapZipCodeInput.val("");
+        searchAddress(searchTerm);
     }
 
 });
@@ -62,8 +70,13 @@ $(document).on("click", ".trail", getTrail);
 // this function gets the name of the openAPI generated trail and passes it to a googleMapsTextSearch
 function getTrail() {
     var trailName = $(this).data("name");
-    console.log(trailName);
     googleMapsTextSearch(trailName);
+
+    for (var i = 0; i < trails.places.length; i++) {
+        if (trails.places[i].name.indexOf(trailName) >= 0) {
+            clickedTrail = trails.places[i];
+        }
+    }
 }
 
 // this function uses HTML5 navigator.geolocation to generate a latlng
@@ -74,20 +87,16 @@ function getLocation() {
 }
 
 // performs search through Google API
-// TODO: make map generate after search is run
-function searchAddress() {
-
-    // get the value from the map section text input field
-    mapZipCode = $("#mapZipCode").val().trim();
+function searchAddress(searchTerm) {
 
     // pass user's input to addressInput. May add more terms to this through concatenation.
-    var addressInput = mapZipCode;
+    var addressInput = searchTerm;
 
     // user Google geocode to find more complete address information from user's input
     geocoder = new google.maps.Geocoder();
 
     geocoder.geocode({ address: addressInput }, function(results, status) {
-        console.log(results);
+        console.log("geocode results", results);
 
         // if geocode was successful
         if (status == google.maps.GeocoderStatus.OK) {
@@ -104,7 +113,7 @@ function searchAddress() {
             // get city name by splicing the string myResult
             var indexSpot = myResult.indexOf(",");
             googleMapsCity = myResult.substr(0, indexSpot).toLowerCase();
-            console.log("googleMapsCity", googleMapsCity);
+            //console.log("googleMapsCity", googleMapsCity);
 
             // run openTrailsAPI()
             openTrailsAPI(googleMapsCity);
@@ -136,7 +145,7 @@ function nearbyParksSearch() {
 
 // nearbyParksSearch and textSearch utilize this callback once they receive their results
 function callback(results, status) {
-    console.log(results);
+    console.log("callback results", results);
     var locations = [];
 
     if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -160,7 +169,7 @@ function callback(results, status) {
     }
 }
 
-function createSoloMarker(pos, map, infoWindow) {
+function createSoloMarker(pos, map, infowindow) {
 
     marker = new google.maps.Marker({
         position: pos,
@@ -168,38 +177,87 @@ function createSoloMarker(pos, map, infoWindow) {
     });
 
     marker.addListener('click', function() {
-        infoWindow.open(map, marker);
+        infowindow.open(map, marker);
     });
 
 }
 
 function createMarker(results) {
     //console.log(results);
+    console.log("clickedTrail", clickedTrail);
+
+    var contentString;
+    var description;
+
+    // if name is present from openTrailsAPI add it to contentString
+    if (clickedTrail.name) {
+        var name = clickedTrail.name;
+        name = "<h5><em>" + name + "</em></h5>";
+        contentString += name;
+    }
+
+    if (clickedTrail.activities[0]) {
+        
+        // if thumbnail image is present from openTrailsAPI add it to contentString
+        if (clickedTrail.activities[0].thumbnail) {
+            var picture = clickedTrail.activities[0].thumbnail;
+            picture = "<img src='" + picture + "' alt='thumbnail' class='trailImage'><br>";
+            contentString += picture;
+        }
+
+        // if activity_type is present from openTrailsAPI add it to contentString
+        if (clickedTrail.activities[0].activity_type_name) {
+            var activity_type = clickedTrail.activities[0].activity_type_name;
+            activity_type = "<br><p class='activityType'><b>Type: </b>" + activity_type + "</p><br>";
+            contentString += activity_type;
+        }
+    }
+
+    if (clickedTrail.description) {
+        description = clickedTrail.description;
+        description = "<p><b>Description:</b></p><p class='trailDescription'>" + description + "</p><br>";
+        contentString += description;
+    } else if (clickedTrail.activities[0].description) {
+        description = clickedTrail.activities[0].description;
+        description = "<p><b>Description:</b></p><p class='trailDescription'>" + description + "</p><br>";
+        contentString += description;
+    }
+
+    if (clickedTrail.directions) {
+        var directions = clickedTrail.directions;
+        directions = "<p><b>Directions:</b></p><p class='trailDirections'>" + directions + "</p><br>";
+        contentString += directions;
+    }
+
+    if (clickedTrail.activities[0]) {
+        console.log("activities is there");
+        // if rating is present from openTrailsAPI add it to contentString
+        if (clickedTrail.activities[0].rating) {
+            var rating = clickedTrail.activities[0].rating;
+            rating = "<p class='trailRating'><b>Rating: </b>" + rating + "</p><br>";
+            contentString += rating;
+        }
+    }
+
+    else console.log("activities is not there");
+
+
+    //console.log(contentString);
 
     var pos = { lat: results[0][1], lng: results[0][2] };
 
     map = new google.maps.Map(document.getElementById("mapGoesHere"), {
         center: pos,
-        zoom: 15
+        zoom: 15, 
+        scrollwheel: false,
+        zoomControl: false
     });
 
     for (var i = 0; i < results.length; i++) {
 
         var position = { lat: results[i][1], lng: results[i][2] };
-        console.log(position);
-        var name = results[i][0];
-        console.log(name);
 
-        var contentString = '<div id="content">' +
-            '<div id="siteNotice">' +
-            '</div>' +
-            '<h5 id="firstHeading" class="firstHeading"><em>' + name + '</em></h5>' +
-            '<div id="bodyContent">' +
-            '' +
-            '</div>' +
-            '</div>';
-
-        infoWindow = new google.maps.InfoWindow({
+        infowindow = new google.maps.InfoWindow({
             content: contentString
         });
 
@@ -220,7 +278,9 @@ function createMap(pos, zoom) {
     map = new google.maps.Map(document.getElementById("mapGoesHere"), {
 
         center: pos,
-        zoom: zoom
+        zoom: zoom,
+        scrollwheel: false,
+        zoomControl: false
 
     });
 }
@@ -270,7 +330,7 @@ function getPositionSuccess(success) {
 
     //nearbyParksSearch();
 
-    alertify.success("Thank you for letting Hike Finder know your location.")
+    alertify.success("Thank you for letting Hike Finder know your location.");
 }
 
 // error function for navigator.geolocator
@@ -279,9 +339,19 @@ function getPositionError(error) {
     console.log(error);
 }
 
+// get the search term in the map text input field
+function getMapSearchTerm() {
+    var searchTerm = mapSearch.val();
+    mapSearch.val("");
+    return searchTerm;
+}
+
+
+
 // function to use on page start
 function startUp() {
     getLocation();
+    searchAddress(userLocation);
 
 
 }
