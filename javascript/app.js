@@ -248,7 +248,9 @@ function createMarker(results) {
 
     map = new google.maps.Map(document.getElementById("mapGoesHere"), {
         center: pos,
-        zoom: 15
+        zoom: 15, 
+        scrollwheel: false,
+        zoomControl: false
     });
 
     for (var i = 0; i < results.length; i++) {
@@ -276,7 +278,9 @@ function createMap(pos, zoom) {
     map = new google.maps.Map(document.getElementById("mapGoesHere"), {
 
         center: pos,
-        zoom: zoom
+        zoom: zoom,
+        scrollwheel: false,
+        zoomControl: false
 
     });
 }
@@ -347,6 +351,7 @@ function getMapSearchTerm() {
 // function to use on page start
 function startUp() {
     getLocation();
+    searchAddress(userLocation);
 
 
 }
