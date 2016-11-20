@@ -30,7 +30,7 @@ var cityName;
 var googleMapsCity;
 
 // variable to pass details from openTrailsAPI to google marker
-var clickedTrailDetails;
+var clickedTrail;
 
 // API keyTag = "&key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8";
 
@@ -70,32 +70,13 @@ $(document).on("click", ".trail", getTrail);
 // this function gets the name of the openAPI generated trail and passes it to a googleMapsTextSearch
 function getTrail() {
     var trailName = $(this).data("name");
-    console.log(trailName);
     googleMapsTextSearch(trailName);
-    console.log(trails);
 
     for (var i = 0; i < trails.places.length; i++) {
         if (trails.places[i].name.indexOf(trailName) >= 0) {
-            console.log(trails.places[i]);
-            var description; 
-            if (trails.places[i].description) description = trails.places[i].description;
-            else description = trails.places[i].activities[0].description;
-            clickedTrailDetails = {
-                name: trails.places[i].name,
-                url: trails.places[i].activities[0].url,
-                description: description,
-                rating: trails.places[i].activities[0].rating,
-                activity_type: trails.places[i].activities[0].activity_type_name,
-                directions: trails.places[i].directions,
-                picture: trails.places[i].activities[0].thumbnail,
-                lat: trails.places[i].lat,
-                lng: trails.places[i].lng
-            }
+            clickedTrail = trails.places[i];
         }
-
     }
-
-    console.log(clickedTrailDetails);
 }
 
 // this function uses HTML5 navigator.geolocation to generate a latlng
@@ -164,7 +145,7 @@ function nearbyParksSearch() {
 
 // nearbyParksSearch and textSearch utilize this callback once they receive their results
 function callback(results, status) {
-    console.log(results);
+    console.log("callback results", results);
     var locations = [];
 
     if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -203,17 +184,65 @@ function createSoloMarker(pos, map, infowindow) {
 
 function createMarker(results) {
     //console.log(results);
+    console.log("clickedTrail", clickedTrail);
 
-    // variables for contentString
-    var name = clickedTrailDetails.name;
-    var url = clickedTrailDetails.url;
-    var description = clickedTrailDetails.description;
-    var rating = clickedTrailDetails.rating;
-    var activity_type = clickedTrailDetails.activity_type;
-    var directions = clickedTrailDetails.directions;
-    var picture = clickedTrailDetails.picture;
-    var lat = clickedTrailDetails.lat;
-    var lng = clickedTrailDetails.lng;
+    var contentString;
+    var description;
+
+    // if name is present from openTrailsAPI add it to contentString
+    if (clickedTrail.name) {
+        var name = clickedTrail.name;
+        name = "<h5><em>" + name + "</em></h5>";
+        contentString += name;
+    }
+
+    if (clickedTrail.activities[0]) {
+        
+        // if thumbnail image is present from openTrailsAPI add it to contentString
+        if (clickedTrail.activities[0].thumbnail) {
+            var picture = clickedTrail.activities[0].thumbnail;
+            picture = "<img src='" + picture + "' alt='thumbnail' class='trailImage'><br>";
+            contentString += picture;
+        }
+
+        // if activity_type is present from openTrailsAPI add it to contentString
+        if (clickedTrail.activities[0].activity_type_name) {
+            var activity_type = clickedTrail.activities[0].activity_type_name;
+            activity_type = "<br><p class='activityType'><b>Type: </b>" + activity_type + "</p><br>";
+            contentString += activity_type;
+        }
+    }
+
+    if (clickedTrail.description) {
+        description = clickedTrail.description;
+        description = "<p><b>Description:</b></p><p class='trailDescription'>" + description + "</p><br>";
+        contentString += description;
+    } else if (clickedTrail.activities[0].description) {
+        description = clickedTrail.activities[0].description;
+        description = "<p><b>Description:</b></p><p class='trailDescription'>" + description + "</p><br>";
+        contentString += description;
+    }
+
+    if (clickedTrail.directions) {
+        var directions = clickedTrail.directions;
+        directions = "<p><b>Directions:</b></p><p class='trailDirections'>" + directions + "</p><br>";
+        contentString += directions;
+    }
+
+    if (clickedTrail.activities[0]) {
+        console.log("activities is there");
+        // if rating is present from openTrailsAPI add it to contentString
+        if (clickedTrail.activities[0].rating) {
+            var rating = clickedTrail.activities[0].rating;
+            rating = "<p class='trailRating'><b>Rating: </b>" + rating + "</p><br>";
+            contentString += rating;
+        }
+    }
+
+    else console.log("activities is not there");
+
+
+    //console.log(contentString);
 
     var pos = { lat: results[0][1], lng: results[0][2] };
 
@@ -225,21 +254,6 @@ function createMarker(results) {
     for (var i = 0; i < results.length; i++) {
 
         var position = { lat: results[i][1], lng: results[i][2] };
-
-        var contentString = '<div id="content">' +
-            '<div id="siteNotice">' +
-            '</div>' +
-            '<h5 id="firstHeading" class="firstHeading"><em>' + name + '</em></h5>' +
-            '<div id="bodyContent">' +
-            '<img src="' + picture + '">' + 
-            '<p>' + activity_type + '</p>' +
-            '<p>' + description + '</p>' +
-            '<p><a href="' + url + '">' + url + '</a></p>' +
-            '<p>' + rating + '</p>' +
-            '<p>' + directions + '</p>' +
-            '<p>' + url + '</p>' +
-            '</div>' +
-            '</div>';
 
         infowindow = new google.maps.InfoWindow({
             content: contentString
@@ -327,6 +341,8 @@ function getMapSearchTerm() {
     mapSearch.val("");
     return searchTerm;
 }
+
+
 
 // function to use on page start
 function startUp() {
