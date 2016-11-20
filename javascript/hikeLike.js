@@ -32,12 +32,17 @@ database.ref().orderByChild("dateAdded").limitToLast(20).on("child_added", funct
 $("#photoSubmit").on("click", function(event){
     	event.preventDefault();
     	url = $("#photoInput").val().trim();
-    	name = $("#nameInput").val().trim();    	
-    	database.ref().push({
-        name: name,
-        url : url,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP
+    	name = $("#nameInput").val().trim();  
 
-    	});
+      if(url.length === 0 || name.length === 0){
+        return;
+
+      } else {
+      	database.ref().push({
+          name: name,
+          url : url,
+          dateAdded: firebase.database.ServerValue.TIMESTAMP
+        });
+      }
 
     });
