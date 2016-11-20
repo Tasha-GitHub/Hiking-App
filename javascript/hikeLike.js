@@ -34,6 +34,7 @@ $("#photoSubmit").on("click", function(event){
     	url = $("#photoInput").val().trim();
     	name = $("#nameInput").val().trim();  
 
+      //if users doesnt input both values, it will prevent a post
       if(url.length === 0 || name.length === 0){
         return;
 
