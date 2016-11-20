@@ -55,6 +55,6 @@ function openTrailsAPI(city){
 
 
 };
-//note to self, city must be stingified before it is fed into the open trials function
+//note to self, city must be stingified before it is fed into the open trials function in order to work
 //openTrailsAPI("austin");
 
