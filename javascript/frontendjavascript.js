@@ -11,28 +11,34 @@
 //----------------------------------------------------------//
 
 
-$("#map").on("click", scrollMapWin);
+$(".navBtn").on("click", scrollWin);
 
-function scrollMapWin(event) {
+function scrollWin(event) {
     event.preventDefault();
-
-    window.scrollTo(0, 1300);
+    var sectionName = $(this).data("name");
+    // window.scrollTo(0, 1300);
+    $('html, body').animate({
+          scrollTop: $("."+sectionName).offset().top
+        }, 1000);
     
 }
 
 
-$("#forecast").on("click", scrollForecastWin);
+//----------------------------------------------------------//
+//             Quote Generator controls                     //
+//----------------------------------------------------------//
+var quotes = ["Success is not the key to happiness. Happiness is the key to success. If you love what you are doing, you will be successful. - Albert Schweitzer",
+"Try not to become a man of success but a man of value. - Albert Einstein", 
+"Happiness is when what you think, what you say, and what you do are in harmony. - Mahatma Gandhi"];
 
-function scrollForecastWin(event) {
-    event.preventDefault();
 
-    window.scrollTo(0, 650);
+
+//----------------------------------------------------------//
+//             Nav Bar Date controls                        //
+//----------------------------------------------------------//
+
+$(document).ready(function(){
+    var date = moment().format('MM/DD/YY');
+    $("#navDate").html("Date: "+ date);
     
-}
-
-//----------------------------------------------------------//
-//           index.html scroll controls                     //
-//----------------------------------------------------------//
-  
-
-
+  });

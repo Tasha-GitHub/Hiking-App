@@ -5,6 +5,7 @@
 	background-image: url("../assets/images/background.jpg");
 	height: 590px;
 	text-align: left;
+	background-size: cover;
 
 }
 
@@ -22,6 +23,12 @@
 
 .display p {
 	padding: 0px 5px 0px 5px;
+}
+
+#navDate{
+	padding-left: 5px;
+	margin-left: 10px;
+
 }
 
 /*--------------forcast div styling --------*/

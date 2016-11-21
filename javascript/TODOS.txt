@@ -80,16 +80,18 @@ Weekend Plans
 	change api for weather
 	going to weather weatherunderground
 3. tasha
-	overlay with weather
+	- need team to see which one we like - overlay with weather
 	DONE - requires continual testing -> opentrails API be more robust
-	smooth scrolling
-	quote generator
-	add moment.js
+	DONE - smooth scrolling
+	- quote generator
+	DONE - add moment.js
 	DONE - shrink sidebar to map
 	DONE - make map touch bottom green bar
 	DONE - make a hikelikes(c)
 	DONE - firebase initialization
-	Almost DONE - investigate zoom bug
+	DONE - investigate zoom bug
+
+	comments -> noticed that buttons dont work on mobile on map
 
 4. jesse
 	autopopulate map side bar
