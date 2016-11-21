@@ -28,7 +28,7 @@ function showPosition(position) {
                 // ================================================================================
 
                 console.log(response.location.city);
-                var queryURLT = "https://api.wunderground.com/api/" + APIKey + "/forecast/q/" + response.location.city + "zmw:94125.1.99999.json";
+                var queryURLT = "https://api.wunderground.com/api/" + APIKey + "/forecast/q/" + response.location.city + "/zmw:94125.1.99999.json";
 
                 //get weather of the place found by lat and long
 
@@ -71,7 +71,7 @@ function showPosition(position) {
                 // ====================================Forecast from lat and long ============================================================================
 
 
-                var queryURLF = "https://api.wunderground.com/api/" + APIKey + "/forecast10day/q/" + response.location.city + "zmw:94125.1.99999.json";
+                var queryURLF = "https://api.wunderground.com/api/" + APIKey + "/forecast10day/q/" + response.location.city + "/zmw:94125.1.99999.json";
 
                 $.ajax({
                     url: queryURLF,
@@ -122,7 +122,7 @@ $("#weatherSubmitButton").on("click", function(event) {
     var zipOrCity = $("#weatherZipCode").val();
 
 
-    var queryURLB = "https://api.wunderground.com/api/" + APIKey + "/forecast/q/" + zipOrCity + "zmw:94125.1.99999.json";
+    var queryURLB = "https://api.wunderground.com/api/" + APIKey + "/forecast/q/" + zipOrCity + "/zmw:94125.1.99999.json";
     console.log(queryURLB);
 
 
@@ -161,7 +161,7 @@ $("#weatherForecastButton").on("click", function(event) {
     $(".locationForecast").remove();
     event.preventDefault();
     var zipOrCity = $("#weatherZipCode").val();
-        var queryURL = "https://api.wunderground.com/api/" + APIKey + "/forecast10day/q/" + zipOrCity + "zmw:94125.1.99999.json";
+        var queryURL = "https://api.wunderground.com/api/" + APIKey + "/forecast10day/q/" + zipOrCity + "/zmw:94125.1.99999.json";
     $.ajax({
         url: queryURL,
         method: 'GET'
