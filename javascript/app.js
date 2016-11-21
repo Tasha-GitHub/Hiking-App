@@ -182,94 +182,27 @@ function createSoloMarker(pos, map, infowindow) {
 
 }
 
+// create marker creates one google marker and attaches an infowindow to that marker
 function createMarker(results) {
-    //console.log(results);
+    console.log("argument passed to createMarker", results);
     console.log("clickedTrail", clickedTrail);
-
-    var contentString;
-    var description;
-
-    // if name is present from openTrailsAPI add it to contentString
-    if (clickedTrail.name) {
-        var name = clickedTrail.name;
-        name = "<h5><em>" + name + "</em></h5>";
-        contentString += name;
-    }
-
-    if (clickedTrail.activities[0]) {
-        
-        // if thumbnail image is present from openTrailsAPI add it to contentString
-        if (clickedTrail.activities[0].thumbnail) {
-            var picture = clickedTrail.activities[0].thumbnail;
-            picture = "<img src='" + picture + "' alt='thumbnail' class='trailImage'><br>";
-            contentString += picture;
-        }
-
-        // if activity_type is present from openTrailsAPI add it to contentString
-        if (clickedTrail.activities[0].activity_type_name) {
-            var activity_type = clickedTrail.activities[0].activity_type_name;
-            activity_type = "<br><p class='activityType'><b>Type: </b>" + activity_type + "</p><br>";
-            contentString += activity_type;
-        }
-    }
-
-    if (clickedTrail.description) {
-        description = clickedTrail.description;
-        description = "<p><b>Description:</b></p><p class='trailDescription'>" + description + "</p><br>";
-        contentString += description;
-    } else if (clickedTrail.activities[0].description) {
-        description = clickedTrail.activities[0].description;
-        description = "<p><b>Description:</b></p><p class='trailDescription'>" + description + "</p><br>";
-        contentString += description;
-    }
-
-    if (clickedTrail.directions) {
-        var directions = clickedTrail.directions;
-        directions = "<p><b>Directions:</b></p><p class='trailDirections'>" + directions + "</p><br>";
-        contentString += directions;
-    }
-
-    if (clickedTrail.activities[0]) {
-        console.log("activities is there");
-        // if rating is present from openTrailsAPI add it to contentString
-        if (clickedTrail.activities[0].rating) {
-            var rating = clickedTrail.activities[0].rating;
-            rating = "<p class='trailRating'><b>Rating: </b>" + rating + "</p><br>";
-            contentString += rating;
-        }
-    }
-
-    else console.log("activities is not there");
-
-
-    //console.log(contentString);
 
     var pos = { lat: results[0][1], lng: results[0][2] };
 
-    map = new google.maps.Map(document.getElementById("mapGoesHere"), {
-        center: pos,
-        zoom: 15, 
-        scrollwheel: false,
-        zoomControl: false
+    map = createMap(pos, 10);
+
+    marker = new google.maps.Marker({
+        position: pos,
+        map: map,
+        title: results[0][0],
+        icon: "assets/images/icons/trekking_filled.png"
     });
 
-    for (var i = 0; i < results.length; i++) {
+    var infowindow = createInfoWindow();
 
-        var position = { lat: results[i][1], lng: results[i][2] };
-
-        infowindow = new google.maps.InfoWindow({
-            content: contentString
-        });
-
-        marker = new google.maps.Marker({
-            position: position,
-            map: map
-        });
-
-        marker.addListener('click', function() {
-            infowindow.open(map, marker);
-        });
-    }
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
+    });
 }
 
 // this function creates a google map
@@ -283,6 +216,8 @@ function createMap(pos, zoom) {
         zoomControl: false
 
     });
+
+    return map;
 }
 
 // this function is supposed to create a map on page load
@@ -345,6 +280,78 @@ function getMapSearchTerm() {
     mapSearch.val("");
     return searchTerm;
 }
+
+// build contentString for the infoWindow
+function createInfoWindow() {
+
+    // contentString is the string that will be passed to the infowindow
+    var contentString;
+
+    // description is the description received from openTrailsAPI
+    var description;
+
+    // if name is present from openTrailsAPI add it to contentString
+    if (clickedTrail.name) {
+        var name = clickedTrail.name;
+        name = "<h5><em>" + name + "</em></h5>";
+        contentString += name;
+    }
+
+    // first search to see if the activities array is present in the return from the openTrailsAPI. This avoids undefined errors
+    if (clickedTrail.activities[0]) {
+
+        // if thumbnail image is present from openTrailsAPI add it to contentString
+        if (clickedTrail.activities[0].thumbnail) {
+            var picture = clickedTrail.activities[0].thumbnail;
+            picture = "<img src='" + picture + "' alt='thumbnail' class='trailImage'><br>";
+            contentString += picture;
+        }
+
+        // if activity_type is present from openTrailsAPI add it to contentString
+        if (clickedTrail.activities[0].activity_type_name) {
+            var activity_type = clickedTrail.activities[0].activity_type_name;
+            activity_type = "<br><p class='activityType'><b>Type: </b>" + activity_type + "</p><br>";
+            contentString += activity_type;
+        }
+    }
+
+    // if activity_type is present from openTrailsAPI add it to contentString.
+    if (clickedTrail.description) {
+        console.log(clickedTrail.description);
+        description = clickedTrail.description;
+        description = "<p><b>Description:</b></p><p class='trailDescription'>" + description + "</p><br>";
+        contentString += description;
+    } else if (clickedTrail.activities[0]) {
+        if (clickedTrail.activities[0].description) {
+            description = clickedTrail.activities[0].description;
+            description = "<p><b>Description:</b></p><p class='trailDescription'>" + description + "</p><br>";
+            contentString += description;
+        }
+    }
+
+    // if directiosn is present from openTrailsAPI add it to the contentString
+    if (clickedTrail.directions) {
+        var directions = clickedTrail.directions;
+        directions = "<p><b>Directions:</b></p><p class='trailDirections'>" + directions + "</p><br>";
+        contentString += directions;
+    }
+
+    // add rating if present in the openTrailsAPI
+    if (clickedTrail.activities[0]) {
+        if (clickedTrail.activities[0].rating) {
+            var rating = clickedTrail.activities[0].rating;
+            rating = "<p class='trailRating'><b>Rating: </b>" + rating + "</p><br>";
+            contentString += rating;
+        }
+    }
+
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    return infowindow;
+}
+
 
 
 
