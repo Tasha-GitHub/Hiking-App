@@ -16,7 +16,6 @@ $(".navBtn").on("click", scrollWin);
 function scrollWin(event) {
     event.preventDefault();
     var sectionName = $(this).data("name");
-    // window.scrollTo(0, 1300);
     $('html, body').animate({
           scrollTop: $("."+sectionName).offset().top
         }, 1000);
@@ -27,10 +26,18 @@ function scrollWin(event) {
 //----------------------------------------------------------//
 //             Quote Generator controls                     //
 //----------------------------------------------------------//
-var quotes = ["Success is not the key to happiness. Happiness is the key to success. If you love what you are doing, you will be successful. - Albert Schweitzer",
+var quoteList = ["Be happy for this moment. This moment is your life. - Omar Khayyam",
 "Try not to become a man of success but a man of value. - Albert Einstein", 
-"Happiness is when what you think, what you say, and what you do are in harmony. - Mahatma Gandhi"];
+"Happiness is when what you think, what you say, and what you do are in harmony. -  Mahatma Gandhi"];
+var quoteNumb = 0;
+var currentQuote = quoteList[0];
 
+
+$(document).ready(function(){
+	var randNumb = Math.round(Math.random()*(quoteList.length-1));
+	currentQuote = quoteList[randNumb];
+	$(".quote").html("<p>"+ currentQuote +"</p>");
+  });
 
 
 //----------------------------------------------------------//

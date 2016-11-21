@@ -11,6 +11,7 @@
 
 .banner p, h1 {
 	padding-left: 10px;
+	font-weight: bold;
 
 }
 
@@ -165,12 +166,6 @@
 
 body{
 	background-color: #254A2A;
-}
-
-
-
-img{
-	width: 100px;
 }
 
 /*----------input form and button styling ------------------*/
