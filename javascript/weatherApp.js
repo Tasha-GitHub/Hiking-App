@@ -94,7 +94,7 @@ function showPosition(position) {
                         var forecast = $(".locationForecast").append("<div class=\"todayForecast\" ><p><h5>" + response.forecast.simpleforecast.forecastday[i].date.weekday +
                             "</h5></p><p><h6><b>" + response.forecast.simpleforecast.forecastday[i].date.monthname + " " + response.forecast.simpleforecast.forecastday[i].date.day +
                             "</b></h6></p><p><h4>" + avgtempforecast[i] +
-                            "<sup>o</sup>F</h4></p><img id =\"weatherIcon\" width =30px heigth= 40px src=" + response.forecast.simpleforecast.forecastday[i].icon_url +
+                            "<sup>o</sup>F</h4></p><img id =\"weatherIcon\"  src=" + response.forecast.simpleforecast.forecastday[i].icon_url +
                             "><p><h6>" + response.forecast.simpleforecast.forecastday[i].conditions +
                             " </h6></p><p>Humid " + response.forecast.simpleforecast.forecastday[i].avehumidity +
                             " %</p><p>H: " + response.forecast.simpleforecast.forecastday[i].high.fahrenheit +
@@ -192,8 +192,7 @@ $("#weatherForecastButton").on("click", function(event) {
 
 
         }
-        // $("#weatherIcon").css("width", "70px");
-        // $("#weatherIcon").css("height", "70px");
+       
 
     });
 
