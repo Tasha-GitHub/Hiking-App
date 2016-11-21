@@ -65,7 +65,6 @@ function showPosition(position) {
                 });
 
 
-                // ====================================Forecast from lat and long ============================================================================
 
 
                 var queryURLF = "https://api.wunderground.com/api/" + APIKey + "/forecast10day/q/" + response.location.city + "/zmw:94125.1.99999.json";
@@ -188,11 +187,8 @@ $("#weatherForecastButton").on("click", function(event) {
                 " <sup>o</sup>F</p>" + " " + "<p>L: " + response.forecast.simpleforecast.forecastday[i].low.fahrenheit + " <sup>o</sup>F</p></div>");
             var p = $(".dailyForecast").append(forecast);
 
-
-
-
         }
-       
+
 
     });
 
