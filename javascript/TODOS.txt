@@ -81,14 +81,14 @@ Weekend Plans
 	going to weather weatherunderground
 3. tasha
 	overlay with weather
-	opentrails API be more robust
+	DONE - requires continual testing -> opentrails API be more robust
 	smooth scrolling
 	quote generator
 	add moment.js
-	shrink sidebar to map
+	DONE - shrink sidebar to map
 	DONE - make map touch bottom green bar
 	DONE - make a hikelikes(c)
-	firebase initialization
+	DONE - firebase initialization
 	Almost DONE - investigate zoom bug
 
 4. jesse
