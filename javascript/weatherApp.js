@@ -1,29 +1,19 @@
-var APIKey = "166a433c57516f51dfab1f7edaed8413";
-
+var APIKey = "1e1c93d157bd7be6";
 
 var x = document.getElementById("dayForecast");
-// var latitute = "";
-// var longitude = "";
 
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
-        // latitute = position.coords.latitude;
-        // longitude = position.coords.longitude;
-
     } else {
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
-
 }
 
 function showPosition(position) {
-    console.log("Latitude: " + position.coords.latitude);
-    console.log("Longitude: " + position.coords.longitude);
-
     $(document).ready(function() {
-        var queryURLBase = "http://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&units=imperial&appid=" + APIKey;
-        console.log("today: " + queryURLBase);
+        //======================GET LOCATION NAME FROM LAT AND LONG================================================================
+        var queryURLBase = "https://api.wunderground.com/api/" + APIKey + "/geolookup/q/" + position.coords.latitude + "," + position.coords.longitude + ".json";
 
         $.ajax({
                 url: queryURLBase,
@@ -31,130 +21,179 @@ function showPosition(position) {
             })
             .done(function(response) {
                 console.log(response);
-                var forecast = $(".locationWeather").append("<div class=\"dayForecast\" ><h4>" + response.name + "</h4><p>Wind: " + response.wind.speed +
-                    " MPH</p><p>Humidity: " + response.main.humidity +
-                    " %</p><p>Pressure: " + response.main.pressure +
-                    " PSI</p><p>Max Temp: " + response.main.temp_max +
-                    " F</p><p>Min Temp: " + response.main.temp_min + " F</p></div>");
-                var p = $(".locationWeather").append(forecast);
+                console.log("LAT LONG CITY: " + response.location.city);
+                city = response.location.city;
+                // ================================================================================
+                var c = $("#cityName").text(response.location.city);
+                // ================================================================================
 
-            });
+                console.log(response.location.city);
+                var queryURLT = "https://api.wunderground.com/api/" + APIKey + "/forecast/q/" + response.location.city + "/zmw:94125.1.99999.json";
 
-        var queryURLBase = "http://api.openweathermap.org/data/2.5/forecast?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&units=imperial&appid=" + APIKey;
-        console.log("forecast: " + queryURLBase);
+                //get weather of the place found by lat and long
 
-        $.ajax({
-                url: queryURLBase,
-                method: 'GET'
-            })
-            .done(function(response) {
-                console.log(response);
-                var results = response.list;
-                $(".dailyForecast").empty();
-                for (var i = 2; i < 24; i++) {
+                $.ajax({
+                    url: queryURLT,
+                    method: 'GET'
+                })
 
-                    var date = results[i].dt_txt;
-                    var convertedDate = moment(new Date(date));
-                    var day = moment(convertedDate).format("dddd");
+                .done(function(response) {
+                    console.log("URL current city: " + queryURLT);
+                    console.log("current city JSON: " + response);
+                    $(".locationWeather").empty();
 
-                    var forecast = $(".locationForecast").append("<div class=\"dayForecast\" ><h4>" + day + "</h4><p>Wind: " + results[i].wind.speed +
-                        " MPH</p><p>Humidity: " + results[i].main.humidity +
-                        " %</p><p>Pressure: " + results[i].main.pressure +
-                        " PSI</p><p>Max Temp: " + results[i].main.temp_max +
-                        " F</p><p>Min Temp: " + results[i].main.temp_min + " F</p></div>");
-                    var p = $(".locationForecast").append(forecast);
-                    i = i + 7;
 
-                }
+                    var avgtemp;
+                    for (var i = 0; i < 1; i++) {
+                        //calculate avg temperature
+                        a = (parseInt(response.forecast.simpleforecast.forecastday[i].high.fahrenheit) + parseInt(response.forecast.simpleforecast.forecastday[i].low.fahrenheit));
+                        avgtemp = a / 2;
+                        console.log(response.forecast.simpleforecast.forecastday[i].high.fahrenheit, response.forecast.simpleforecast.forecastday[i].low.fahrenheit);
 
+                        //display weather conditions
+
+                        var forecast = $(".locationWeather").append("<div class=\"todayForecast\" ><p><h5>" + response.forecast.simpleforecast.forecastday[i].date.weekday +
+                            "</h5></p><p><h6><b>" + response.forecast.simpleforecast.forecastday[i].date.monthname + " " + response.forecast.simpleforecast.forecastday[i].date.day +
+                            "</b></h6></p><p><h4>" + avgtemp +
+                            "<sup>o</sup>F</h4></p><p><h6>" + response.forecast.txt_forecast.forecastday[i].fcttext +
+                            " </h6></p></div>");
+
+                        var p = $(".locationWeather").append(forecast);
+
+
+                        $("#demo").append("<img id =\"weatherIcon\" width =40px heigth= 50px src=" + response.forecast.simpleforecast.forecastday[i].icon_url + ">");
+
+
+                    }
+                });
+
+
+                // ====================================Forecast from lat and long ============================================================================
+
+
+                var queryURLF = "https://api.wunderground.com/api/" + APIKey + "/forecast10day/q/" + response.location.city + "/zmw:94125.1.99999.json";
+
+                $.ajax({
+                    url: queryURLF,
+                    method: 'GET'
+                })
+
+                .done(function(response) {
+                    console.log("URL current city Forecast:" + queryURLF);
+                    console.log("current city JSON Forecast: " + response.forecast);
+                    $(".locationForecast").empty();
+
+                    var avgtempforecast = [];
+
+                    for (var i = 0; i < 5; i++) {
+                        console.log(response.forecast.simpleforecast.forecastday[i].high.fahrenheit, response.forecast.simpleforecast.forecastday[i].low.fahrenheit);
+                        var a = [];
+                        a[i] = (parseInt(response.forecast.simpleforecast.forecastday[i].high.fahrenheit) + parseInt(response.forecast.simpleforecast.forecastday[i].low.fahrenheit));
+                        avgtempforecast[i] = a[i] / 2;
+
+                        console.log("AVG TEMP : " + avgtempforecast[i]);
+                        console.log("a: " + a[i]);
+
+                        var forecast = $(".locationForecast").append("<div class=\"todayForecast\" ><p><h5>" + response.forecast.simpleforecast.forecastday[i].date.weekday +
+                            "</h5></p><p><h6><b>" + response.forecast.simpleforecast.forecastday[i].date.monthname + " " + response.forecast.simpleforecast.forecastday[i].date.day +
+                            "</b></h6></p><p><h4>" + avgtempforecast[i] +
+                            "<sup>o</sup>F</h4></p><img id =\"weatherIcon\" width =30px heigth= 40px src=" + response.forecast.simpleforecast.forecastday[i].icon_url +
+                            "><p><h6>" + response.forecast.simpleforecast.forecastday[i].conditions +
+                            " </h6></p><p>Humid " + response.forecast.simpleforecast.forecastday[i].avehumidity +
+                            " %</p><p>H: " + response.forecast.simpleforecast.forecastday[i].high.fahrenheit +
+                            " <sup>o</sup>F</p>" + " " + "<p>L: " + response.forecast.simpleforecast.forecastday[i].low.fahrenheit + " <sup>o</sup>F</p></div>");
+                        var p = $(".locationForecast").append(forecast);
+
+
+                    }
+                });
             });
     });
 
 }
-
 getLocation();
 
-
-
-// var queryURLBase = "http://api.openweathermap.org/data/2.5/weather?lat=" + 35 + "&lon=" + +"&units=imperial&appid=" + APIKey;
-
+// ================================================weather of different location===================================
 $("#weatherSubmitButton").on("click", function(event) {
+    //remove the location based weather before displaying the search query weather
     $(".locationWeather").remove();
+    //     $
     event.preventDefault();
     var zipOrCity = $("#weatherZipCode").val();
 
-    if (zipOrCity == $.isNumeric()) {
-        var queryURL = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipOrCity + "&units=imperial&appid=" + APIKey;
-        console.log(queryURL);
-    } else {
-        var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + zipOrCity + "&units=imperial&appid=" + APIKey;
-        console.log(queryURL);
-    }
+
+    var queryURLB = "https://api.wunderground.com/api/" + APIKey + "/forecast/q/" + zipOrCity + "/zmw:94125.1.99999.json";
+    console.log(queryURLB);
+
+
     $.ajax({
-        url: queryURL,
+        url: queryURLB,
         method: 'GET'
     })
 
     .done(function(response) {
-        console.log(queryURL);
+        console.log(queryURLB);
         console.log(response);
-        // Transfer content to HTML
-        $(".city").html("<h3>" + response.name + " </h3>");
-        $(".wind").html("<p>Wind Speed: " + response.wind.speed + " MPH</p>");
-        $(".humidity").html("<p>Humidity: " + response.main.humidity + " %</p>");
-        $(".temp_max").html("<p>Max Temp: " + response.main.temp_max + " F</p>");
-        $(".temp_min").html("<p>Min Temp: " + response.main.temp_min + " F</p>");
-        $(".visibility").html("<p>Visibility: " + response.visibility + " mi</p>");
-        // Log the data in the console as well
-        console.log("Wind Speed: " + response.wind.speed);
-        console.log("Humidity: " + response.main.humidity);
-        console.log("Temperature (F): " + response.main.temp_max);
-        console.log("Temperature (F): " + response.main.temp_min);
+        $(".todaysWeather").empty();
 
+        var avgtemp;
+        for (var i = 0; i < 1; i++) {
+            //calculate avg temperature
+            var a = (parseInt(response.forecast.simpleforecast.forecastday[i].high.fahrenheit) + parseInt(response.forecast.simpleforecast.forecastday[i].low.fahrenheit));
+            avgtemp = a / 2;
+            console.log(response.forecast.simpleforecast.forecastday[i].high.fahrenheit, response.forecast.simpleforecast.forecastday[i].low.fahrenheit);
 
+            //display weather conditions
+            var forecast = $(".todaysWeather").append("<div class=\"todayForecast\" ><p><h5>" + response.forecast.simpleforecast.forecastday[i].date.weekday +
+                "</h5></p><p><h6><b>" + response.forecast.simpleforecast.forecastday[i].date.monthname + " " + response.forecast.simpleforecast.forecastday[i].date.day +
+                "</b></h6></p><p><h4>" + avgtemp +
+                "<sup>o</sup>F</h4></p><p><h6>" + response.forecast.txt_forecast.forecastday[i].fcttext +
+                " </h6></p></div>");
+            var p = $(".todaysWeather").append(forecast);
+
+            $("#demo").append("<img id =\"weatherIcon\" width =40px heigth= 50px src=" + response.forecast.simpleforecast.forecastday[i].icon_url + ">");
+        }
     });
 });
+
 
 $("#weatherForecastButton").on("click", function(event) {
     $(".locationForecast").remove();
     event.preventDefault();
     var zipOrCity = $("#weatherZipCode").val();
-
-    if (zipOrCity == $.isNumeric()) {
-        var queryURL = "http://api.openweathermap.org/data/2.5/forecast?zip=" + zipOrCity + "&units=imperial&appid=" + APIKey;
-        console.log(queryURL);
-    } else {
-        var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + zipOrCity + "&units=imperial&appid=" + APIKey;
-        console.log(queryURL);
-    }
+        var queryURL = "https://api.wunderground.com/api/" + APIKey + "/forecast10day/q/" + zipOrCity + "/zmw:94125.1.99999.json";
     $.ajax({
         url: queryURL,
         method: 'GET'
     })
 
     .done(function(response) {
+        console.log(queryURL);
+        console.log("CURRENT: " + response);
 
-        // console.log(queryURL);
-        // console.log("response");
-        console.log(response.city.name);
-        // $(".city").html("<h3>" + response.city.name + " Weather</h3>");
-
-        var results = response.list;
         $(".dailyForecast").empty();
-        for (var i = 2; i < 24; i++) {
+        var avgtempforecast = [];
+        for (var i = 0; i < 5; i++) {
+            var a = [];
+            a[i] = (parseInt(response.forecast.simpleforecast.forecastday[i].high.fahrenheit) + parseInt(response.forecast.simpleforecast.forecastday[i].low.fahrenheit));
+            avgtempforecast[i] = a[i] / 2;
 
-            var date = results[i].dt_txt;
-            var convertedDate = moment(new Date(date));
-            var day = moment(convertedDate).format("dddd");
+            // console.log("AVG TEMP : "+ avgtempforecast[i]);
+            // console.log("a: "+ a[i]);
 
-            var forecast = $(".dailyForecast").append("<div class=\"dayForecast\" ><h4>" + day + "</h4><p>Wind: " + results[i].wind.speed +
-                " MPH</p><p>Humidity: " + results[i].main.humidity +
-                " %</p><p>Pressure: " + results[i].main.pressure +
-                " PSI</p><p>Max Temp: " + results[i].main.temp_max +
-                " F</p><p>Min Temp: " + results[i].main.temp_min + " F</p></div>");
+            var forecast = $(".dailyForecast").append("<div class=\"todayForecast\" ><p><h5>" + response.forecast.simpleforecast.forecastday[i].date.weekday +
+                "</h5></p><p><h6><b>" + response.forecast.simpleforecast.forecastday[i].date.monthname + " " + response.forecast.simpleforecast.forecastday[i].date.day +
+                "</b></h6></p><p><h4>" + avgtempforecast[i] +
+                "<sup>o</sup>F</h4></p><img id =\"weatherIcon\" width =30px heigth= 40px src=" + response.forecast.simpleforecast.forecastday[i].icon_url +
+                "><p><h6>" + response.forecast.simpleforecast.forecastday[i].conditions +
+                " </h6></p><p>Humid " + response.forecast.simpleforecast.forecastday[i].avehumidity +
+                "  %</p><p>H: " + response.forecast.simpleforecast.forecastday[i].high.fahrenheit +
+                " <sup>o</sup>F</p>" + " " + "<p>L: " + response.forecast.simpleforecast.forecastday[i].low.fahrenheit + " <sup>o</sup>F</p></div>");
             var p = $(".dailyForecast").append(forecast);
-            i = i + 7;
 
         }
     });
+
+
+
 });
