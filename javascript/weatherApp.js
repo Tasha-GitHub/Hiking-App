@@ -20,14 +20,14 @@ function showPosition(position) {
                 method: 'GET'
             })
             .done(function(response) {
-                console.log(response);
-                console.log("LAT LONG CITY: " + response.location.city);
+                // console.log(response);
+                // console.log("LAT LONG CITY: " + response.location.city);
                 city = response.location.city;
                 // ================================================================================
                 var c = $("#cityName").text(response.location.city);
                 // ================================================================================
 
-                console.log(response.location.city);
+                // console.log(response.location.city);
                 var queryURLT = "https://api.wunderground.com/api/" + APIKey + "/forecast/q/" + response.location.city + "/zmw:94125.1.99999.json";
 
                 //get weather of the place found by lat and long
@@ -48,7 +48,7 @@ function showPosition(position) {
                         //calculate avg temperature
                         a = (parseInt(response.forecast.simpleforecast.forecastday[i].high.fahrenheit) + parseInt(response.forecast.simpleforecast.forecastday[i].low.fahrenheit));
                         avgtemp = a / 2;
-                        console.log(response.forecast.simpleforecast.forecastday[i].high.fahrenheit, response.forecast.simpleforecast.forecastday[i].low.fahrenheit);
+                        // console.log(response.forecast.simpleforecast.forecastday[i].high.fahrenheit, response.forecast.simpleforecast.forecastday[i].low.fahrenheit);
 
                         //display weather conditions
 
@@ -79,8 +79,8 @@ function showPosition(position) {
                 })
 
                 .done(function(response) {
-                    console.log("URL current city Forecast:" + queryURLF);
-                    console.log("current city JSON Forecast: " + response.forecast);
+                    // console.log("URL current city Forecast:" + queryURLF);
+                    // console.log("current city JSON Forecast: " + response.forecast);
                     $(".locationForecast").empty();
 
                     var avgtempforecast = [];
@@ -123,7 +123,7 @@ $("#weatherSubmitButton").on("click", function(event) {
 
 
     var queryURLB = "https://api.wunderground.com/api/" + APIKey + "/forecast/q/" + zipOrCity + "/zmw:94125.1.99999.json";
-    console.log(queryURLB);
+    // console.log(queryURLB);
 
 
     $.ajax({
@@ -132,8 +132,8 @@ $("#weatherSubmitButton").on("click", function(event) {
     })
 
     .done(function(response) {
-        console.log(queryURLB);
-        console.log(response);
+        // console.log(queryURLB);
+        // console.log(response);
         $(".todaysWeather").empty();
 
         var avgtemp;
@@ -141,7 +141,7 @@ $("#weatherSubmitButton").on("click", function(event) {
             //calculate avg temperature
             var a = (parseInt(response.forecast.simpleforecast.forecastday[i].high.fahrenheit) + parseInt(response.forecast.simpleforecast.forecastday[i].low.fahrenheit));
             avgtemp = a / 2;
-            console.log(response.forecast.simpleforecast.forecastday[i].high.fahrenheit, response.forecast.simpleforecast.forecastday[i].low.fahrenheit);
+            // console.log(response.forecast.simpleforecast.forecastday[i].high.fahrenheit, response.forecast.simpleforecast.forecastday[i].low.fahrenheit);
 
             //display weather conditions
             var forecast = $(".todaysWeather").append("<div class=\"todayForecast\" ><p><h5>" + response.forecast.simpleforecast.forecastday[i].date.weekday +
@@ -168,8 +168,8 @@ $("#weatherForecastButton").on("click", function(event) {
     })
 
     .done(function(response) {
-        console.log(queryURL);
-        console.log("CURRENT: " + response);
+        // console.log(queryURL);
+        // console.log("CURRENT: " + response);
 
         $(".dailyForecast").empty();
         var avgtempforecast = [];
