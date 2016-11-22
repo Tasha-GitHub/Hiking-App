@@ -111,5 +111,5 @@ BUG FIXES
 - update button will pull a zip code without having anything typed in.
 - some trail links wont load on the google map
 - hike-likes has no updates when user can not post URL
-
+- generate daily forcast without <p> tags and with data-number values of 1-5;
 
