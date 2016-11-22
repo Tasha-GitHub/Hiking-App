@@ -9,27 +9,27 @@ Group Ideas:
 			2. pick a date.
 			3. create a checklist:
 				a. water, food, overnight?, etc.
+		b. add a hike (location, etc.)
+			1. use firebase
+				rating, dog friendly, location, sports, facilities, state operated, whatever.
 
 
 INDEX.HTML
 
-- Put green separator bar underneath map for symmetry with other sections
 
 - use moment.js to put today's date on the site. probably next to the weather
 
 - maybe add background graphic to Map Section Header
 
-- fix zipcode search to repopulate map
-
 - make text search for parks possible
 
-- today's weather and 3-day forecast should populate current location if no number is given in Today's forecast
+DONE -> will need to be checked again with new API - today's weather and 3-day forecast should populate current location if no number is given in Today's forecast
 
 - inspirational quote not randomized
 
 - map needs to autoload.
 
-- weather needs to autoload. --- Done 
+DONE -> will need to be checked again with new API - weather needs to autoload.
 
 - set up multiple pictures for main image?
 
@@ -63,4 +63,53 @@ openTrail.js
 2. does openTrail provide a summary to the park? some kind of synopsis about the park and the facilities it provides.
 3. dog friendly?
 4. difficulty?
+
+weatherAPI
+1. redo with new https API
+
+
+Weekend Plans
+1. jess on contact page
+	centered pictures
+	styling
+	footer
+	width = 100%
+	buttons become images
+		change <button> to <img> add src
+2. shweta
+	change api for weather
+	going to weather weatherunderground
+3. tasha
+	- need team to see which one we like - overlay with weather
+	DONE - requires continual testing -> opentrails API be more robust
+	DONE - smooth scrolling
+	DONE - quote generator
+	DONE - add moment.js
+	DONE - shrink sidebar to map
+	DONE - make map touch bottom green bar
+	DONE - make a hikelikes(c)
+	DONE - firebase initialization
+	DONE - investigate zoom bug
+
+	comments -> noticed that buttons dont work on mobile on map
+
+4. jesse
+	autopopulate map side bar
+	make markers infowindow correct
+		infowindows have pictures synopsis, name, address, rating, etc.
+	figure out Centennial thing check variables and ids
+	figuring out adaptive map zoom
+	make message if no results
+	click submit with nothing, autopopulate with current place
+	radio for searches? probably not
+	search for nonplaces radio button / nope
+	disable autorezoom
+		or make still image
+
+
+BUG FIXES
+- update button will pull a zip code without having anything typed in.
+- some trail links wont load on the google map
+- hike-likes has no updates when user can not post URL
+- generate daily forcast without <p> tags and with data-number values of 1-5;
 

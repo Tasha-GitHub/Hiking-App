@@ -60,6 +60,13 @@ body {
 	background-image: url("../assets/images/forestbackground.jpg");
 }
 
+header{
+	border-width: 25px;
+	border-style: none none solid none;
+}
 
+main {
+	height: 100vh;
+}
 
 

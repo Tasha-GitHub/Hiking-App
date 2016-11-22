@@ -1,0 +1,43 @@
+h1 { 
+	text-align: center;
+}
+
+.photoForm {
+	display: flex;
+	justify-content: center;
+
+}
+
+#photoSubmitForm {
+	width: 300px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+
+}
+
+#photoInput, #locationInput {
+	width: 300px;
+}
+
+
+.photoBlock {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	text-align: center;
+
+}
+
+.photo img{
+	height: 200px;
+	widows: 200px;
+	margin: 10px;
+}
+
+h3.capitalize {
+
+    text-transform: capitalize;
+
+}

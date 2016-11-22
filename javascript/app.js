@@ -1,9 +1,12 @@
+// experiment with strict mode
+"use strict";
+
 // ---------- GLOBAL VARIABLES ----------
 // variable to hold the navigator.geolocation coordinates
 var userLocation;
 
 // variable for google api geocoding
-var geoCoder;
+var geocoder;
 
 // variable for google api map
 var map;
@@ -15,21 +18,27 @@ var marker;
 var service;
 
 // variable for google infowindow
-var infoWindow;
+var infowindow;
 
 // variable to hold the value of #mapZipCode text input field
 var mapZipCode;
 
+// variable to hold the city name from the reverse google geocode
+var cityName;
+
 // variable to hold the city based on the zipcode inputted by the user in #mapZipCode text input field
 var googleMapsCity;
 
-// API key
-var keyTag = "&key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8";
+// variable to pass details from openTrailsAPI to google marker
+var clickedTrail;
+
+// API keyTag = "&key=AIzaSyCNpDZ-opNGQ_O4Tj5Fh9JaymUItYJ60b8";
 
 // ---------- LOCATORS ----------
 //the submit button
 var submitButton = $("#submitButton");
 var availableTrails = $(".availableTrails");
+var mapSearch = $("#mapZipCode");
 
 // ---------- CLICKLISTENERS ----------
 
@@ -37,7 +46,19 @@ var availableTrails = $(".availableTrails");
 submitButton.on("click", function(e) {
     e.preventDefault();
 
-    searchAddress();
+    var searchTerm = getMapSearchTerm();
+
+    // if there is no input in text field, load a map of the user's current location
+    if (searchTerm.length === 0) {
+        initMap(userLocation);
+
+        // if there is input in the text field, load a map showing the result of the user's text
+        // include multiple marker's on the map for each location in sidebar
+        // have the map center on the zipcode of the search, but have the map populated with markers    
+    } else {
+        // on button click run google geocode search
+        searchAddress(searchTerm);
+    }
 
 });
 
@@ -49,51 +70,57 @@ $(document).on("click", ".trail", getTrail);
 // this function gets the name of the openAPI generated trail and passes it to a googleMapsTextSearch
 function getTrail() {
     var trailName = $(this).data("name");
-    console.log(trailName);
     googleMapsTextSearch(trailName);
+
+    for (var i = 0; i < trails.places.length; i++) {
+        if (trails.places[i].name.indexOf(trailName) >= 0) {
+            clickedTrail = trails.places[i];
+        }
+    }
 }
 
 // this function uses HTML5 navigator.geolocation to generate a latlng
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-
-            // save the user's location in a global variable
-            userLocation = pos;
-            //console.log(pos);
-        });
+        navigator.geolocation.getCurrentPosition(getPositionSuccess, getPositionError);
     }
 }
 
 // performs search through Google API
-function searchAddress() {
-
-    // get the value from the map section text input field
-    mapZipCode = $("#mapZipCode").val().trim();
+function searchAddress(searchTerm) {
 
     // pass user's input to addressInput. May add more terms to this through concatenation.
-    addressInput = mapZipCode;
+    var addressInput = searchTerm;
 
     // user Google geocode to find more complete address information from user's input
-    var geocoder = new google.maps.Geocoder();
+    geocoder = new google.maps.Geocoder();
 
     geocoder.geocode({ address: addressInput }, function(results, status) {
-        //console.log(results);
+        console.log("geocode results", results);
 
         // if geocode was successful
         if (status == google.maps.GeocoderStatus.OK) {
 
-            // get 
+            // local variables
+            var position = {
+                lat: results[0].geometry.location.lat(),
+                lng: results[0].geometry.location.lng()
+            };
+
+            // get local address
             var myResult = results[0].formatted_address;
-            var pos = myResult.indexOf(",");
-            googleMapsCity = myResult.substr(0, pos).toLowerCase();
+
+            // get city name by splicing the string myResult
+            var indexSpot = myResult.indexOf(",");
+            googleMapsCity = myResult.substr(0, indexSpot).toLowerCase();
+            //console.log("googleMapsCity", googleMapsCity);
 
             // run openTrailsAPI()
-            openTrailsAPI();
+            openTrailsAPI(googleMapsCity);
+
+            // createMap showing zipcode searched
+            createMap(position, 10);
+
         }
         // if geocode was not successful, console log error and attempt
         else console.log("geocode was not successful.", status);
@@ -101,6 +128,7 @@ function searchAddress() {
 
 }
 
+// this function is supposed to perform a search for nearby parks around the user
 function nearbyParksSearch() {
 
     var request = {
@@ -115,8 +143,9 @@ function nearbyParksSearch() {
 
 }
 
+// nearbyParksSearch and textSearch utilize this callback once they receive their results
 function callback(results, status) {
-    console.log(results);
+    console.log("callback results", results);
     var locations = [];
 
     if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -140,59 +169,210 @@ function callback(results, status) {
     }
 }
 
+function createSoloMarker(pos, map, infowindow) {
+
+    marker = new google.maps.Marker({
+        position: pos,
+        map: map
+    });
+
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
+    });
+
+}
+
+// create marker creates one google marker and attaches an infowindow to that marker
 function createMarker(results) {
-    //console.log(results);
+    console.log("argument passed to createMarker", results);
+    console.log("clickedTrail", clickedTrail);
 
     var pos = { lat: results[0][1], lng: results[0][2] };
 
+    map = createMap(pos, 10);
+
+    marker = new google.maps.Marker({
+        position: pos,
+        map: map,
+        title: results[0][0],
+        icon: "assets/images/icons/trekking_filled.png"
+    });
+
+    var infowindow = createInfoWindow();
+
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
+    });
+}
+
+// this function creates a google map
+function createMap(pos, zoom) {
+
     map = new google.maps.Map(document.getElementById("mapGoesHere"), {
+
         center: pos,
-        zoom: 15
+        zoom: zoom,
+        scrollwheel: false,
+        zoomControl: false
+
     });
 
-    for (var i = 0; i < results.length; i++) {
+    return map;
+}
 
-        var pos = { lat: results[i][1], lng: results[i][2] };
-        console.log(pos);
-        var name = results[i][0];
-        console.log(name);
+// this function is supposed to create a map on page load
+function initMap(position) {
 
-        var contentString = '<div id="content">' +
-            '<div id="siteNotice">' +
-            '</div>' +
-            '<h5 id="firstHeading" class="firstHeading"><em>' + name + '</em></h5>' +
-            '<div id="bodyContent">' +
-            '' +
-            '</div>' +
-            '</div>';
+    createMap(position, 10);
 
-        var infowindow = new google.maps.InfoWindow({
-            content: contentString
-        });
+    var contentString =
+        '<div id="content">' +
+        '<div id="siteNotice">' +
+        '</div>' +
+        '<h5 id="firstHeading" class="firstHeading"><em>' + "You are here!" + '</em></h5>' +
+        '<div id="bodyContent">' +
+        '</div>' +
+        '</div>';
 
-        marker = new google.maps.Marker({
-            position: pos,
-            map: map
-        });
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
 
-        marker.addListener('click', function() {
-            infowindow.open(map, marker);
-        });
+    createSoloMarker(userLocation, map, infowindow);
+}
+
+// pass searchTerm to google's text search service
+function googleMapsTextSearch(searchTerm) {
+
+    var request = {
+        query: searchTerm
+    };
+
+    service = new google.maps.places.PlacesService(map);
+    service.textSearch(request, callback);
+
+}
+
+// success function for navigator.geolocator
+function getPositionSuccess(success) {
+    userLocation = {
+        lat: success.coords.latitude,
+        lng: success.coords.longitude
+    };
+
+    // create map on startup
+    initMap(userLocation);
+
+    //nearbyParksSearch();
+
+    alertify.success("Thank you for letting Hike Finder know your location.");
+}
+
+// error function for navigator.geolocator
+function getPositionError(error) {
+    alertify.error("Please allow Hike Finder to know your location.");
+    console.log(error);
+}
+
+// get the search term in the map text input field
+function getMapSearchTerm() {
+    var searchTerm = mapSearch.val();
+    mapSearch.val("");
+    return searchTerm;
+}
+
+// build contentString for the infoWindow
+function createInfoWindow() {
+
+    // contentString is the string that will be passed to the infowindow
+    var contentString;
+
+    // description is the description received from openTrailsAPI
+    var description;
+
+    // if name is present from openTrailsAPI add it to contentString
+    if (clickedTrail.name) {
+        var name = clickedTrail.name;
+        name = "<h5><em>" + name + "</em></h5>";
+        contentString += name;
     }
-}
 
-// this function is supposed to create a map
-function initMap() {
-    map = new google.maps.Map(document.getElementById('mapGoesHere'), {
-        // center the map on the user's coordinates
-        center: userLocation,
-        // the level of zoom for the map. lower is further away. higher is closer to street level
-        zoom: 10
+    // first search to see if the activities array is present in the return from the openTrailsAPI. This avoids undefined errors
+    if (clickedTrail.activities[0]) {
+
+        // if thumbnail image is present from openTrailsAPI add it to contentString
+        if (clickedTrail.activities[0].thumbnail) {
+            var picture = clickedTrail.activities[0].thumbnail;
+            picture = "<img src='" + picture + "' alt='thumbnail' class='trailImage'><br>";
+            contentString += picture;
+        }
+
+        // if activity_type is present from openTrailsAPI add it to contentString
+        if (clickedTrail.activities[0].activity_type_name) {
+            var activity_type = clickedTrail.activities[0].activity_type_name;
+            activity_type = "<br><p class='activityType'><b>Type: </b>" + activity_type + "</p><br>";
+            contentString += activity_type;
+        }
+    }
+
+    // if activity_type is present from openTrailsAPI add it to contentString.
+    if (clickedTrail.description) {
+        console.log(clickedTrail.description);
+        description = clickedTrail.description;
+        description = "<p><b>Description:</b></p><p class='trailDescription'>" + description + "</p><br>";
+        contentString += description;
+    } else if (clickedTrail.activities[0]) {
+        if (clickedTrail.activities[0].description) {
+            description = clickedTrail.activities[0].description;
+            description = "<p><b>Description:</b></p><p class='trailDescription'>" + description + "</p><br>";
+            contentString += description;
+        }
+    }
+
+    // if directiosn is present from openTrailsAPI add it to the contentString
+    if (clickedTrail.directions) {
+        var directions = clickedTrail.directions;
+        directions = "<p><b>Directions:</b></p><p class='trailDirections'>" + directions + "</p><br>";
+        contentString += directions;
+    }
+
+    // add rating if present in the openTrailsAPI
+    if (clickedTrail.activities[0]) {
+        if (clickedTrail.activities[0].rating) {
+            var rating = clickedTrail.activities[0].rating;
+            rating = "<p class='trailRating'><b>Rating: </b>" + rating + "</p><br>";
+            contentString += rating;
+        }
+    }
+
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
     });
 
-    createMarker(userLocation);
+    return infowindow;
 }
 
+
+
+
+// function to use on page start
+function startUp() {
+    getLocation();
+    searchAddress(userLocation);
+
+
+}
+
+// ---------- STARTUP CODE ----------
+startUp();
+
+
+
+
+// DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE DEAD CODE
+
+// !!!!!!!!!! CURRENTLY NOT BEING USED !!!!!!!!!!
+// creates a side bar of text input fields
 function createSideBar() {
 
     var createArray = ["street", "city", "state", "zipcode"];
@@ -224,24 +404,3 @@ function createSideBar() {
     }
 
 }
-
-function googleMapsTextSearch(searchTerm) {
-
-    var request = {
-        query: searchTerm
-    }
-
-    service = new google.maps.places.PlacesService(map);
-    service.textSearch(request, callback);
-
-
-}
-
-// function to use on page start
-function startUp() {
-    getLocation();
-    //createSideBar();
-}
-
-// ---------- STARTUP CODE ----------
-startUp();
