@@ -14,39 +14,26 @@
 	font-weight: bold;
 
 }
-
-.display{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	flex-direction: row;
-}
-
-.display p {
-	padding: 0px 5px 0px 5px;
-}
-
-#navDate{
-	padding-left: 5px;
-	margin-left: 10px;
-
+.display img{
+	height: 46px;
+	width: 46px;
+	border-radius: 50%;
+	padding-top: 3px;
+	margin-top: 6px;
 }
 
 /*--------------forcast div styling --------*/
-.city, .wind, .humidity, .temp_max, .temp_min, .visibility{
+/*.city, .wind, .humidity, .temp_max, .temp_min, .visibility{
 	padding: 5px;
-}
+}*/
 
 .forecast{
 	background-color: #FFFFFF;
-	height: 80vh;
+	height: 95vh;
 	display: flex;
-	justify-content: center;
 	justify-content: space-around;
 	align-items: center;
 	flex-direction: column;
-
-
 }
 
 .quote{
@@ -55,21 +42,20 @@
 
 }
 
-.todaysWeather {
+/*.todaysWeather {
 	text-align: left !important;
 }
 
 .todaysWeather h1{
 	padding-top: 0px;
 
-}
+}*/
 
 .dailyForecast{
 	display: flex;
-	justify-content: center;
 	justify-content: space-around;
 	align-items: center;
-	padding-top: 10px !important;
+	min-width: 90vw;
 
 }
 
@@ -84,7 +70,7 @@
 
 }
 
-.locationForecast p {
+/*.locationForecast p {
 	padding-top: 5px;
 }
 
@@ -95,7 +81,7 @@
 	align-items: center;
 	padding-top: 10px !important;
 
-}
+}*/
 
 .weatherForm{
 	display: flex;
@@ -233,16 +219,38 @@ input{
 		padding-bottom: 20px !important;
 
 	}
-	.dailyForecast{
+	/*.dailyForecast{
 		display: none;
+	}*/
+
+	/*#weatherForecastButton{
+		display: none;
+	}*/
+	/*.display{
+		display: none;
+	}*/
+	.display img{
+		height: 30px;
+		width: 30px;
+		border-radius: 50%;
+		margin-top: 6px;
+	}
+	.right a {
+		margin: 0px;
+		padding: 0px 5px 0px 8px !important;
+
+	}
+	.banner p {
+		padding: 0px 15px 0px 15px !important;
+		font-weight: bold;
+		font-size: 20px;
+		text-align: center;
 	}
 
-	#weatherForecastButton{
-		display: none;
+	.banner h1{
+		text-align: center;
 	}
-	.display{
-		display: none;
-	}
+
 }
 
 @media only screen and (max-width : 375px) {
@@ -270,15 +278,37 @@ input{
 		padding-top: 30px !important;
 		padding-bottom: 20px !important;
 	}
-	.dailyForecast{
-		display: none;
+
+	.display img{
+		height: 30px;
+		width: 30px;
+		border-radius: 50%;
+		margin-top: 6px;
+	}
+	.right a {
+		margin: 0px;
+		padding: 0px 5px 0px 8px !important;
+
+	}
+	.banner p {
+		padding: 0px 15px 0px 15px !important;
+		font-weight: bold;
+		font-size: 20px;
+		text-align: center;
 	}
 
-	#weatherForecastButton{
+	.banner h1{
+		text-align: center;
+	}
+	/*.dailyForecast{
 		display: none;
 	}
+*/
+	/*#weatherForecastButton{
+		display: none;
+	}*/
 
-	.display{
+	/*.display{
 		display: none;
-	}
+	}*/
 }
