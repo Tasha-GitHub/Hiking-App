@@ -1,7 +1,43 @@
-.name {
-	margin-top: 50px;
-	margin-bottom: 50px;
+/* profile pic styling */
+.profile {
+	height: 100px;
+	width: 100px;
 }
+.profile img {
+	height: 200px;
+	width: 200px;
+}
+/* modal styling */
+.modal img {
+	height: 200px;
+	width: 200px;
+}
+
+.name1 {
+	background-image: url(assets/images/tasha.jpg)
+	width:200px;
+	height:200px;
+	
+}
+
+.name2 {
+	background-image: url(assets/images/shweta.jpg)
+	width:200px;
+	height:200px;
+}
+
+.name3 {
+	background-image: url(assets/images/jesse.jpg)
+	width:200px;
+	height:200px;
+}
+
+.name4{
+	background-image: url(assets/images/jess.jpg)
+	height: 200px;
+	width: 200px;
+}
+
 
 }
 .info p {
@@ -19,13 +55,9 @@
 	margin: 50px;
 }
 
-img {
-	height: 200px;
-	width: 200px;
-}
-.background {
-	background-image: url("../assets/images/forestbackground.jpg");
 
+body {
+	background-image: url("../assets/images/forestbackground.jpg");
 }
 
 
