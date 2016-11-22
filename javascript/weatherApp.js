@@ -22,7 +22,11 @@ function showPosition(position) {
 
         $.ajax({
                 url: queryURLBase,
-                method: 'GET'
+                method: 'GET',
+                data: {}, // Additional parameters here
+                dataType: 'json',
+                success: function(data) {},
+              
             })
             .done(function(response) {
                 console.log(response);
@@ -40,7 +44,7 @@ function showPosition(position) {
                     data: {}, // Additional parameters here
                     dataType: 'json',
                     success: function(data) {},
-                    error: function(err) { alert(err); }
+               
                 })
 
                 .done(function(response) {
@@ -84,7 +88,7 @@ function showPosition(position) {
                     data: {}, // Additional parameters here
                     dataType: 'json',
                     success: function(data) {},
-                    error: function(err) { alert(err); }
+       
                 })
 
                 .done(function(response) {
@@ -142,7 +146,7 @@ $("#weatherSubmitButton").on("click", function(event) {
         data: {}, // Additional parameters here
         dataType: 'json',
         success: function(data) {},
-        error: function(err) { alert(err); }
+ 
     })
 
     .done(function(response) {
@@ -175,14 +179,15 @@ $("#weatherForecastButton").on("click", function(event) {
     $(".locationForecast").remove();
     event.preventDefault();
     var zipOrCity = $("#weatherZipCode").val();
-    var queryURL = "https://api.wunderground.com/api/" + APIKey + "/forecast10day/q/" + zipOrCity + "/zmw:94125.1.99999.json";
+    var queryURL = "https://api.wunderground.com/api/" + APIKey + "/forecast10day/q/" + zipOrCity + ".json";
+
     $.ajax({
         url: queryURL,
         method: 'GET',
         data: {}, // Additional parameters here
         dataType: 'json',
         success: function(data) {},
-        error: function(err) { alert(err); }
+
     })
 
     .done(function(response) {
@@ -211,9 +216,8 @@ $("#weatherForecastButton").on("click", function(event) {
 
         }
 
-        if (response.error.type === "invalidformat") {
-            $(".dailyForecast").txt("you must supply a valid output format");
-        }
+        
+
 
     });
 
