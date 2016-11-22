@@ -1,7 +1,12 @@
+//Works for locations only in USA
+
+
+//APIKey for weatherUnderground
 var APIKey = "1e1c93d157bd7be6";
 
 var x = document.getElementById("dayForecast");
 
+//Gets users current location
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -31,7 +36,11 @@ function showPosition(position) {
 
                 $.ajax({
                     url: queryURLT,
-                    method: 'GET'
+                    method: 'GET',
+                    data: {}, // Additional parameters here
+                    dataType: 'json',
+                    success: function(data) {},
+                    error: function(err) { alert(err); }
                 })
 
                 .done(function(response) {
@@ -71,7 +80,11 @@ function showPosition(position) {
 
                 $.ajax({
                     url: queryURLF,
-                    method: 'GET'
+                    method: 'GET',
+                    data: {}, // Additional parameters here
+                    dataType: 'json',
+                    success: function(data) {},
+                    error: function(err) { alert(err); }
                 })
 
                 .done(function(response) {
@@ -114,6 +127,7 @@ $("#weatherSubmitButton").on("click", function(event) {
     //remove the location based weather before displaying the search query weather
     $(".locationWeather").remove();
 
+
     event.preventDefault();
     var zipOrCity = $("#weatherZipCode").val();
 
@@ -124,7 +138,11 @@ $("#weatherSubmitButton").on("click", function(event) {
 
     $.ajax({
         url: queryURLB,
-        method: 'GET'
+        method: 'GET',
+        data: {}, // Additional parameters here
+        dataType: 'json',
+        success: function(data) {},
+        error: function(err) { alert(err); }
     })
 
     .done(function(response) {
@@ -160,7 +178,11 @@ $("#weatherForecastButton").on("click", function(event) {
     var queryURL = "https://api.wunderground.com/api/" + APIKey + "/forecast10day/q/" + zipOrCity + "/zmw:94125.1.99999.json";
     $.ajax({
         url: queryURL,
-        method: 'GET'
+        method: 'GET',
+        data: {}, // Additional parameters here
+        dataType: 'json',
+        success: function(data) {},
+        error: function(err) { alert(err); }
     })
 
     .done(function(response) {
@@ -179,7 +201,7 @@ $("#weatherForecastButton").on("click", function(event) {
 
             var forecast = $(".dailyForecast").append("<div class=\"todayForecast\" ><p><h5>" + response.forecast.simpleforecast.forecastday[i].date.weekday +
                 "</h5></p><p><h6><b>" + response.forecast.simpleforecast.forecastday[i].date.monthname + " " + response.forecast.simpleforecast.forecastday[i].date.day +
-                "</b></h6></p><p><h4>" + avgtempforecast[i] +
+                "</b></h6></p><p><h4>" + response.forecast.simpleforecast.forecastday[i].low.fahrenheit +
                 "<sup>o</sup>F</h4></p><img id =\"weatherIcon\" src=" + response.forecast.simpleforecast.forecastday[i].icon_url +
                 "><p><h6>" + response.forecast.simpleforecast.forecastday[i].conditions +
                 " </h6></p><p>Humid " + response.forecast.simpleforecast.forecastday[i].avehumidity +
@@ -189,6 +211,9 @@ $("#weatherForecastButton").on("click", function(event) {
 
         }
 
+        if (response.error.type === "invalidformat") {
+            $(".dailyForecast").txt("you must supply a valid output format");
+        }
 
     });
 
