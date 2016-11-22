@@ -47,6 +47,14 @@
 
 }
 
+.locationForecast{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	min-width: 90vw;
+
+}
+
 .dailyForecast p{
 	padding-top: 5px;
 }
