@@ -97,12 +97,12 @@ function showPosition(position) {
                         // console.log("AVG TEMP : " + avgtempforecast[i]);
                         // console.log("a: " + a[i]);
 
-                        var forecast = $(".locationForecast").append("<div class=\"todayForecast\" ><p><h5>" + response.forecast.simpleforecast.forecastday[i].date.weekday +
-                            "</h5></p><p><h6><b>" + response.forecast.simpleforecast.forecastday[i].date.monthname + " " + response.forecast.simpleforecast.forecastday[i].date.day +
-                            "</b></h6></p><p><h4>" + avgtempforecast[i] +
-                            "<sup>o</sup>F</h4></p><img id =\"weatherIcon\"  src=" + response.forecast.simpleforecast.forecastday[i].icon_url +
-                            "><p><h6>" + response.forecast.simpleforecast.forecastday[i].conditions +
-                            " </h6></p><p>Humid " + response.forecast.simpleforecast.forecastday[i].avehumidity +
+                        var forecast = $(".locationForecast").append("<div class=\"todayForecast\" ><h5>" + response.forecast.simpleforecast.forecastday[i].date.weekday +
+                            "</h5><h6><b>" + response.forecast.simpleforecast.forecastday[i].date.monthname + " " + response.forecast.simpleforecast.forecastday[i].date.day +
+                            "</b></h6><h4>" + avgtempforecast[i] +
+                            "<sup>o</sup>F</h4><img id =\"weatherIcon\"  src=" + response.forecast.simpleforecast.forecastday[i].icon_url +
+                            "><h6>" + response.forecast.simpleforecast.forecastday[i].conditions +
+                            " </h6><p>Humid " + response.forecast.simpleforecast.forecastday[i].avehumidity +
                             " %</p><p>H: " + response.forecast.simpleforecast.forecastday[i].high.fahrenheit +
                             " <sup>o</sup>F</p>" + " " + "<p>L: " + response.forecast.simpleforecast.forecastday[i].low.fahrenheit + " <sup>o</sup>F</p></div>");
                         var p = $(".locationForecast").append(forecast);
@@ -190,7 +190,7 @@ $("#weatherForecastButton").on("click", function(event) {
     //     console.log("Enter a valid location");
     // }
 
-    if ((isNaN(zipOrCity))&& zipOrCity.length < 7){
+    if ((isNaN(zipOrCity)) && zipOrCity.length < 7) {
         console.log("Please enter in format : Austin,TX");
         var w = $("#weatherZipCode").append("<p id=\"warning\">Please enter in format : Austin,TX</p>");
         $("#warning").css("color", "red");
@@ -220,14 +220,17 @@ $("#weatherForecastButton").on("click", function(event) {
         url: queryURL,
         method: 'GET',
         data: {}, // Additional parameters here
-        dataType: 'json',
-        success: function(data) {},
-
+        dataType: 'json'
     })
 
-    .done(function(response) {
+    .done(function(response,error) {
         console.log(queryURL);
         console.log("CURRENT: " + response);
+        // if (error) {
+        //     console.log("ERROR: " + queryURL);
+        //     console.log(error.response.error);
+        // }
+
 
         $(".dailyForecast").empty();
         //gets average weather 
@@ -241,12 +244,12 @@ $("#weatherForecastButton").on("click", function(event) {
             // console.log("a: "+ a[i]);
 
             //create a div and display data
-            var forecast = $(".dailyForecast").append("<div class=\"todayForecast\" ><p><h5>" + response.forecast.simpleforecast.forecastday[i].date.weekday +
-                "</h5></p><p><h6><b>" + response.forecast.simpleforecast.forecastday[i].date.monthname + " " + response.forecast.simpleforecast.forecastday[i].date.day +
-                "</b></h6></p><p><h4>" + avgtempforecast[i] +
-                "<sup>o</sup>F</h4></p><img id =\"weatherIcon\" src=" + response.forecast.simpleforecast.forecastday[i].icon_url +
-                "><p><h6>" + response.forecast.simpleforecast.forecastday[i].conditions +
-                " </h6></p><p>Humid " + response.forecast.simpleforecast.forecastday[i].avehumidity +
+            var forecast = $(".dailyForecast").append("<div class=\"todayForecast\" ><h5>" + response.forecast.simpleforecast.forecastday[i].date.weekday +
+                "</h5><h6><b>" + response.forecast.simpleforecast.forecastday[i].date.monthname + " " + response.forecast.simpleforecast.forecastday[i].date.day +
+                "</b></h6><h4>" + avgtempforecast[i] +
+                "<sup>o</sup>F</h4><img id =\"weatherIcon\" src=" + response.forecast.simpleforecast.forecastday[i].icon_url +
+                "><h6>" + response.forecast.simpleforecast.forecastday[i].conditions +
+                " </h6><p>Humid " + response.forecast.simpleforecast.forecastday[i].avehumidity +
                 "  %</p><p>H: " + response.forecast.simpleforecast.forecastday[i].high.fahrenheit +
                 " <sup>o</sup>F</p>" + " " + "<p>L: " + response.forecast.simpleforecast.forecastday[i].low.fahrenheit + " <sup>o</sup>F</p></div>");
             var p = $(".dailyForecast").append(forecast);
