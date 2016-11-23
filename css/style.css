@@ -167,38 +167,12 @@ input{
 =====================================================*/
 
 @media only screen and (max-width : 767px) {
-	h1{
-    	font-size: 60px;
-  	}
-	h2{
- 		font-size: 30px;
- 		padding: 10px;
- 		margin-top: 40px;
- 	}
-	h3{
- 		font-size: 20px;
- 		padding: 10px;
- 		margin-top: 40px;
- 	}
- 	.banner p{
-		padding: 10px;
-	}
 	
 	.quote{
 		padding-top: 30px !important;
 		padding-bottom: 20px !important;
 	}
-	.display img{
-		height: 30px;
-		width: 30px;
-		border-radius: 50%;
-		margin-top: 6px;
-	}
-	.right a {
-		margin: 0px;
-		padding: 0px 5px 0px 8px !important;
 
-	}
 	.banner p {
 		padding: 0px 15px 0px 15px !important;
 		font-weight: bold;
@@ -248,20 +222,7 @@ input{
 		padding: 0px;
 	}
 }
-@media only screen and (max-width : 480px) {
-	h1{
-    	font-size: 60px;
-  	}
-	h2{
- 		font-size: 30px;
- 		padding: 10px;
- 		margin-top: 40px;
- 	}
-	h3{
- 		font-size: 20px;
- 		padding: 10px;
- 		margin-top: 40px;
- 	}
+@media only screen and (min-width:400px) and (max-width : 480px) {
  	.banner p{
 		padding: 10px;
 	}
@@ -269,17 +230,6 @@ input{
 	.quote{
 		padding-top: 30px !important;
 		padding-bottom: 20px !important;
-	}
-	.display img{
-		height: 30px;
-		width: 30px;
-		border-radius: 50%;
-		margin-top: 6px;
-	}
-	.right a {
-		margin: 0px;
-		padding: 0px 5px 0px 8px !important;
-
 	}
 	.banner p {
 		padding: 0px 15px 0px 15px !important;
@@ -335,23 +285,6 @@ input{
 }
 
 @media only screen and (max-width : 375px) {
-	h1{
-    	font-size: 60px;
-  	}
-	h3{
-    	font-size: 30px;
-    	padding: 10px;
-    	margin-top: 40px;
-  	}
-
-  	h2 {
-  		margin: 0px;
-  	}
-
-  	h6{
-  		display: none;
-  	}
-
   	.city{
   		padding: 0px;
   	}
@@ -375,16 +308,7 @@ input{
 		border-radius: 50%;
 		margin-top: 6px;
 	}
-	.right a {
-		margin: 0px 0px 0px 0px;
-		font-size: 13px;
-		padding: 0px 5px 0px 8px !important;
-
-	}
-
-	.right{
-		margin-right: 20px;
-	}
+	
 	.banner p {
 		padding: 0px 15px 0px 15px !important;
 		font-weight: bold;
@@ -405,11 +329,11 @@ input{
 	 	padding: 10px 0px 10px 0px;
 	 }
 
-	 .dailyForecast p {
+	.dailyForecast p {
 	 	display: none;
 	 }
 
-	  .locationForecast{
+	.locationForecast{
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -418,15 +342,15 @@ input{
 	 	padding: 10px 0px 10px 0px;
 	 }
 
-	 .locationForecast p {
+	.locationForecast p {
 	 	display: none;
 	 }
 
-	 .todayForecast{
+	.todayForecast{
 	 	padding: 0px 10px 0px 10px;
 	 }
 
-	 #mapGoesHere{
+	#mapGoesHere{
 		height: 600px;
 		background-color: orange;
 		padding: 0px;
@@ -435,24 +359,6 @@ input{
 
 
 @media only screen and (max-width : 320px) {
-	h1{
-    	font-size: 40px;
-  	}
-
-	h3{
-    	font-size: 20px;
-    	padding: 5px;
-    	margin-top: 0px;
-  	}
-
-  	h2 {
-  		margin: 0px;
-  	}
-
-  	h6{
-  		display: none;
-  	}
-
   	.city{
   		padding: 0px;
   	}
@@ -469,23 +375,6 @@ input{
 		padding-top: 10px !important;
 		padding-bottom: 10px !important;
 		text-align: center;
-	}
-
-	.display img{
-		height: 20px;
-		width: 20px;
-		border-radius: 50%;
-		margin-top: 6px;
-	}
-	.right a {
-		margin: 0px 0px 0px 0px;
-		font-size: 12px;
-		padding: 0px 5px 0px 2px !important;
-
-	}
-
-	.right{
-		margin-right: 10px;
 	}
 	.banner p {
 		padding: 0px 15px 0px 15px !important;
