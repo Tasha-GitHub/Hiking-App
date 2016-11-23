@@ -9,9 +9,61 @@ nav{
 }
 
 
+/*------------------Modal Styling----------*/
+.modal{
+    background: rgba(76, 175, 80, 0.6);
+}
 
+.modal-footer{
+    background-color:#94CF96 !important;
+    margin-top: 30px;
+}
+
+.modal img {
+    height: 200px;
+    width: 200px;
+    margin: 10px;
+}
+
+.wrapper{
+    display: flex;
+    justify-content: center;
+    justify-content: space-around; 
+    align-items: center;
+    flex-direction: column;
+}
+
+.name1 {
+    background-image: url(assets/images/tasha.jpg)
+    width:200px;
+    height:200px;
+    
+}
+
+.name2 {
+    background-image: url(assets/images/shweta.jpg)
+    width:200px;
+    height:200px;
+}
+
+.name3 {
+    background-image: url(assets/images/jesse.jpg)
+    width:200px;
+    height:200px;
+}
+
+.name4{
+    background-image: url(assets/images/jess.jpg)
+    height: 200px;
+    width: 200px;
+}
 
 /* profile pic styling */
+.profile {
+	height: 100px;
+	width: 500px;
+}
+
 .profile {
 	height: 100px;
 	width: 500px;
@@ -20,46 +72,38 @@ nav{
 	height: 200px;
 	width: 200px;
 }
-/* modal styling */
-.modal img {
-	height: 200px;
-	width: 200px;
-}
 
-.name1 {
-	background-image: url(assets/images/tasha.jpg)
-	width:200px;
-	height:200px;
-	
-}
-
-.name2 {
-	background-image: url(assets/images/shweta.jpg)
-	width:200px;
-	height:200px;
-}
-
-.name3 {
-	background-image: url(assets/images/jesse.jpg)
-	width:200px;
-	height:200px;
-}
-
-.name4{
-	background-image: url(assets/images/jess.jpg)
-	height: 200px;
-	width: 200px;
+.info {
+    float: center;
+    margin-top: 20px;
 }
 
 .info p {
-	text-align: left;
-	font-size: 100px;
-	
+	text-align: center;
+	font-size: 16px;
+    color: white;
 }
-.info {
-	float: left;
-	margin-top: 50px;
+
+/*---------------Modal Text Styling----------*/
+
+h3 {
+    text-align: center;
+    color: white;
 }
+
+.link{
+    text-align: center;
+    padding: 5px 5px 5px 5px;
+    color: white;
+}
+
+
+.link a{
+    color: white;
+}
+
+
+
 
 .contactme img {
 	float: left;
