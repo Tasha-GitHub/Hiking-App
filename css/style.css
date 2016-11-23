@@ -63,6 +63,11 @@
   	flex-direction: row;
 
 }
+
+#weatherIcon{
+	height: 50px !important;
+	width: 50px !important;
+}
 /*--------------map div styling-------------------------*/	
 
 
@@ -151,7 +156,7 @@ input{
 	width: 200px;
 }
 
-#weatherSubmitButton, #submitButton{
+#weatherForecastButton, #submitButton{
 	background-color: #2B4B26;
 
 }
@@ -214,19 +219,35 @@ input{
 		justify-content: space-between;
 		align-items: center;
 	 	overflow-x: auto;
-	 	max-width: 100%;
+	 	max-width: 767px;
 	 	padding: 10px 0px 10px 0px;
 	 }
 
 	 .dailyForecast p {
 	 	display: none;
 	 }
+	  .locationForecast{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	 	overflow-x: auto;
+	 	max-width: 767px;
+	 	padding: 10px 0px 10px 0px;
+	 }
+
+	 .locationForecast p {
+	 	display: none;
+	 }
 
 	 .todayForecast{
 	 	padding: 0px 10px 0px 10px;
 	 }
-
-
+	 #mapGoesHere{
+		height: 600px;
+		background-color: orange;
+		padding: 0px;
+	}
+}
 @media only screen and (max-width : 480px) {
 	h1{
     	font-size: 60px;
@@ -280,17 +301,36 @@ input{
 		justify-content: space-between;
 		align-items: center;
 	 	overflow-x: auto;
-	 	max-width: 100%;
+	 	max-width: 480px;
 	 	padding: 10px 0px 10px 0px;
 	 }
 
-	 .dailyForecast p {
+	.dailyForecast p {
 	 	display: none;
 	 }
 
-	 .todayForecast{
+	.locationForecast{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	 	overflow-x: auto;
+	 	max-width: 480px;
+	 	padding: 10px 0px 10px 0px;
+	 }
+
+	.locationForecast p {
+	 	display: none;
+	 }
+
+	.todayForecast{
 	 	padding: 0px 10px 0px 10px;
 	 }
+
+	 #mapGoesHere{
+		height: 600px;
+		background-color: orange;
+		padding: 0px;
+	}
 
 }
 
@@ -337,6 +377,7 @@ input{
 	}
 	.right a {
 		margin: 0px 0px 0px 0px;
+		font-size: 13px;
 		padding: 0px 5px 0px 8px !important;
 
 	}
@@ -360,7 +401,7 @@ input{
 		justify-content: space-between;
 		align-items: center;
 	 	overflow-x: auto;
-	 	max-width: 100%;
+	 	max-width: 375px;
 	 	padding: 10px 0px 10px 0px;
 	 }
 
@@ -368,9 +409,28 @@ input{
 	 	display: none;
 	 }
 
+	  .locationForecast{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	 	overflow-x: auto;
+	 	max-width: 375px;
+	 	padding: 10px 0px 10px 0px;
+	 }
+
+	 .locationForecast p {
+	 	display: none;
+	 }
+
 	 .todayForecast{
 	 	padding: 0px 10px 0px 10px;
 	 }
+
+	 #mapGoesHere{
+		height: 600px;
+		background-color: orange;
+		padding: 0px;
+	}
 }
 
 
@@ -419,6 +479,7 @@ input{
 	}
 	.right a {
 		margin: 0px 0px 0px 0px;
+		font-size: 12px;
 		padding: 0px 5px 0px 2px !important;
 
 	}
@@ -450,7 +511,7 @@ input{
 		justify-content: space-between;
 		align-items: center;
 	 	overflow-x: auto;
-	 	max-width: 100%;
+	 	max-width: 320px;
 	 	padding: 10px 0px 10px 0px;
 	 }
 
@@ -458,7 +519,26 @@ input{
 	 	display: none;
 	 }
 
+	 .locationForecast{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	 	overflow-x: auto;
+	 	max-width: 320px;
+	 	padding: 10px 0px 10px 0px;
+	 }
+
+	 .locationForecast p {
+	 	display: none;
+	 }
+
 	 .todayForecast{
 	 	padding: 0px 10px 0px 10px;
 	 }
+
+	 #mapGoesHere{
+		height: 600px;
+		background-color: orange;
+		padding: 0px;
+	}
 }
