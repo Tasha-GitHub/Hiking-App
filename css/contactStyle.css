@@ -1,7 +1,20 @@
+/*------------------Nav Styling----------*/
+
+nav{
+  background-color: #30353B !important;
+  height: 79px;
+  border-width: 25px;
+  border-color: #254A2A;
+  border-style: none none solid none;
+}
+
+
+
+
 /* profile pic styling */
 .profile {
 	height: 100px;
-	width: 100px;
+	width: 500px;
 }
 .profile img {
 	height: 200px;
@@ -38,8 +51,6 @@
 	width: 200px;
 }
 
-
-}
 .info p {
 	text-align: left;
 	font-size: 100px;
@@ -59,14 +70,3 @@
 body {
 	background-image: url("../assets/images/forestbackground.jpg");
 }
-
-header{
-	border-width: 25px;
-	border-style: none none solid none;
-}
-
-main {
-	height: 100vh;
-}
-
-

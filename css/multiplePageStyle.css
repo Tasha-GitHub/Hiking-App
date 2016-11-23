@@ -19,14 +19,14 @@
 /*------------------stickey footer------------------------------*/
   .container {
     display: flex;
-    min-height: 100%;
-    min-width: 100%;
+    min-height: 100vh;
     flex-direction: column;
   }
 
   main {
-    flex: 1 0 auto !important;
+    flex: 1 0 auto;
   }
+      
       
 /*----------------footer Styling ------------------------------*/
 
@@ -44,8 +44,10 @@ footer{
 /*----------------Navbar Styling ------------------------------*/
 nav{
   background-color: #30353B !important;
-  
-
+  /*height: 79px;*/
+  /*border-width: 25px;
+  border-color: #254A2A;
+  border-style: none none solid none;*/
 }
 
 
@@ -55,12 +57,22 @@ nav a {
 }
 
 header{
-  border-width: 25px;
+  /*border-width: 25px;
   border-color: #254A2A;
-  border-style: none none solid none;
+  border-style: none none solid none;*/
+  clear: both;
   text-align: center;
   width: 100%;
 }
+
+.display img{
+  height: 46px;
+  width: 46px;
+  border-radius: 50%;
+  padding-top: 3px;
+  margin-top: 6px;
+}
+
 
 /*------------------Text Styling ---------------------------*/
 h1{

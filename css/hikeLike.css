@@ -1,3 +1,14 @@
+
+/*------------------Nav Styling----------*/
+
+nav{
+  background-color: #30353B !important;
+  height: 79px;
+  border-width: 25px;
+  border-color: #254A2A;
+  border-style: none none solid none;
+}
+
 h1 { 
 	text-align: center;
 }
