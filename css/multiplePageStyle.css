@@ -19,8 +19,8 @@
 /*------------------stickey footer------------------------------*/
   .container {
     display: flex;
-    min-height: 100vh;
-    min-width: 99vw;
+    min-height: 100%;
+    min-width: 100%;
     flex-direction: column;
   }
 
