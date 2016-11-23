@@ -49,3 +49,10 @@ $(document).ready(function(){
     $("#navDate").html("Date: "+ date);
     
   });
+
+// --------------------------------------------------------//
+//               Input Warning Display                     //
+// --------------------------------------------------------//
+$(".inputWarning").hide();
+$(".inputWarning").css("color", "red");
+$(".inputWarning").css("font-size", "14px");

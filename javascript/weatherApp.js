@@ -1,4 +1,5 @@
 //APIKey for weatherUnderground
+
 var APIKey = "1e1c93d157bd7be6";
 
 var x = document.getElementById("dayForecast");
@@ -68,7 +69,6 @@ function showPosition(position) {
                 });
 
 
-
                 //Query to get forecast of 10 days based on current location
                 var queryURLF = "https://api.wunderground.com/api/" + APIKey + "/forecast10day/q/" + response.location.city + "/zmw:94125.1.99999.json";
 
@@ -117,39 +117,11 @@ getLocation();
 //display weather forecast for 10 days based on user search
 $("#weatherForecastButton").on("click", function(event) {
     //gets user input value
+    $(".inputWarning").hide();
     var zipOrCity = $("#weatherZipCode").val();
 
-    //user input validation
-    // if (isNaN(zipOrCity)) {
-    //     if (zipOrCity.includes(",", 1)) {
-    //         // console.log(zipOrCity.split(",") + "array");
-    //         console.log("text input" + zipOrCity);
-    //     }else{
-    //       var w = $("#weatherZipCode").append("<p id=\"warning\">Please enter a valid Zip Code</p>");  
-    //     }
-    // }
-
-
-    // if (zipOrCity === " ") {
-    //     console.log("Enter a valid location");
-    // }
-
-    if ((isNaN(zipOrCity)) && zipOrCity.length < 7) {
-        console.log("Please enter in format : Austin,TX");
-        var w = $("#weatherZipCode").append("<p id=\"warning\">Please enter in format : Austin,TX</p>");
-        $("#warning").css("color", "red");
-    }
-
-
-    if (((zipOrCity % 1 === 0) && ((zipOrCity.length) !== 5))) {
-        console.log("Invalid Zip Code");
-        var w = $("#weatherZipCode").append("<p id=\"warning\">Please enter a valid Zip Code</p>");
-        // alert("Please enter a valid Zip Code");
-        $("#weatherZipCode").append(w);
-        $("#warning").css("color", "red");
-    }
-
     $(".locationForecast").remove();
+
     event.preventDefault();
 
     //formulate the query base on user input
@@ -167,13 +139,19 @@ $("#weatherForecastButton").on("click", function(event) {
     .done(function(response) {
         $(".dailyForecast").empty();
         console.log(queryURL);
-        // console.log("CURRENT: " + response);
-        // console.log("BEfore ERROR Value: "+ error);
+
         // if the user input does not match any city
+        if (response.response.results) {
+            console.log("Its a state");
+            $(".inputWarning").show();
+        }
+
         if (response.response.error) {
             // console.log("ERROR: " + error);
             console.log(response.response.error.description);
+            $(".inputWarning").show();
         }
+
         //gets average weather 
         var avgtempforecast = [];
         for (var i = 0; i < 5; i++) {
@@ -198,14 +176,11 @@ $("#weatherForecastButton").on("click", function(event) {
 
     })
 
-    .fail(function(error){
+    .fail(function(error) {
         console.log("ERROR fail func: " + error);
     });
 
 });
-
-
-
 
 
 
