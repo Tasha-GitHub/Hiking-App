@@ -114,6 +114,98 @@ function showPosition(position) {
 }
 getLocation();
 
+//display weather forecast for 10 days based on user search
+$("#weatherForecastButton").on("click", function(event) {
+    //gets user input value
+    var zipOrCity = $("#weatherZipCode").val();
+
+    //user input validation
+    // if (isNaN(zipOrCity)) {
+    //     if (zipOrCity.includes(",", 1)) {
+    //         // console.log(zipOrCity.split(",") + "array");
+    //         console.log("text input" + zipOrCity);
+    //     }else{
+    //       var w = $("#weatherZipCode").append("<p id=\"warning\">Please enter a valid Zip Code</p>");  
+    //     }
+    // }
+
+
+    // if (zipOrCity === " ") {
+    //     console.log("Enter a valid location");
+    // }
+
+    if ((isNaN(zipOrCity)) && zipOrCity.length < 7) {
+        console.log("Please enter in format : Austin,TX");
+        var w = $("#weatherZipCode").append("<p id=\"warning\">Please enter in format : Austin,TX</p>");
+        $("#warning").css("color", "red");
+    }
+
+
+    if (((zipOrCity % 1 === 0) && ((zipOrCity.length) !== 5))) {
+        console.log("Invalid Zip Code");
+        var w = $("#weatherZipCode").append("<p id=\"warning\">Please enter a valid Zip Code</p>");
+        // alert("Please enter a valid Zip Code");
+        $("#weatherZipCode").append(w);
+        $("#warning").css("color", "red");
+    }
+
+    $(".locationForecast").remove();
+    event.preventDefault();
+
+    //formulate the query base on user input
+    var queryURL = "https://api.wunderground.com/api/" + APIKey + "/forecast10day/q/" + zipOrCity + ".json";
+
+    //ajax call to fetch data
+    $.ajax({
+        url: queryURL,
+        method: 'GET',
+        data: {}, // Additional parameters here
+        dataType: 'json'
+    })
+
+
+    .done(function(response) {
+        $(".dailyForecast").empty();
+        console.log(queryURL);
+        // console.log("CURRENT: " + response);
+        // console.log("BEfore ERROR Value: "+ error);
+        // if the user input does not match any city
+        if (response.response.error) {
+            // console.log("ERROR: " + error);
+            console.log(response.response.error.description);
+        }
+        //gets average weather 
+        var avgtempforecast = [];
+        for (var i = 0; i < 5; i++) {
+            var a = [];
+            a[i] = (parseInt(response.forecast.simpleforecast.forecastday[i].high.fahrenheit) + parseInt(response.forecast.simpleforecast.forecastday[i].low.fahrenheit));
+            avgtempforecast[i] = a[i] / 2;
+
+            // console.log("AVG TEMP : "+ avgtempforecast[i]);
+            // console.log("a: "+ a[i]);
+
+            //create a div and display data
+            var forecast = $(".dailyForecast").append("<div class=\"todayForecast\" ><h5>" + response.forecast.simpleforecast.forecastday[i].date.weekday +
+                "</h5><h6><b>" + response.forecast.simpleforecast.forecastday[i].date.monthname + " " + response.forecast.simpleforecast.forecastday[i].date.day +
+                "</b></h6><h4>" + avgtempforecast[i] +
+                "<sup>o</sup>F</h4><img id =\"weatherIcon\" src=" + response.forecast.simpleforecast.forecastday[i].icon_url +
+                "><h6>" + response.forecast.simpleforecast.forecastday[i].conditions +
+                " </h6><p>Humid " + response.forecast.simpleforecast.forecastday[i].avehumidity +
+                "  %</p><p>H: " + response.forecast.simpleforecast.forecastday[i].high.fahrenheit +
+                " <sup>o</sup>F</p>" + " " + "<p>L: " + response.forecast.simpleforecast.forecastday[i].low.fahrenheit + " <sup>o</sup>F</p></div>");
+            var p = $(".dailyForecast").append(forecast);
+        }
+
+    })
+
+    .fail(function(error){
+        console.log("ERROR fail func: " + error);
+    });
+
+});
+
+
+
 
 
 
@@ -165,99 +257,3 @@ getLocation();
 
 //     });
 // });
-
-
-
-
-//display weather forecast for 10 days based on user search
-$("#weatherForecastButton").on("click", function(event) {
-
-    //user input validation
-    var zipOrCity = $("#weatherZipCode").val();
-
-
-    // if (isNaN(zipOrCity)) {
-    //     if (zipOrCity.includes(",", 1)) {
-    //         // console.log(zipOrCity.split(",") + "array");
-    //         console.log("text input" + zipOrCity);
-    //     }else{
-    //       var w = $("#weatherZipCode").append("<p id=\"warning\">Please enter a valid Zip Code</p>");  
-    //     }
-    // }
-
-
-    // if (zipOrCity === " ") {
-    //     console.log("Enter a valid location");
-    // }
-
-    if ((isNaN(zipOrCity)) && zipOrCity.length < 7) {
-        console.log("Please enter in format : Austin,TX");
-        var w = $("#weatherZipCode").append("<p id=\"warning\">Please enter in format : Austin,TX</p>");
-        $("#warning").css("color", "red");
-    }
-
-
-
-    if (((zipOrCity % 1 === 0) && ((zipOrCity.length) !== 5))) {
-        console.log("Invalid Zip Code");
-        var w = $("#weatherZipCode").append("<p id=\"warning\">Please enter a valid Zip Code</p>");
-        // alert("Please enter a valid Zip Code");
-        $("#weatherZipCode").append(w);
-        $("#warning").css("color", "red");
-    }
-
-
-
-    $(".locationForecast").remove();
-    event.preventDefault();
-    //gets user input value
-
-    //formulate the query base on user input
-    var queryURL = "https://api.wunderground.com/api/" + APIKey + "/forecast10day/q/" + zipOrCity + ".json";
-
-    //ajax call to fetch data
-    $.ajax({
-        url: queryURL,
-        method: 'GET',
-        data: {}, // Additional parameters here
-        dataType: 'json'
-    })
-
-    .done(function(response,error) {
-        console.log(queryURL);
-        console.log("CURRENT: " + response);
-        // if (error) {
-        //     console.log("ERROR: " + queryURL);
-        //     console.log(error.response.error);
-        // }
-
-
-        $(".dailyForecast").empty();
-        //gets average weather 
-        var avgtempforecast = [];
-        for (var i = 0; i < 5; i++) {
-            var a = [];
-            a[i] = (parseInt(response.forecast.simpleforecast.forecastday[i].high.fahrenheit) + parseInt(response.forecast.simpleforecast.forecastday[i].low.fahrenheit));
-            avgtempforecast[i] = a[i] / 2;
-
-            // console.log("AVG TEMP : "+ avgtempforecast[i]);
-            // console.log("a: "+ a[i]);
-
-            //create a div and display data
-            var forecast = $(".dailyForecast").append("<div class=\"todayForecast\" ><h5>" + response.forecast.simpleforecast.forecastday[i].date.weekday +
-                "</h5><h6><b>" + response.forecast.simpleforecast.forecastday[i].date.monthname + " " + response.forecast.simpleforecast.forecastday[i].date.day +
-                "</b></h6><h4>" + avgtempforecast[i] +
-                "<sup>o</sup>F</h4><img id =\"weatherIcon\" src=" + response.forecast.simpleforecast.forecastday[i].icon_url +
-                "><h6>" + response.forecast.simpleforecast.forecastday[i].conditions +
-                " </h6><p>Humid " + response.forecast.simpleforecast.forecastday[i].avehumidity +
-                "  %</p><p>H: " + response.forecast.simpleforecast.forecastday[i].high.fahrenheit +
-                " <sup>o</sup>F</p>" + " " + "<p>L: " + response.forecast.simpleforecast.forecastday[i].low.fahrenheit + " <sup>o</sup>F</p></div>");
-            var p = $(".dailyForecast").append(forecast);
-
-
-
-        }
-
-    });
-
-});
