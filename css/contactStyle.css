@@ -58,16 +58,7 @@ nav{
     width: 200px;
 }
 
-/* profile pic styling */
-.profile {
-	height: 100px;
-	width: 500px;
-}
-
-.profile {
-	height: 100px;
-	width: 500px;
-}
+/* ------profile pic styling ---------*/
 .profile img {
 	height: 200px;
 	width: 200px;
@@ -82,6 +73,14 @@ nav{
 	text-align: center;
 	font-size: 16px;
     color: white;
+}
+
+.profileDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
 }
 
 /*---------------Modal Text Styling----------*/
@@ -113,4 +112,5 @@ h3 {
 
 body {
 	background-image: url("../assets/images/forestbackground.jpg");
+    background-size: cover;
 }
