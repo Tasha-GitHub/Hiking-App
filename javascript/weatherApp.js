@@ -116,17 +116,16 @@ getLocation();
 
 //display weather forecast for 10 days based on user search
 $("#weatherForecastButton").on("click", function(event) {
-    //gets user input value
-    $(".inputWarning").hide();
-    var zipOrCity = $("#weatherZipCode").val();
-
-    $(".locationForecast").remove();
-
+    //prevents the occurence of default action
     event.preventDefault();
-
+    //removes the previous data to display new data
+    $(".locationForecast").remove();
+    //hides the warning 
+    $(".inputWarning").hide();
+    //gets user input value
+    var zipOrCity = $("#weatherZipCode").val();
     //formulate the query base on user input
-    var queryURL = "https://api.wunderground.com/api/" + APIKey + "/forecast10day/q/" + zipOrCity + ".json";
-
+    var queryURL = "https://api.wunderground.com/api/" + APIKey + "/forecast10day/q/" + zipOrCity + "/zmw:73301.1.99999.json";
     //ajax call to fetch data
     $.ajax({
         url: queryURL,
@@ -134,8 +133,6 @@ $("#weatherForecastButton").on("click", function(event) {
         data: {}, // Additional parameters here
         dataType: 'json'
     })
-
-
     .done(function(response) {
         $(".dailyForecast").empty();
         console.log(queryURL);
@@ -144,6 +141,7 @@ $("#weatherForecastButton").on("click", function(event) {
         if (response.response.results) {
             console.log("Its a state");
             $(".inputWarning").show();
+            console.log(response.response.results[0].city, response.response.results[0].state);
         }
 
         if (response.response.error) {
@@ -174,14 +172,9 @@ $("#weatherForecastButton").on("click", function(event) {
             var p = $(".dailyForecast").append(forecast);
         }
 
-    })
-
-    .fail(function(error) {
-        console.log("ERROR fail func: " + error);
     });
 
 });
-
 
 
 // ================================================weather of different location===================================
