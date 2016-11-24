@@ -12,6 +12,7 @@ nav{
 /*------------------Modal Styling----------*/
 .modal{
     background: rgba(76, 175, 80, 0.6);
+    width: 400px;
 }
 
 .modal-footer{
