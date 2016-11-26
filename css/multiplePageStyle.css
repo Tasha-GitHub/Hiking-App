@@ -19,19 +19,17 @@
 }
 
 /*------------------stickey footer------------------------------*/
-  .container {
-    display: flex;
-    min-height: 100%;
-    min-width: 100%;
-    flex-direction: column;
-  }
-
-  main {
-    flex: 1 0 auto;
-    width: 100%;
-  }
-      
-      
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  flex: 1;
+}
 /*----------------footer Styling ------------------------------*/
 
 footer{
@@ -40,10 +38,11 @@ footer{
   font-family: 'Open Sans', sans-serif;
   clear: both;
   border-width: 25px;
-  border-color: #30353B;
+  border-color: #254A2A;
   border-style: solid none none none;
   text-align: center;
   width: 100%;
+  
 }
 
 /*----------------Navbar Styling ------------------------------*/
