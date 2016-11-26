@@ -17,13 +17,13 @@ nav{
 
 .modal-footer{
     background-color:#94CF96 !important;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .modal img {
     height: 200px;
     width: 200px;
-    margin: 10px;
+    margin: 5px;
 }
 
 .wrapper{
@@ -63,14 +63,15 @@ nav{
 .profile img {
 	height: 200px;
 	width: 200px;
+    margin-bottom: none;
+    margin-top: 10px;
+    border-radius: 10px;
 }
 
 .info {
     float: center;
-    margin-top: 20px;
+    margin-top: px;
 }
-
-
 
 .profileDiv{
     display: flex;
@@ -84,8 +85,9 @@ nav{
 
 h3 {
     text-align: center;
+    font-family: 'Lobster';
     color: white;
-    margin: 2px;
+    margin: 2px 2px 1px 2px;
 }
 
 .link{
@@ -96,25 +98,29 @@ h3 {
 
 .info p {
     text-align: center;
-    font-size: 20px;
+    font-size: 15px;
     color: white;
+    padding: 5px 5px 5px 5px;
 }
-
+.hike {
+    padding: 0px 5px 5px 5px;
+}
 
 .link a {
     color: white;
-    font-size: 20px;
+    font-size: 15px;
+    padding: 5px 5px 5px 5px;
 }
 
 #githubLink, p {
-    margin: 2px 2px 2px 2px;
+    padding: 5px 5px 5px 5px;
 }
 
+/*--modal image styling--*/
 
+.wrapper img {
+	border-radius: 10px;
 
-.contactme img {
-	float: left;
-	margin: 50px;
 }
 
 
@@ -122,3 +128,38 @@ body {
 	background-image: url("../assets/images/forestbackground.jpg");
     background-size: cover;
 }
+
+/*--team description section styling--*/
+#greeting {
+    padding-left: 150px;
+    margin: 20px;
+    display: flex;
+    justify-content: flex-start;
+    color: white;
+    font-family: 'Lobster';
+    font-size: 30px;
+}
+
+#directions {
+    padding-left: 200px;
+    color: white;
+    font-size: 17px;
+    margin-top: 20px;
+    padding-right: 100px;
+}
+
+#happyhiking {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 325px;
+    font-family: 'Lobster';
+    font-size: 30px;
+    color: white;
+    margin-bottom: 30px;
+}
+
+
+
+
+
+
