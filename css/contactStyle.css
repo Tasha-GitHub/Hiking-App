@@ -78,7 +78,6 @@ nav{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
 }
 
 /*---------------Modal Text Styling----------*/
@@ -129,7 +128,7 @@ body {
     background-size: cover;
 }
 
-/*--team description section styling--*/
+/*--greeting section styling--*/
 #greeting {
     padding-left: 150px;
     margin: 20px;
@@ -143,9 +142,15 @@ body {
 #directions {
     padding-left: 200px;
     color: white;
-    font-size: 17px;
-    margin-top: 20px;
+    font-size: 20px;
+    font-weight: thin;
+    margin: 20px 0px 20px 0px;
     padding-right: 100px;
+}
+
+#hikelike {
+    color: white;
+    font-size: 20px;
 }
 
 #happyhiking {
@@ -153,7 +158,7 @@ body {
     justify-content: flex-end;
     padding-right: 325px;
     font-family: 'Lobster';
-    font-size: 30px;
+    font-size: 40px;
     color: white;
     margin-bottom: 30px;
 }
