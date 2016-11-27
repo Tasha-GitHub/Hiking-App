@@ -2,22 +2,28 @@
 //                  open trails API controls                //
 //----------------------------------------------------------//
 
-var city;
-//var city = "austin";
+// variable to build the ajax query
 var queryURL;
-var park;
-var parkLoc;
-var url;
-var locationsMap;
-//make response variable as globale 
 
+// variable to hold the google map for the query results
+var locationsMap;
+
+// global variable to hold the response from the ajax call. global to be accessed by other javascript files.
 var trails;
 
-
 function openTrailsAPI(city) {
-    console.log("the city is " + city)
-        //city = googleMapsCity;
-    queryURL = 'https://trailapi-trailapi.p.mashape.com/?q[city_cont]=' + city;
+    //console.log(city.lat, city.lng);
+
+    // test whether the request to openTrailsAPI is a city name (string) or latlng (object)
+    // if request is city name or something else from the search box
+    if (typeof city == "string") {
+        queryURL = 'https://trailapi-trailapi.p.mashape.com/?q[city_cont]=' + city + "&radius=25";
+    }
+
+    // if request is latlng object
+    if (typeof city == "object") {
+        queryURL = "https://trailapi-trailapi.p.mashape.com/?lat=" + city.lat + "&limit=25&lon=" + city.lng + "&radius=25";
+    }
 
     //ajax call 
     $.ajax({
@@ -45,12 +51,9 @@ function openTrailsAPI(city) {
 
             } else {
                 //takes park name and inserts into div 
-                park = response.places[i].name;
-                $(".availableTrails").append("<div class=\"trail\" data-name=\"" + park + "\" id=\"" + "item-" + i + "\">" + "<p class=\"hvr-grow\">" + park + "</p></div>");
+                var park = response.places[i].name;
+                $(".availableTrails").append("<div class=\"trail\" data-name=\"" + park + "\" data-city=\"" + response.places[i].city + "\" data-state=\"" + response.places[i].state + "\"id=\"" + i + "\">" + "<p class=\"hvr-grow\">" + park + "</p></div>");
                 console.log(response.places[i].name);
-
-                // create infowindows
-                var infoWindow = createInfoWindows(response.places[i]);
 
                 // create markers
                 var marker = new google.maps.Marker({
@@ -60,11 +63,6 @@ function openTrailsAPI(city) {
 
                 });
 
-                marker.addListener('click', function() {
-                    infoWindow.open(locationsMap, marker);
-                });
-
-
                 // stop loop if results ends before 10
                 if (response.places[i + 1] === undefined) break;
 
@@ -72,19 +70,10 @@ function openTrailsAPI(city) {
 
         }
 
-        // generate map around all results
-
-
-        // generate infowindows for all results
-
-        // generate markers for all results
-
-
+        // save ajax response as global variable for access from other javascript code
         trails = response;
 
-
     });
-
 
 };
 //note to self, city must be stingified before it is fed into the open trials function in order to work
@@ -102,61 +91,9 @@ function createInfoWindows(park) {
     // if name is present from openTrailsAPI add it to contentString
     if (park.name) {
         var name = park.name;
-        name = "<h5><em>" + name + "</em></h5>";
+        name = "<p><em>" + name + "</em></p>";
         contentString += name;
     }
 
-    // first search to see if the activities array is present in the return from the openTrailsAPI. This avoids undefined errors
-    if (park.activities[0]) {
-
-        // if thumbnail image is present from openTrailsAPI add it to contentString
-        if (park.activities[0].thumbnail) {
-            var picture = park.activities[0].thumbnail;
-            picture = "<img src='" + picture + "' alt='thumbnail' class='trailImage'><br>";
-            contentString += picture;
-        }
-
-        // if activity_type is present from openTrailsAPI add it to contentString
-        if (park.activities[0].activity_type_name) {
-            var activity_type = park.activities[0].activity_type_name;
-            activity_type = "<br><p class='activityType'><b>Type: </b>" + activity_type + "</p><br>";
-            contentString += activity_type;
-        }
-    }
-
-    // if activity_type is present from openTrailsAPI add it to contentString.
-    if (park.description) {
-        console.log(park.description);
-        description = park.description;
-        description = "<p><b>Description:</b></p><p class='trailDescription'>" + description + "</p><br>";
-        contentString += description;
-    } else if (park.activities[0]) {
-        if (park.activities[0].description) {
-            description = park.activities[0].description;
-            description = "<p><b>Description:</b></p><p class='trailDescription'>" + description + "</p><br>";
-            contentString += description;
-        }
-    }
-
-    // if directiosn is present from openTrailsAPI add it to the contentString
-    if (park.directions) {
-        var directions = park.directions;
-        directions = "<p><b>Directions:</b></p><p class='trailDirections'>" + directions + "</p><br>";
-        contentString += directions;
-    }
-
-    // add rating if present in the openTrailsAPI
-    if (park.activities[0]) {
-        if (park.activities[0].rating) {
-            var rating = park.activities[0].rating;
-            rating = "<p class='trailRating'><b>Rating: </b>" + rating + "</p><br>";
-            contentString += rating;
-        }
-    }
-
-    var infowindow = new google.maps.InfoWindow({
-        content: contentString
-    });
-
-    return infowindow;
+    return contentString;
 }
