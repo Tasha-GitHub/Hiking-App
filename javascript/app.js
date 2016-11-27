@@ -196,7 +196,7 @@ function initMap(position) {
 
     createMap(position, 10);
 
-    var contentString = '<p id="firstHeading" class="firstHeading"><em>' + "You are here!" + '</em></p>';
+    var contentString = '<br><p><bold>' + "You are here!" + '</bold></p><br>';
 
     var infowindow = new google.maps.InfoWindow({
         content: contentString
@@ -283,7 +283,7 @@ function createInfoWindowContent(trailObject) {
     if (trailObject.activities[0]) {
         if (trailObject.activities[0].rating) {
             var rating = trailObject.activities[0].rating;
-            rating = "<p class='trailRating'><b>Rating: </b>" + rating + "</p><br>";
+            rating = "<p class='trailRating'><b>Rating: </b>" + rating + " out of 5.</p><br>";
             contentString += rating;
         }
     }
