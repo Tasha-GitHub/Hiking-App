@@ -29,6 +29,9 @@ var cityName;
 // variable to hold the city based on the zipcode inputted by the user in #mapZipCode text input field
 var googleMapsCity;
 
+// variable to hold lat, lng coordinates of userInput
+var latLng;
+
 // variable to pass details from openTrailsAPI to google marker
 var clickedTrail;
 
@@ -82,7 +85,7 @@ function getTrail() {
 // this function uses HTML5 navigator.geolocation to generate a latlng
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(getPositionSuccess, getPositionError);
+        navigator.geolocation.getCurrentPosition(getPositionSuccess, getPositionError, getPositionOptions);
     }
 }
 
@@ -118,8 +121,6 @@ function searchAddress(searchTerm) {
             // run openTrailsAPI()
             openTrailsAPI(googleMapsCity);
 
-            // createMap showing zipcode searched
-            createMap(position, 10);
 
         }
         // if geocode was not successful, console log error and attempt
@@ -194,8 +195,8 @@ function createMarker(results) {
     marker = new google.maps.Marker({
         position: pos,
         map: map,
-        title: results[0][0],
-        icon: "assets/images/icons/trekking_filled.png"
+        title: results[0][0]
+        //icon: "assets/images/icons/trekking_filled.png"
     });
 
     var infowindow = createInfoWindow();
@@ -273,6 +274,12 @@ function getPositionError(error) {
     alertify.error("Please allow Hike Finder to know your location.");
     console.log(error);
 }
+
+var getPositionOptions = {
+  enableHighAccuracy: true, 
+  maximumAge        : 30000, 
+  timeout           : 27000
+};
 
 // get the search term in the map text input field
 function getMapSearchTerm() {
