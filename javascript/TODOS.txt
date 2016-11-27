@@ -106,6 +106,9 @@ Weekend Plans
 	disable autorezoom
 		or make still image
 
+	11/27/2016 -- currently getting results for other states mixed in with the open trails results
+		example - Port Crescent State Park (MI), Forest Ridge Preserve (OH)
+
 
 BUG FIXES
 - update button will pull a zip code without having anything typed in.

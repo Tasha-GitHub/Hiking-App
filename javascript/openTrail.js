@@ -1,22 +1,29 @@
-
 //----------------------------------------------------------//
 //                  open trails API controls                //
 //----------------------------------------------------------//
 
-var city;
-//var city = "austin";
+// variable to build the ajax query
 var queryURL;
-var park;
-var url;
-//make response variable as globale 
 
+// variable to hold the google map for the query results
+var locationsMap;
+
+// global variable to hold the response from the ajax call. global to be accessed by other javascript files.
 var trails;
 
+function openTrailsAPI(city) {
+    //console.log(city.lat, city.lng);
 
-function openTrailsAPI(city){
-    console.log("the city is "+ city)
-    //city = googleMapsCity;
-    queryURL = 'https://trailapi-trailapi.p.mashape.com/?q[city_cont]='+ city;
+    // test whether the request to openTrailsAPI is a city name (string) or latlng (object)
+    // if request is city name or something else from the search box
+    if (typeof city == "string") {
+        queryURL = 'https://trailapi-trailapi.p.mashape.com/?q[city_cont]=' + city + "&radius=25";
+    }
+
+    // if request is latlng object
+    if (typeof city == "object") {
+        queryURL = "https://trailapi-trailapi.p.mashape.com/?lat=" + city.lat + "&limit=25&lon=" + city.lng + "&radius=25";
+    }
 
     //ajax call 
     $.ajax({
@@ -27,34 +34,66 @@ function openTrailsAPI(city){
         success: function(data) {},
         error: function(err) { alert(err); },
         beforeSend: function(xhr) {
-        xhr.setRequestHeader("X-Mashape-Authorization", "xLa3MQj6eHmshOkWRkpAEiiNTzl0p1n6HbpjsnOvwImXNqnMfQ"); // Mashape key
+            xhr.setRequestHeader("X-Mashape-Authorization", "xLa3MQj6eHmshOkWRkpAEiiNTzl0p1n6HbpjsnOvwImXNqnMfQ"); // Mashape key
         }
-    }).done(function(response){
-        	console.log("openTrailsAPI trails", response);
-            //cleans up div and delets old entries 
-            $(".availableTrails").empty();
-        	for(var i = 0; i < 10; i++){
-                //helps for-loop continue to run even if name of park does not exist
-                if(response.places[i].name === undefined){
-                    console.log("no name")
+    }).done(function(response) {
+        console.log("openTrailsAPI trails", response);
 
-                } else {
-                    //takes park name and inserts into div 
-                    park = response.places[i].name;
-                    $(".availableTrails").append("<div class=\"trail\" data-name=\""+park+"\" id=\""+"item-"+i+"\">"+"<p class=\"hvr-grow\">"+park+"</p></div>");
-                    if (response.places[i+1] === undefined) break;
-                    console.log(response.places[i].name)
-                }
-        	   
-        	}
+        // create map for markers 
+        locationsMap = createMap({ lat: response.places[0].lat, lng: response.places[0].lon }, 10);
 
-            trails = response;
+        //cleans up div and delets old entries 
+        $(".availableTrails").empty();
+        for (var i = 0; i < 10; i++) {
+            //helps for-loop continue to run even if name of park does not exist
+            if (response.places[i].name === undefined) {
+                console.log("no name")
 
+            } else {
+                //takes park name and inserts into div 
+                var park = response.places[i].name;
+                $(".availableTrails").append("<div class=\"trail\" data-name=\"" + park + "\" data-city=\"" + response.places[i].city + "\" data-state=\"" + response.places[i].state + "\"id=\"" + i + "\">" + "<p class=\"hvr-grow\">" + park + "</p></div>");
+                console.log(response.places[i].name);
 
-        });
+                // create markers
+                var marker = new google.maps.Marker({
+                    position: { lat: response.places[i].lat, lng: response.places[i].lon },
+                    map: locationsMap,
+                    title: response.places[i].name
 
+                });
+
+                // stop loop if results ends before 10
+                if (response.places[i + 1] === undefined) break;
+
+            }
+
+        }
+
+        // save ajax response as global variable for access from other javascript code
+        trails = response;
+
+    });
 
 };
 //note to self, city must be stingified before it is fed into the open trials function in order to work
 //openTrailsAPI("austin");
 
+// build contentString for the infoWindow
+function createInfoWindows(park) {
+
+    // contentString is the string that will be passed to the infowindow
+    var contentString;
+
+    // description is the description received from openTrailsAPI
+    var description;
+
+    // if name is present from openTrailsAPI add it to contentString
+    if (park.name) {
+        var name = park.name;
+        name = "<p><em>" + name + "</em></p>";
+        contentString += name;
+    }
+
+    return contentString;
+}
