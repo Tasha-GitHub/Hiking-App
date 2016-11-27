@@ -9,10 +9,18 @@ nav{
   border-style: none none solid none;
 }
 
+/*------------------Text Styling----------*/
 h1 { 
 	text-align: center;
 }
 
+h3.capitalize {
+
+    text-transform: capitalize;
+
+}
+
+/*------------------Photo Block Styling----------*/
 .photoForm {
 	display: flex;
 	justify-content: center;
@@ -38,9 +46,8 @@ h1 {
 
 .photoBlock {
 	display: flex;
-	justify-content: center;
 	flex-wrap: wrap;
-	justify-content: space-around;
+	justify-content: space-between;
 	text-align: center;
 
 }
@@ -51,8 +58,3 @@ h1 {
 	margin: 10px;
 }
 
-h3.capitalize {
-
-    text-transform: capitalize;
-
-}
