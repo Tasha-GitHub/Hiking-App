@@ -8,6 +8,28 @@ nav{
   border-style: none none solid none;
 }
 
+/* ------profile pic styling ---------*/
+.profile img {
+    height: 200px;
+    width: 200px;
+    margin-bottom: 50px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.info {
+    float: center;
+    margin-top: 20px;   
+}
+
+
+.profileDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 
 /*------------------Modal Styling----------*/
 .modal{
@@ -59,26 +81,7 @@ nav{
     width: 200px;
 }
 
-/* ------profile pic styling ---------*/
-.profile img {
-	height: 200px;
-	width: 200px;
-    margin-bottom: none;
-    margin-top: 10px;
-    border-radius: 10px;
-}
 
-.info {
-    float: center;
-    margin-top: px;
-}
-
-.profileDiv{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
 
 /*---------------Modal Text Styling----------*/
 
@@ -86,7 +89,8 @@ h3 {
     text-align: center;
     font-family: 'Lobster';
     color: white;
-    margin: 2px 2px 1px 2px;
+    margin: 10px 2px 1px 2px;
+
 }
 
 .link{

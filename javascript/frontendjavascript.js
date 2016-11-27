@@ -46,3 +46,8 @@ $(".inputWarning").hide();
 $(".inputWarning").css("color", "red");
 $(".inputWarning").css("font-size", "14px");
 
+
+//---------------------------------------------------------//
+//          Text box for city/zip input forecast section   //
+//---------------------------------------------------------// 
+$("#weatherZipCode").css("text-transform", "capitalize");

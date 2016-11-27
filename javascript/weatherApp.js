@@ -29,8 +29,8 @@ function showPosition(position) {
             })
             .done(function(response) {
 
-                console.log(response);
-                console.log("LAT LONG CITY: " + response.location.city);
+                // console.log(response);
+                // console.log("LAT LONG CITY: " + response.location.city);
                 // console.log(response.location.city);
 
                 // -------------------------------------------------------- Gets Current Weather for the location ------------------------------------------------ 
@@ -47,10 +47,8 @@ function showPosition(position) {
                 })
 
                 .done(function(response) {
-                    console.log("URL current city: " + queryURLT);
-                    console.log("current city JSON: " + response);
-                    // $(".locationWeather").empty();
-
+                    // console.log("URL current city: " + queryURLT);
+                    // console.log("current city JSON: " + response);
                     // console.log(response.forecast.simpleforecast.forecastday[i].high.fahrenheit, response.forecast.simpleforecast.forecastday[i].low.fahrenheit);
 
                     //display weather conditions
@@ -119,7 +117,7 @@ function showPosition(position) {
 getLocation();
 
 //-----------------------------------------------------------------------------------------------------------------------//
-//                                               5 day Forecast Based on User Search
+//                                               5 day Forecast Based on User search  
 //-----------------------------------------------------------------------------------------------------------------------//
 $("#weatherForecastButton").on("click", function(event) {
     //prevents the occurence of default action
@@ -141,18 +139,18 @@ $("#weatherForecastButton").on("click", function(event) {
         })
         .done(function(response) {
             $(".dailyForecast").empty();
-            console.log(queryURL);
+            // console.log(queryURL);
 
             // if the user input does not match any city
             if (response.response.results) {
-                console.log("Its a state");
+                // console.log("Its a state");
                 $(".inputWarning").show();
-                console.log(response.response.results[0].city, response.response.results[0].state);
+                // console.log(response.response.results[0].city, response.response.results[0].state);
             }
 
             if (response.response.error) {
                 // console.log("ERROR: " + error);
-                console.log(response.response.error.description);
+                // console.log(response.response.error.description);
                 $(".inputWarning").show();
             }
 
@@ -162,7 +160,6 @@ $("#weatherForecastButton").on("click", function(event) {
                 var a = [];
                 a[i] = (parseInt(response.forecast.simpleforecast.forecastday[i].high.fahrenheit) + parseInt(response.forecast.simpleforecast.forecastday[i].low.fahrenheit));
                 avgtempforecast[i] = a[i] / 2;
-
                 // console.log("AVG TEMP : "+ avgtempforecast[i]);
                 // console.log("a: "+ a[i]);
 
@@ -185,72 +182,3 @@ $("#weatherForecastButton").on("click", function(event) {
 
 // =============================================================END OF WeatherApp.js =======================================================================================================
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ================================================weather of different location===================================
-// $("#weatherSubmitButton").on("click", function(event) {
-//     //remove the location based weather before displaying the search query weather
-
-//     $(".locationWeather").remove();
-
-//     event.preventDefault();
-//     //takes the value of user input
-//     // var zipOrCity = $("#weatherZipCode").val();
-
-//     var zipOrCity = $("#weatherZipCode").val();
-//     //Query to get data based on user input
-//     var queryURLB = "http://api.wunderground.com/api/1e1c93d157bd7be6/conditions/q/" + zipOrCity + ".json";
-//     // var queryURLB = "https://api.wunderground.com/api/" + APIKey + "/forecast/q/" + zipOrCity + "/zmw:94125.1.99999.json";
-//     // console.log(queryURLB);
-
-//     //ajax call to fetch data
-//     $.ajax({
-//         url: queryURLB,
-//         method: 'GET',
-//         data: {}, // Additional parameters here
-//         dataType: 'json',
-//         success: function(data) {},
-//     })
-
-//     .done(function(response) {
-//         console.log("SUBMIT BUTTON:" + queryURLB);
-//         // console.log("SUBMIT BUTTON:"+response);
-//         $(".todaysWeather").empty();
-
-//         //display weather conditions
-//         var forecast = $(".todaysWeather").append("<div class=\"todayForecast\" ><p id=\"cityName\">" + response.current_observation.display_location.full +
-//             "</p><p>" + response.current_observation.observation_time +
-//             "</p><p><img id =\"weatherIcon\"  src=" + response.current_observation.icon_url +
-//             "></p><p>" + response.current_observation.weather +
-//             "</p><p id=\"temp\">" + response.current_observation.temperature_string + "<p>Feels like " + response.current_observation.feelslike_string +
-//             "</p><p>Wind " + response.current_observation.wind_string + "</p></div>");
-
-//         //styling for icons and weather parameters
-//         var p = $(".todaysWeather").append(forecast);
-//         $("#cityName").css("font-size", "28px");
-//         $("#temp").css("font-size", "24px");
-//         $(".todaysWeather").css("line-height", "25px");
-//         $("#weatherIcon").css("width", "70px");
-//         $("#weatherIcon").css("height", "70px");
-
-//     });
-// });
