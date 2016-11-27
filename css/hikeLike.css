@@ -46,15 +46,15 @@ h3.capitalize {
 
 .photoBlock {
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
+	flex-flow: row wrap;
+	justify-content: space-around;
 	text-align: center;
 
 }
 
 .photo img{
 	height: 200px;
-	widows: 200px;
+	width: 300px;
 	margin: 10px;
 }
 
@@ -70,15 +70,15 @@ h3.capitalize {
   	}
 
   	.photo img{
-	height: 200px;
-	margin: 10px;
+		height: 200px;
+		margin: 10px;
 	}
 
 	.photoBlock {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	text-align: center;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		text-align: center;
 	}
 }
 @media only screen and (min-width:400px) and (max-width : 480px) {
@@ -86,15 +86,15 @@ h3.capitalize {
   		margin-top: 10px;
   	}
   	.photo img{
-	height: 150px;
-	margin: 10px;
+		height: 150px;
+		margin: 10px;
 	}
 
 	.photoBlock {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	text-align: center;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		text-align: center;
 	}
 
 }
@@ -105,15 +105,15 @@ h3.capitalize {
   	}
 
   	.photo img{
-	height: 150px;
-	margin: 10px;
+		height: 150px;
+		margin: 10px;
 	}
 
 	.photoBlock {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	text-align: center;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		text-align: center;
 	}
 	
 }
@@ -125,15 +125,15 @@ h3.capitalize {
   	}
 
   	.photo img{
-	height: 150px;
-	margin: 10px;
+		height: 150px;
+		margin: 10px;
 	}
 
 	.photoBlock {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	text-align: center;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		text-align: center;
 	}
 
 
