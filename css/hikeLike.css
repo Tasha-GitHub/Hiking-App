@@ -68,6 +68,18 @@ h3.capitalize {
 	.photoBlock{
   		margin-top: 10px;
   	}
+
+  	.photo img{
+	height: 200px;
+	margin: 10px;
+	}
+
+	.photoBlock {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	text-align: center;
+	}
 }
 @media only screen and (min-width:400px) and (max-width : 480px) {
  	.photoBlock{
@@ -75,7 +87,6 @@ h3.capitalize {
   	}
   	.photo img{
 	height: 150px;
-	widows: 1500px;
 	margin: 10px;
 	}
 
@@ -95,7 +106,6 @@ h3.capitalize {
 
   	.photo img{
 	height: 150px;
-	widows: 1500px;
 	margin: 10px;
 	}
 
@@ -116,7 +126,6 @@ h3.capitalize {
 
   	.photo img{
 	height: 150px;
-	widows: 1500px;
 	margin: 10px;
 	}
 
