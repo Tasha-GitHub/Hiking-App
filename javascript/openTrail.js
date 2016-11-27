@@ -38,6 +38,8 @@ function openTrailsAPI(city) {
         }
     }).done(function(response) {
 
+        if (response.places.length == 0) alertify.error("There are no results for your search. Please type a valid zipcode or city name.");
+
         // create map for markers 
         locationsMap = createMap({ lat: response.places[0].lat, lng: response.places[0].lon }, 10);
 

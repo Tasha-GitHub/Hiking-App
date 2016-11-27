@@ -161,7 +161,6 @@ function searchAddress(searchTerm) {
                 }
                 // if geocode was not successful, console log error and attempt
                 else {
-                        alertify.error("There are no results for your search. Please type a zipcode or city name.");
                         console.log("geocode was not successful.", status);
                     }
         
