@@ -144,158 +144,162 @@ function searchAddress(searchTerm) {
     if (typeof searchTerm == "string") {
 
         geocoder.geocode({ address: searchTerm }, function(results, status) {
-            //console.log("geocode string results", results);
+                //console.log("geocode string results", results);
 
-            // if geocode was successful
-            if (status == google.maps.GeocoderStatus.OK) {
+                // if geocode was successful
+                if (status == google.maps.GeocoderStatus.OK) {
 
-                // local variables
-                var position = {
-                    lat: results[0].geometry.location.lat(),
-                    lng: results[0].geometry.location.lng()
-                };
+                    // local variables
+                    var position = {
+                        lat: results[0].geometry.location.lat(),
+                        lng: results[0].geometry.location.lng()
+                    };
 
-                // run openTrailsAPI()
-                openTrailsAPI(position);
+                    // run openTrailsAPI()
+                    openTrailsAPI(position);
 
-            }
-            // if geocode was not successful, console log error and attempt
-            else console.log("geocode was not successful.", status);
+                }
+                // if geocode was not successful, console log error and attempt
+                else {
+                        alertify.error("There are no results for your search. Please type a zipcode or city name.");
+                        console.log("geocode was not successful.", status);
+                    }
+        
+            });
+
+        }
+
+        // if searchTerm is an object, reverse geocode. Used primarily on startup of webpage
+        if (typeof searchTerm == "object") {
+
+            openTrailsAPI(searchTerm);
+
+        }
+
+        // if geocode was not successful, console log error and attempt
+        else console.log("geocode was not successful.", status);
+    }
+
+    // this function creates a google map
+    function createMap(pos, zoom) {
+
+        map = new google.maps.Map(document.getElementById("mapGoesHere"), {
+
+            center: pos,
+            zoom: zoom,
+            scrollwheel: false,
+            zoomControl: false
+
+        });
+
+        return map;
+    }
+
+    // this function creates a map at the user's current location
+    function initMap(position) {
+
+        createMap(position, 10);
+
+        var contentString = '<br><p><bold>' + "You are here!" + '</bold></p><br>';
+
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
+        createSoloMarker(userLocation, map, infowindow);
+    }
+
+    function createSoloMarker(pos, map, infowindow) {
+
+        marker = new google.maps.Marker({
+            position: pos,
+            map: map
+        });
+
+        marker.addListener('click', function() {
+            infowindow.open(map, marker);
         });
 
     }
 
-    // if searchTerm is an object, reverse geocode. Used primarily on startup of webpage
-    if (typeof searchTerm == "object") {
-
-        openTrailsAPI(searchTerm);
-
+    // get the search term in the map text input field
+    function getMapSearchTerm() {
+        var searchTerm = mapSearch.val();
+        mapSearch.val("");
+        return searchTerm;
     }
 
-    // if geocode was not successful, console log error and attempt
-    else console.log("geocode was not successful.", status);
-}
+    // build contentString for the infoWindow
+    function createInfoWindowContent(trailObject) {
 
-// this function creates a google map
-function createMap(pos, zoom) {
+        // contentString is the string that will be passed to the infowindow
+        var contentString;
 
-    map = new google.maps.Map(document.getElementById("mapGoesHere"), {
+        // description is the description received from openTrailsAPI
+        var description;
 
-        center: pos,
-        zoom: zoom,
-        scrollwheel: false,
-        zoomControl: false
-
-    });
-
-    return map;
-}
-
-// this function creates a map at the user's current location
-function initMap(position) {
-
-    createMap(position, 10);
-
-    var contentString = '<br><p><bold>' + "You are here!" + '</bold></p><br>';
-
-    var infowindow = new google.maps.InfoWindow({
-        content: contentString
-    });
-
-    createSoloMarker(userLocation, map, infowindow);
-}
-
-function createSoloMarker(pos, map, infowindow) {
-
-    marker = new google.maps.Marker({
-        position: pos,
-        map: map
-    });
-
-    marker.addListener('click', function() {
-        infowindow.open(map, marker);
-    });
-
-}
-
-// get the search term in the map text input field
-function getMapSearchTerm() {
-    var searchTerm = mapSearch.val();
-    mapSearch.val("");
-    return searchTerm;
-}
-
-// build contentString for the infoWindow
-function createInfoWindowContent(trailObject) {
-
-    // contentString is the string that will be passed to the infowindow
-    var contentString;
-
-    // description is the description received from openTrailsAPI
-    var description;
-
-    // if name is present from openTrailsAPI add it to contentString
-    if (trailObject.name) {
-        var name = trailObject.name;
-        name = "<h5><em>" + name + "</em></h5>";
-        contentString = name;
-    }
-
-    // first search to see if the activities array is present in the return from the openTrailsAPI. This avoids undefined errors
-    if (trailObject.activities[0]) {
-
-        // if thumbnail image is present from openTrailsAPI add it to contentString
-        if (trailObject.activities[0].thumbnail) {
-            var picture = trailObject.activities[0].thumbnail;
-            picture = "<img src='" + picture + "' alt='thumbnail' class='trailImage'><br>";
-            contentString += picture;
+        // if name is present from openTrailsAPI add it to contentString
+        if (trailObject.name) {
+            var name = trailObject.name;
+            name = "<h5><em>" + name + "</em></h5>";
+            contentString = name;
         }
 
-        // if activity_type is present from openTrailsAPI add it to contentString
-        if (trailObject.activities[0].activity_type_name) {
-            var activity_type = trailObject.activities[0].activity_type_name;
-            activity_type = "<br><p class='activityType'><b>Type: </b>" + activity_type + "</p><br>";
-            contentString += activity_type;
-        }
-    }
+        // first search to see if the activities array is present in the return from the openTrailsAPI. This avoids undefined errors
+        if (trailObject.activities[0]) {
 
-    // if activity_type is present from openTrailsAPI add it to contentString.
-    if (trailObject.description) {
-        description = trailObject.description;
-        description = "<p><b>Description:</b></p><p class='trailDescription'>" + description + "</p><br>";
-        contentString += description;
-    } else if (trailObject.activities[0]) {
-        if (trailObject.activities[0].description) {
-            description = trailObject.activities[0].description;
+            // if thumbnail image is present from openTrailsAPI add it to contentString
+            if (trailObject.activities[0].thumbnail) {
+                var picture = trailObject.activities[0].thumbnail;
+                picture = "<img src='" + picture + "' alt='thumbnail' class='trailImage'><br>";
+                contentString += picture;
+            }
+
+            // if activity_type is present from openTrailsAPI add it to contentString
+            if (trailObject.activities[0].activity_type_name) {
+                var activity_type = trailObject.activities[0].activity_type_name;
+                activity_type = "<br><p class='activityType'><b>Type: </b>" + activity_type + "</p><br>";
+                contentString += activity_type;
+            }
+        }
+
+        // if activity_type is present from openTrailsAPI add it to contentString.
+        if (trailObject.description) {
+            description = trailObject.description;
             description = "<p><b>Description:</b></p><p class='trailDescription'>" + description + "</p><br>";
             contentString += description;
+        } else if (trailObject.activities[0]) {
+            if (trailObject.activities[0].description) {
+                description = trailObject.activities[0].description;
+                description = "<p><b>Description:</b></p><p class='trailDescription'>" + description + "</p><br>";
+                contentString += description;
+            }
         }
-    }
 
-    // if directiosn is present from openTrailsAPI add it to the contentString
-    if (trailObject.directions) {
-        var directions = trailObject.directions;
-        directions = "<p><b>Directions:</b></p><p class='trailDirections'>" + directions + "</p><br>";
-        contentString += directions;
-    }
-
-    // add rating if present in the openTrailsAPI
-    if (trailObject.activities[0]) {
-        if (trailObject.activities[0].rating) {
-            var rating = trailObject.activities[0].rating;
-            rating = "<p class='trailRating'><b>Rating: </b>" + rating + " out of 5.</p><br>";
-            contentString += rating;
+        // if directiosn is present from openTrailsAPI add it to the contentString
+        if (trailObject.directions) {
+            var directions = trailObject.directions;
+            directions = "<p><b>Directions:</b></p><p class='trailDirections'>" + directions + "</p><br>";
+            contentString += directions;
         }
+
+        // add rating if present in the openTrailsAPI
+        if (trailObject.activities[0]) {
+            if (trailObject.activities[0].rating) {
+                var rating = trailObject.activities[0].rating;
+                rating = "<p class='trailRating'><b>Rating: </b>" + rating + " out of 5.</p><br>";
+                contentString += rating;
+            }
+        }
+
+        return contentString;
     }
 
-    return contentString;
-}
+    // function to use on page start
+    function startUp() {
+        getLocation();
 
-// function to use on page start
-function startUp() {
-    getLocation();
+    }
 
-}
-
-// ---------- STARTUP CODE ----------
-startUp();
+    // ---------- STARTUP CODE ----------
+    startUp();
