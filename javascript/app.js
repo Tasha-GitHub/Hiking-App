@@ -115,7 +115,7 @@ function getPositionSuccess(success) {
         lng: success.coords.longitude
     };
 
-    alertify.success("Thank you for letting Hike Finder know your location.");
+    alertify.success("Thank you for letting Ranger know your location.");
 
     // run initial search for parks around the user's location. based on geolocator
     searchAddress(userLocation);
@@ -123,7 +123,7 @@ function getPositionSuccess(success) {
 
 // error function for navigator.geolocator
 function getPositionError(error) {
-    alertify.error("Please allow Hike Finder to know your location.");
+    alertify.error("Please allow Ranger to know your location.");
     console.log(error);
 }
 
