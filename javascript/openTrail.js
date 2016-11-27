@@ -37,7 +37,6 @@ function openTrailsAPI(city) {
             xhr.setRequestHeader("X-Mashape-Authorization", "xLa3MQj6eHmshOkWRkpAEiiNTzl0p1n6HbpjsnOvwImXNqnMfQ"); // Mashape key
         }
     }).done(function(response) {
-        console.log("openTrailsAPI trails", response);
 
         // create map for markers 
         locationsMap = createMap({ lat: response.places[0].lat, lng: response.places[0].lon }, 10);
@@ -47,13 +46,11 @@ function openTrailsAPI(city) {
         for (var i = 0; i < 10; i++) {
             //helps for-loop continue to run even if name of park does not exist
             if (response.places[i].name === undefined) {
-                console.log("no name")
 
             } else {
                 //takes park name and inserts into div 
                 var park = response.places[i].name;
                 $(".availableTrails").append("<div class=\"trail\" data-name=\"" + park + "\" data-city=\"" + response.places[i].city + "\" data-state=\"" + response.places[i].state + "\"id=\"" + i + "\">" + "<p class=\"hvr-grow\">" + park + "</p></div>");
-                console.log(response.places[i].name);
 
                 // create markers
                 var marker = new google.maps.Marker({
