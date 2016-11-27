@@ -63,6 +63,20 @@ function openTrailsAPI(city) {
 
                 });
 
+                // create infowindow
+                var infowindow = new google.maps.InfoWindow;
+
+                // create content for infowindow
+                var content = createInfoWindows(response.places[i]);
+
+                // create clicklistener for infowindow
+                google.maps.event.addListener(marker, 'click', (function(marker, content, infowindow) {
+                    return function() {
+                        infowindow.setContent(content);
+                        infowindow.open(locationsMap, marker);
+                    };
+                })(marker, content, infowindow));
+
                 // stop loop if results ends before 10
                 if (response.places[i + 1] === undefined) break;
 
@@ -76,8 +90,6 @@ function openTrailsAPI(city) {
     });
 
 };
-//note to self, city must be stingified before it is fed into the open trials function in order to work
-//openTrailsAPI("austin");
 
 // build contentString for the infoWindow
 function createInfoWindows(park) {
@@ -91,8 +103,10 @@ function createInfoWindows(park) {
     // if name is present from openTrailsAPI add it to contentString
     if (park.name) {
         var name = park.name;
-        name = "<p><em>" + name + "</em></p>";
-        contentString += name;
+        var header = 
+            
+        name = "<br><p>" + name + "</p><br></div>";
+        contentString = name;
     }
 
     return contentString;
