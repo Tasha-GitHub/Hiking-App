@@ -34,7 +34,7 @@ function showPosition(position) {
                 // console.log(response.location.city);
 
                 // -------------------------------------------------------- Gets Current Weather for the location ------------------------------------------------ 
-                var queryURLT = "http://api.wunderground.com/api/" + APIKey + "/conditions/q/" + response.location.state + "/" + response.location.city + ".json";
+                var queryURLT = "https://api.wunderground.com/api/" + APIKey + "/conditions/q/" + response.location.state + "/" + response.location.city + ".json";
 
                 //get weather of the place found by lat and long
                 $.ajax({
