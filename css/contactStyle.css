@@ -132,8 +132,8 @@ body {
 #greeting {
     padding-left: 150px;
     margin: 20px;
-    display: flex;
-    justify-content: flex-start;
+    /*display: flex;
+    justify-content: flex-start;*/
     color: white;
     font-family: 'Lobster';
     font-size: 30px;
@@ -154,13 +154,104 @@ body {
 }
 
 #happyhiking {
-    display: flex;
-    justify-content: flex-end;
+    text-align: right;
     padding-right: 325px;
     font-family: 'Lobster';
     font-size: 40px;
     color: white;
     margin-bottom: 30px;
+}
+/*=====================================================
+                    Media Queries            
+=====================================================*/
+
+@media only screen and (max-width : 768px) {
+    body {
+        background-image: url("../assets/images/greentrees.jpg");
+    }
+
+    h3 {
+        font-size: 40px;
+        margin-top: 20px;
+    }
+}
+
+@media only screen and (min-width:400px) and (max-width : 480px){
+    #directions {
+        font-size: 15px;
+        margin: 20px;
+
+    }
+    .bottom {
+        text-align: center !important;
+    }
+    p {
+        margin: 20px;
+        padding: 0px !important;
+    }
+    #happyhiking {
+        text-align: center;
+    }
+    .link{
+    text-align: center;
+    padding: 2px;
+    color: white;
+    margin: 4px;
+    }
+
+    .info p {
+    padding: 2px;
+    margin: 4px;
+    }
+
+    .hike {
+    padding: 2px;
+    margin: 4px;
+    }
+
+    .link a {
+    color: white;
+    font-size: 15px;
+    padding: 2px;
+    margin: 4px;
+    }
+
+    #githubLink, p {
+    padding: 2px;
+    margin: 4px;
+    }
+
+}
+
+@media only screen and (max-width : 375px) {
+    .modal {
+        width: 350px;
+    }
+    #greeting {
+        font-size: 25px;
+        text-align: center !important;
+        padding: 10px;
+        margin-bottom: 0px;
+    }
+    #directions {
+        font-size: 15px;
+        text-align: center !important;
+        padding: 10px;
+        margin-top: 0px;
+        margin-bottom: 10px;
+    }
+    #happyhiking {
+        font-size: 30px;
+        text-align: center !important;
+        padding: 15px;
+        margin-top: 15px;
+    }
+}
+
+@media only screen and (max-width : 320px) {
+    .modal {
+        width: 310px;
+    }
 }
 
 
