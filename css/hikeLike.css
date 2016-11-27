@@ -73,6 +73,18 @@ h3.capitalize {
  	.photoBlock{
   		margin-top: 10px;
   	}
+  	.photo img{
+	height: 150px;
+	widows: 1500px;
+	margin: 10px;
+	}
+
+	.photoBlock {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	text-align: center;
+	}
 
 }
 
@@ -80,12 +92,40 @@ h3.capitalize {
   	.photoBlock{
   		margin-top: 10px;
   	}
+
+  	.photo img{
+	height: 150px;
+	widows: 1500px;
+	margin: 10px;
+	}
+
+	.photoBlock {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	text-align: center;
+	}
 	
 }
+
 
 @media only screen and (max-width : 320px) {
   	.photoBlock{
   		margin: 10px;
+  	}
+
+  	.photo img{
+	height: 150px;
+	widows: 1500px;
+	margin: 10px;
+	}
+
+	.photoBlock {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	text-align: center;
+	}
 
 
 }
