@@ -129,6 +129,11 @@
 
 }
 
+.trailImage {
+	height: 150px;
+	width: 150px;
+}
+
 /*---------------other divs styling --------------------*/
 
 
@@ -170,7 +175,7 @@ input{
                     Media Queries            
 =====================================================*/
 
-@media only screen and (max-width : 767px) {
+@media only screen and (max-width : 768px) {
 	
 	.quote{
 		padding-top: 30px !important;
