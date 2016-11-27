@@ -57,12 +57,3 @@ $(".inputWarning").hide();
 $(".inputWarning").css("color", "red");
 $(".inputWarning").css("font-size", "14px");
 
-
-// -------------------------------------------------------//
-//              Weather Icon and Font Style               //
-// -------------------------------------------------------//
-$("#cityName").css("font-size", "28px");
-$("#temp").css("font-size", "24px");
-$(".locationWeather").css("line-height", "25px");
-$("#weatherIcon").css("width", "70px");
-$("#weatherIcon").css("height", "70px");
